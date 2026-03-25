@@ -24,7 +24,7 @@ class DashboardController extends Controller
                   'id' => $user->id,
                   'name' => $user->name,
                   'email' => $user->email,
-                  'image_path' => $user->profileImage->file_path,
+                  'image_path' => $user->profileImage->file_path ?? null,
                   'img_id'  => $user->profileImage->id,
                   'role_id' => $user->roles->pluck('id')->first(),
                   'role_name' => $user->roles->pluck('name')->first()   
