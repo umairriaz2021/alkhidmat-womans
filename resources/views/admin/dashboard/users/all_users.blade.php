@@ -27,7 +27,11 @@
                           @foreach($users as $user)
                           <tr>
                             <td class="py-1">
+                              @if(!empty($user['image_path']))
                               <img src="{{asset('storage/'.$user['image_path'])}}" alt="image" />
+                              @else
+                              <img src="{{asset('assets/images/faces/profile/profile.jpg')}}" alt="image" />
+                              @endif
                             </td>
                             <td>{{$user['name']}} </td>
                             <td>
