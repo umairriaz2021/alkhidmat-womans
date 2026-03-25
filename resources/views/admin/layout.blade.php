@@ -15,9 +15,9 @@
     </div>
     <x-media-manager />
     
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        
         <script src="{{asset('assets/vendors/js/vendor.bundle.base.js')}}"></script>
-        <script src="{{asset('assets/js/popper.min.js')}}"></script>
+        
     <script src="{{asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
    
     <!-- endinject -->

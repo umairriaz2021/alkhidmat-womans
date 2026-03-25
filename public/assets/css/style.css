@@ -811,7 +811,9 @@
 .ck-content {
     white-space: pre-wrap !important;
 }
-
+.navbar-dropdown.show {
+    display: block !important;
+}
 /* Ensure karein ke editor ki height aur spacing sahi ho */
 .ck-editor__editable_inline {
     min-height: 200px;
@@ -29208,6 +29210,7 @@ dl li {
   left: auto;
   top: 70px;
   padding-top: 0;
+  width:205px;
 }
 .rtl .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .navbar-dropdown {
   right: auto;
