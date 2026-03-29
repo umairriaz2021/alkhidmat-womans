@@ -13,15 +13,15 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('admin.login'),
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('admin.login'),
        
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
+Route::get('/{slug?}', [PageController::class, 'show'])->name('pages.show');
 // 2. Admin Routes (Sab ek jagah prefix ke saath)
 Route::prefix('admin')->group(function () {
 

@@ -9,6 +9,7 @@ use App\Models\Slider;
 use App\Models\PageTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 use DB;
 
 class PageController extends Controller
@@ -108,7 +109,7 @@ class PageController extends Controller
       $sliderIds = json_decode($page['slider_id'],true);
       $statuses = Status::get()->toArray();
       $sliders = Slider::get()->toArray();
-    $templates = PageTemplate::get()->toArray();
+      $templates = PageTemplate::get()->toArray();
 
     //   $sliders = Slider::whereIn('id', $sliderIds)
     //         ->orderByRaw("FIELD(id, ".implode(',', $sliderIds).")")
@@ -203,6 +204,25 @@ public function deletePage($id)
             'message' => 'Something went wrong: ' . $e->getMessage()
         ], 500);
     }
+}
+
+ public function show($slug = 'home') // Default slug 'home' rakha hai
+{
+ 
+    $page = Page::with(['profileImage','template'])
+                ->where('slug', $slug)
+                ->firstOrFail();
+
+                $sliderIds = json_decode($page->slider_id) ?? []; 
+                    
+    $sliders = Slider::with(['profileImage'])->whereIn('id', $sliderIds)->where('status_id',2)->get()->toArray();
+   //echo "<pre>"; print_r($sliders);die;
+
+    return Inertia::render('DynamicPage', [
+        'page' => $page,
+        'sliders' => $sliders, // Alag se pass karein
+        'template_name' => $page->template->name,
+    ]);
 }
 
 }

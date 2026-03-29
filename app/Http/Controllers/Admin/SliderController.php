@@ -23,7 +23,7 @@ class SliderController extends Controller
            $statuses = Status::get()->toArray();
            if($request->isMethod('POST'))
             {
-
+             
                $messages = [
                     'main_heading.required'     => 'The main heading field is mandatory.',
                     'tagline.max'               => 'The tagline may not be greater than 255 characters.',
@@ -33,6 +33,8 @@ class SliderController extends Controller
                     'profile_image_id.required' => 'Please select a slider image from the media manager.',
                     'post_status.required'      => 'Please select a status for this slider.',
                     'post_status.exists'        => 'The selected status is invalid.',
+                    'donation_projects.*.string' => 'Each donation project must be a valid string.',
+                    'donation_types.*.string'    => 'Each donation type must be a valid string.',
                ];
                $validatedData = $request->validate([
                'tagline'          => 'nullable|string|max:255',
@@ -41,7 +43,12 @@ class SliderController extends Controller
                'cta_url'          => 'nullable|url|max:255',
                'profile_image_id' => 'required|string', 
                'post_status'      => 'required|exists:status,id',
-               'main_heading'     => 'nullable|string|max:255', 
+               'main_heading'     => 'nullable|string|max:255',
+               // Validation for Dynamic Arrays
+                'donation_projects'   => 'nullable|array',
+                'donation_projects.*' => 'nullable|string|max:255',
+                'donation_types'      => 'nullable|array',
+                'donation_types.*'    => 'nullable|string|max:255', 
           ], $messages);
 
           try {
@@ -57,15 +64,17 @@ class SliderController extends Controller
         
         $slider->main_heading = $request->main_heading ?? $request->tagline ?? 'Default Heading';
         
-        
-        $slider->page_id      = $request->page_id ?? null;
-
+        $slider->donation_projects = $request->donation_projects ? array_filter($request->donation_projects) : null;
+        $slider->donation_types    = $request->donation_types ? array_filter($request->donation_types) : null;
+       //$slider->donation_projects = json_encode(array_values(array_filter($request->donation_projects)));
+//$slider->donation_types    = json_encode(array_values(array_filter($request->donation_types)));
         $slider->save();
 
         return redirect()->route('admin.sliders.index')->with('success', 'Slider created successfully!');
         
     } catch (\Exception $e) {
-        return back()->withInput()->with('error', 'Something went wrong: ' . $e->getMessage());
+        dd($e->getSql(), $e->getBindings(), $e->getMessage());
+        //return back()->withInput()->with('error', 'Something went wrong: ' . $e->getMessage());
     }
 
             }

@@ -74,7 +74,45 @@
                     <input type="url" name="cta_url" id="cta_url" class="form-control" placeholder="Button URL"
                         value="{{ old('cta_url', $slider['cta_url'] ?? '') }}">
                 </div>
+                <div class="form-group mb-4">
+                <label class="fw-bold">Donation Projects</label>
+                <div id="projects-container" class="gt-dynamic-wrapper">
+                    @if(isset($slider['donation_projects']) && is_array($slider['donation_projects']))
+                        @foreach($slider['donation_projects'] as $project)
+                            <div class="gt-dynamic-item d-flex mb-2">
+                                <input type="text" name="donation_projects[]" class="form-control" placeholder="e.g. Rebuild Gaza" value="{{ $project }}">
+                                <button type="button" class="btn btn-danger btn-sm ms-2 remove-item">-</button>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="gt-dynamic-item d-flex mb-2">
+                            <input type="text" name="donation_projects[]" class="form-control" placeholder="e.g. Rebuild Gaza">
+                            <button type="button" class="btn btn-danger btn-sm ms-2 remove-item" style="display:none;">-</button>
+                        </div>
+                    @endif
+                </div>
+                <button type="button" class="btn btn-success btn-sm mt-1" id="add-project">+ Add Project</button>
+            </div>
 
+            <div class="form-group mb-4">
+                <label class="fw-bold">Donation Types</label>
+                <div id="types-container" class="gt-dynamic-wrapper">
+                    @if(isset($slider['donation_types']) && is_array($slider['donation_types']))
+                        @foreach($slider['donation_types'] as $type)
+                            <div class="gt-dynamic-item d-flex mb-2">
+                                <input type="text" name="donation_types[]" class="form-control" placeholder="e.g. Zakat" value="{{ $type }}">
+                                <button type="button" class="btn btn-danger btn-sm ms-2 remove-item">-</button>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="gt-dynamic-item d-flex mb-2">
+                            <input type="text" name="donation_types[]" class="form-control" placeholder="e.g. Zakat">
+                            <button type="button" class="btn btn-danger btn-sm ms-2 remove-item" style="display:none;">-</button>
+                        </div>
+                    @endif
+                </div>
+                <button type="button" class="btn btn-success btn-sm mt-1" id="add-type">+ Add Type</button>
+            </div>
                 <div class="form-group" data-id-img="{{isset($slider['profile_image']) ? $slider['profile_image']['id'] : null}}">
                     <x-media-picker 
                         name="profile_image_id" 

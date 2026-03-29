@@ -10001,6 +10001,50 @@ progress {
     --bs-gutter-y: 3rem;
   }
 }
+.gt-dynamic-wrapper {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+.gt-dynamic-item{
+  position:relative;
+}
+.gt-dynamic-item .form-control {
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    transition: all 0.2s;
+}
+
+.gt-dynamic-item .form-control:focus {
+    border-color: #4b49ac; /* Admin theme color */
+    box-shadow: 0 0 5px rgba(75, 73, 172, 0.2);
+}
+.gt-dynamic-item button {
+    position: absolute;
+    right: 4px;
+    bottom: 10px;
+    border-radius: 50% !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding: unset !important;
+    width: 20px;
+    height: 20px;
+}
+.gt-dynamic-item .remove-item {
+    padding: 5px 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    line-height: 1;
+}
+
+#add-project, #add-type {
+    font-weight: 500;
+    padding: 6px 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
 @media (min-width: 1200px) {
   .col-xl {
     flex: 1 0 0%;

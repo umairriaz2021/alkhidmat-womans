@@ -13,7 +13,7 @@ class MediaController extends Controller
         return response()->json($media);
     }
     public function store(Request $request) {
-        $request->validate(['file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048']);
+        $request->validate(['file' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048']);
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');

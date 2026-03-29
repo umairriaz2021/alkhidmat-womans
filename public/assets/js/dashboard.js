@@ -654,7 +654,32 @@ jQuery(document).ready(function($) {
     })
    
      //Pages Start
+    function addRow(containerId, inputName, placeholder) {
+        const html = `
+            <div class="gt-dynamic-item d-flex mb-2" style="display:none;">
+                <input type="text" name="${inputName}[]" class="form-control" placeholder="${placeholder}">
+                <button type="button" class="btn btn-danger btn-sm ms-2 remove-item">-</button>
+            </div>
+        `;
+        $(containerId).append(html);
+        $(containerId + ' .gt-dynamic-item').last().fadeIn(300);
+    }
+    $('#add-project').click(function() {
+        addRow('#projects-container', 'donation_projects', 'e.g. Rebuild Gaza');
+    });
 
+    // Add Type
+    $('#add-type').click(function() {
+        addRow('#types-container', 'donation_types', 'e.g. Zakat');
+    });
+
+    // Remove Item
+    $(document).on('click', '.remove-item', function() {
+        $(this).closest('.gt-dynamic-item').fadeOut(300, function() {
+            $(this).remove();
+        });
+    });
+    
       if (!$.fn.ClassicEditor ) {
     $('.editor').each(function () {
         ClassicEditor.create(this, {
