@@ -73,8 +73,8 @@ class SliderController extends Controller
         return redirect()->route('admin.sliders.index')->with('success', 'Slider created successfully!');
         
     } catch (\Exception $e) {
-        dd($e->getSql(), $e->getBindings(), $e->getMessage());
-        //return back()->withInput()->with('error', 'Something went wrong: ' . $e->getMessage());
+       // dd($e->getSql(), $e->getBindings(), $e->getMessage());
+        return back()->withInput()->with('error', 'Something went wrong: ' . $e->getMessage());
     }
 
             }
