@@ -21,6 +21,7 @@ use Inertia\Inertia;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
+Route::get('/test-me', function() { return "Laravel is working!"; });
 Route::get('/{slug?}', [PageController::class, 'show'])->name('pages.show');
 // 2. Admin Routes (Sab ek jagah prefix ke saath)
 Route::prefix('admin')->group(function () {
