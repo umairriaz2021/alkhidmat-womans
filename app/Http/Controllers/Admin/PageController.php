@@ -211,7 +211,7 @@ public function deletePage($id)
  public function show($slug = 'home') // Default slug 'home' rakha hai
 { 
 
-     $settings = Setting::with(['siteLogo', 'footerLogo'])->first()->toArray();
+     $settingsData = Setting::with(['siteLogo', 'footerLogo'])->first()->toArray();
      $settings = $settingsData ? $settingsData->toArray() : [];
         $menus = Menu::with(['submenu','parent','status'])->get()->toArray();
        
