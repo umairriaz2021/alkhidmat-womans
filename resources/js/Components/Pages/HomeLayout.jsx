@@ -7,14 +7,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import '../../../css/style.css';
-import donationData from '../../static-data/home/donations.json';
-import helpData from '../../static-data/home/help.json';
-import WhoWeAre from '../../static-data/Home/whoWeArea.json';
-import OurHero from '../../static-data/Home/ourHero.json';
-import featuredCauses from '../../static-data/home/featuredCauses.json';
-import getInvolved from '../../static-data/Home/getInvolved.json';
-import sprojects from '../../static-data/Home/sprojects.json';
-import MetaData from '../../Layouts/MetaData';
+import donationData from '@/static-data/Home/donations.json';
+import helpData from '@/static-data/Home/help.json';
+import WhoWeAre from '@/static-data/Home/whoWeArea.json';
+import OurHero from '@/static-data/Home/ourHero.json';
+import featuredCauses from '@/static-data/Home/featuredCauses.json';
+import getInvolved from '@/static-data/Home/getInvolved.json';
+import sprojects from '@/static-data/Home/sprojects.json';
+import MetaData from '@/Layouts/MetaData';
 
 
 const HomeLayout = ({ page,sliders }) => {

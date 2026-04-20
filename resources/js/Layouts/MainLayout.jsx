@@ -1,13 +1,13 @@
 import React, { useState, useEffect,Fragment } from 'react';
 import { Link } from '@inertiajs/react';
 import '../../css/style.css';
-import FooterDonation from '../static-data/footer/footer-links/donation-links/donations.json';
-import Address from '../static-data/footer/footer-links/address/address.json';
-import FirstColumn  from '../static-data/footer/firstColumn.json'
-import OurAppeal from '../static-data/footer/footer-links/our-appeals/appeals.json';
-import Resources from '../static-data/footer/footer-links/our-resources/resources.json'
-import AboutUs from '../static-data/footer/footer-links/about-us/about.json'
-import CopyRight from '../static-data/footer/settings.json'
+import FooterDonation from '@/static-data/footer/footer-links/donation-links/donations.json';
+import Address from '@/static-data/footer/footer-links/address/address.json';
+import FirstColumn  from '@/static-data/footer/firstColumn.json'
+import OurAppeal from '@/static-data/footer/footer-links/our-appeals/appeals.json';
+import Resources from '@/static-data/footer/footer-links/our-resources/resources.json'
+import AboutUs from '@/static-data/footer/footer-links/about-us/about.json'
+import CopyRight from '@/static-data/footer/settings.json' 
 export default function MainLayout({ children}) {
     const {settings,menus} = children.props;
     console.log(menus);
