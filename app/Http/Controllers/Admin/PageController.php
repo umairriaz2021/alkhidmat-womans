@@ -212,6 +212,7 @@ public function deletePage($id)
 { 
 
      $settings = Setting::with(['siteLogo', 'footerLogo'])->first()->toArray();
+     $settings = $settingsData ? $settingsData->toArray() : [];
         $menus = Menu::with(['submenu','parent','status'])->get()->toArray();
        
     $page = Page::with(['profileImage','template'])
