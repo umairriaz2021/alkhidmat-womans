@@ -86,7 +86,7 @@ class SliderController extends Controller
     {
           $slider = Slider::with(['profileImage'])->find($id)->toArray();
           $statuses = Status::get()->toArray();
-          
+        
           
           return view('admin.dashboard.sliders.create',compact('slider','statuses'));
        
@@ -111,7 +111,9 @@ class SliderController extends Controller
             'cta_url'          => 'nullable|url|max:255',
             'profile_image_id' => 'nullable|string', 
             'post_status'      => 'required|exists:status,id', // 'status' ko 'statuses' table name se fix kiya
-            'main_heading'     => 'nullable|string|max:255', 
+            'main_heading'     => 'nullable|string|max:255',
+            'donation_projects' => 'nullable|array',
+            'donation_types'    => 'nullable|array', 
         ], $messages);
 
         try {
@@ -124,13 +126,16 @@ class SliderController extends Controller
             $slider->status_id    = $request->post_status;      
             
             $slider->main_heading = $request->main_heading;
-            $slider->page_id      = $request->page_id ?? null;
+            
+            $slider->donation_projects = $request->donation_projects ? array_values(array_filter($request->donation_projects)) : null;
+            $slider->donation_types    = $request->donation_types ? array_values(array_filter($request->donation_types)) : null;
 
             $slider->save();
 
             return redirect()->route('admin.slider')->with('success', 'Slider updated successfully!');
             
         } catch (\Exception $e) {
+             //dd($e->getSql(), $e->getBindings(), $e->getMessage());
             return back()->withInput()->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }

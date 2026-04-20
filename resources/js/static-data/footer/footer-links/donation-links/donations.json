@@ -1,0 +1,17 @@
+{
+     "title": "Donation Now",
+     "links": [
+        {
+             "title":"Meezan Bank",
+             "value" : "021401008611151"
+        },
+        {
+              "title": "Cash Pick-Up",
+              "value": "0800-44448"
+        },
+        {
+             "title": "Donate In-Person",
+             "value": "#"
+        }
+     ]
+}

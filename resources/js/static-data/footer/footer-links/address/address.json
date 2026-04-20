@@ -1,0 +1,29 @@
+{
+     "title":"Address",
+     "text":"Alkhidmat Foundation Headoffice, 3km Khayaban-e-Jinnah, Lahore, Punjab, Pakistan",
+     "phone": "+92 42 3802 0222",
+     "email": "info@alkhidmat.org",
+     "social_link_title": "Connect With Us",
+     "social_links":[
+         {
+             "link_name" : "f",
+             "url": "#"
+         },
+         {
+              "link_name": "x",
+              "url":"#"
+         },
+         {
+              "link_name":"yt",
+              "url":"#"
+         },
+         {
+              "link_name":"in",
+              "url":"#"
+         },
+         {
+               "link_name":"tk",
+               "url":"#"
+         }
+     ]
+}

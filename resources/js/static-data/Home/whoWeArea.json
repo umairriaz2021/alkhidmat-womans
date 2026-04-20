@@ -1,0 +1,16 @@
+{
+    "id":1,
+    "title": "Who We Are",
+    "para":[
+        {
+             "pd": "We are a network of community leaders – made up of committed volunteers, donors, members of media and civil society, partners and staff – endeavouring together to make a difference in people and communities’ lives."
+             
+        },
+        {
+             "pd":"We seek to improve the lives of some of the world’s poorest and most vulnerable people especially orphan and street children, widows and unemployed men and women through relief, development and community work."
+        },
+       {
+           "pd": "We do our best to provide solutions to serious human problems such as poverty, hunger, unemployment, orphanage and widowhood through our sustainable development projects."
+       }
+    ]
+}

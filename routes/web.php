@@ -76,6 +76,12 @@ Route::prefix('admin')->group(function () {
                Route::get('/edit-menu/{id}',[MenuController::class,'editMenu'])->name('admin.edit.menu');
                Route::patch('/update-menu/{id}',[MenuController::class,'updateMenu'])->name('admin.update.menu');
                Route::delete('/delete-menu/{id}',[MenuController::class,'deleteMenu'])->name('admin.delete.menu');
+               // Mega menu 
+               Route::get('/mega-menus',[MenuController::class,'showMegaMenus'])->name('admin.show.megamenu');
+               Route::match(['get','post'],'/all-mega-menus',[MenuController::class,'createMegaMenus'])->name('admin.create.megamenus');
+               Route::get('/admin/megamenus/edit/{id}', [MenuController::class, 'editMegaMenus'])->name('admin.edit.megamenus');
+               Route::patch('/admin/megamenus/update/{id}', [MenuController::class, 'updateMegaMenus'])->name('admin.update.megamenus');
+                Route::delete('/admin/megamenus/delete-menu/{id}',[MenuController::class,'deleteMegaMenu'])->name('admin.delete.megamenu');
                });
         // Admin Logout
         //Settings

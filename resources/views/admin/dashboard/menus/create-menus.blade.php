@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <label for="lu">Link URL</label>
                     <select class="form-select mb-3" name="lu">
-                         <option value="">Select URL</option>
+                         <option value="#">Select URL</option>
                                @if(!empty($pages)) 
                               
                                @foreach($pages as $page) 
@@ -63,22 +63,49 @@
                 </div>
                 
                 <div class="form-group">
-                     <select class="form-select mb-3" name="parent_id">
+                     <label for="parent_id">Submenu</label>
+                     <select id="parent_id" class="form-select mb-3" name="parent_id">
                          <option value="">Select Parent</option>
                                @if(!empty($menus)) 
                               
                                @foreach($menus as $menu) 
-                                    <option value="{{$menu['id']}}" @if(isset($menu_data) && $menu['id'] == $menu_data['parent_id']) active @endif>
+                                    <option value="{{$menu['id']}}" @if(isset($menu_data) && $menu['id'] == $menu_data['parent_id']) selected @endif>
                                         {{ucfirst($menu['title'])}}
                                     </option>
                                 @endforeach
                                 @endif
                             </select>
                 </div>
-                <div class="form-check">
-                      <label class="form-check-label text-muted">
-                        <input type="checkbox" id="mg_menu" @if(isset($menu_data) && $menu_data['mega_menu'] == 1) checked  @endif name="mg_menu" class="form-check-input"> Do you want Mega Menu ? </label>
+                <div class="form-group">
+                    <label for="mega_menus_id">Mega Menus</label>
+                    <select id="mega_menus_id" class="form-select mb-3" name="mega_menus_id[]" multiple>
+                    <option value="">Select Mega Menu</option>
+                    
+                    @if(!empty($megaMenu)) 
+                        @foreach($megaMenu as $mega) 
+                            @php
+                                // Check karna ke kya ye ID selected array mein maujood hai
+                                $isSelected = false;
+                                if(isset($menu_data) && !empty($menu_data['mega_menus_id'])) {
+                                    // Agar data string hai (JSON), to usay array mein convert karein
+                                    $savedIds = is_array($menu_data['mega_menus_id']) 
+                                                ? $menu_data['mega_menus_id'] 
+                                                : json_decode($menu_data['mega_menus_id'], true);
+                                                
+                                    if(in_array($mega['id'], (array)$savedIds)) {
+                                        $isSelected = true;
+                                    }
+                                }
+                            @endphp
+
+                            <option value="{{ $mega['id'] }}" {{ $isSelected ? 'selected' : '' }}>
+                                {{ ucfirst($mega['group_name']) }}
+                            </option>
+                        @endforeach
+                    @endif
+                </select>
                 </div>
+                
 
             </div>
         </div>

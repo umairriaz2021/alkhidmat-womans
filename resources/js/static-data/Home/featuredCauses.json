@@ -1,0 +1,31 @@
+{
+    "id":1,
+    "title":"Featured Causes",
+    "para":"This year has been like no other. We've carried out a record-breaking number of relief activities",
+    "causes":[
+        {
+            "id":1,
+            "title":"Rebuild Gaza",
+            "image":"cause-1.webp",
+            "para": "The most beloved deeds to Allah are those done regularly, even if small. (Bukhari, 6465)",
+            "button_text": "Donate Now",
+            "button_url" : "https://www.google.com"
+        },
+        {
+            "id":2,
+            "title":"Give Zakat",
+            "image":"cause-2.webp",
+            "para": "\"Zakat is for the poor, the needy, those in debt, and in the cause of Allah.\"Surah At-Tawbah (9:60)",
+            "button_text": "Donate Now",
+            "button_url" : "#"
+        },
+        {
+            "id":3,
+            "title":"Give Sadaqah",
+            "image":"cause-3.webp",
+            "para": "\"Whatever you spend in Sadaqah, Allah will replace it; and He is the Best of Providers.\" Surah Saba (34:39)",
+            "button_text": "Donate Now",
+            "button_url" : "#"
+        }
+    ]
+}

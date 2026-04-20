@@ -75,10 +75,18 @@
               </div>
             </li>
              <li class="nav-item">
-              <a class="nav-link" href="{{route('admin.settings')}}">
+              <a class="nav-link" data-bs-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
                 <i class="menu-icon mdi mdi-file-document"></i>
                 <span class="menu-title">Settings</span>
+                 <i class="menu-arrow"></i>
               </a>
+              <div class="collapse" id="settings">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{{route('admin.settings')}}">Site Settings</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{route('admin.show.megamenu')}}">All Mega Menus</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{route('admin.create.megamenus')}}">Create Mega Menus</a></li>
+                </ul>
+              </div>
             </li>
           </ul>
         </nav>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Media;
 use App\Models\PageTemplate;
 use App\Models\Slider;
+use App\Models\Status;
 
 class Page extends Model
 {
@@ -33,5 +34,9 @@ class Page extends Model
     // Manual query chala kar sliders le ayein
     return Slider::whereIn('id', $ids)->get();
 }
+public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_id');
+    }
 
 }

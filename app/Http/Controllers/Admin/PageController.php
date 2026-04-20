@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\Status;
 use App\Models\Slider;
+use App\Models\Menu;
 use App\Models\PageTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use App\Models\Setting;
 use DB;
 
 class PageController extends Controller
@@ -27,7 +29,7 @@ class PageController extends Controller
     $statuses = Status::get()->toArray();
     $sliders = Slider::get()->toArray();
     $templates = PageTemplate::get()->toArray();
-
+  
     if ($request->isMethod('post')) {
         $rules = [
             'p_title'     => 'required|string|max:255',
@@ -207,8 +209,11 @@ public function deletePage($id)
 }
 
  public function show($slug = 'home') // Default slug 'home' rakha hai
-{
- 
+{ 
+
+     $settings = Setting::with(['siteLogo', 'footerLogo'])->first()->toArray();
+        $menus = Menu::with(['submenu','parent','status'])->get()->toArray();
+       
     $page = Page::with(['profileImage','template'])
                 ->where('slug', $slug)
                 ->firstOrFail();
@@ -216,12 +221,14 @@ public function deletePage($id)
                 $sliderIds = json_decode($page->slider_id) ?? []; 
                     
     $sliders = Slider::with(['profileImage'])->whereIn('id', $sliderIds)->where('status_id',2)->get()->toArray();
-   //echo "<pre>"; print_r($sliders);die;
+    //echo "<pre>"; print_r($settings);die;
 
     return Inertia::render('DynamicPage', [
         'page' => $page,
         'sliders' => $sliders, // Alag se pass karein
         'template_name' => $page->template->name,
+        'settings' => $settings,
+        'menus' =>  $menus
     ]);
 }
 

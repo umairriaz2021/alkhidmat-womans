@@ -1,5 +1,5 @@
 @extends('admin.layout')
-@section('title','All Menus')
+@section('title','All Mega Menus')
 @section('content')
 
    <div class="content-wrapper">
@@ -9,30 +9,27 @@
               <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">All Menus</h4>
+                    <h4 class="card-title">All Mega Menus</h4>
 
                     </p>
                     <div class="table-responsive">
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                            <th> Menu Name </th>
-                            <th> Submenu</th>
+                            <th>Group Name</th>
                             <th>Updated at</th> 
                             <th> Action </th>
                           </tr>
                         </thead>
                         <tbody>
-                          @if(!empty($menus))
-                          @foreach($menus as $menu)
+                          @if(!empty($megaMenu))
+                          @foreach($megaMenu as $menu)
                           <tr>
                             
-                            <td>{{$menu['title']}} </td>
-                            <td>
-                              {{($menu['parent_id']) ? $menu['parent']['title'].' (Child)'  : "Parent"}}
-                            </td>
+                            <td>{{$menu['group_name']}} </td>
+                             
                             <td>{{$menu['updated_at']}}</td>
-                            <td><a href="{{route('admin.edit.menu',$menu['id'])}}">Edit</a> | <a href="javascript:void(0)" id="deleteMenu" data-id="{{$menu['id']}}">Delete</a></td>
+                            <td><a href="{{route('admin.edit.megamenus',$menu['id'])}}">Edit</a> | <a href="javascript:void(0)" id="deleteMegaMenu" data-id="{{$menu['id']}}">Delete</a></td>
                           </tr>
                           @endforeach
                           @endif
@@ -56,11 +53,11 @@
     }
 });
 
-   $(document).on('click', '#deleteMenu', function(e) {
+   $(document).on('click', '#deleteMegaMenu', function(e) {
     e.preventDefault();
 
     let menuId = $(this).data('id');
-    let deleteUrl = "{{ route('admin.delete.menu', ':id') }}".replace(':id', menuId);
+    let deleteUrl = "{{ route('admin.delete.megamenu', ':id') }}".replace(':id', menuId);
 
     Swal.fire({
         title: 'Are you sure?',

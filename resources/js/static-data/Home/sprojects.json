@@ -1,0 +1,36 @@
+{
+     "title":"State of the Arts Project",
+     "text": "Alkhidmat Foundation Pakistan is one of the leading, non-profit organization, fully dedicated to humanitarian services since 1990. Alkhidmat's workers and volunteers continue to work tirelessly.",
+     "projects":[
+        {
+             "id":1,
+             "title": "Aghosh College Murree",
+             "desc": "Empowering orphans with top-tier education in a serene and secure residential environment nestled in the hills of Murree.",
+             "image": "169147657964d1e263a454e.jpg"
+        },
+        {
+             "id":2,
+             "title": "Alkhidmat Hospital Tharparkar",
+             "desc": "Delivering quality healthcare to remote communities in Tharparkar—equipped with modern facilities and compassionate care.",
+             "image": "175160454768675d4370f58.jpg"
+        },
+        {
+             "id":3,
+             "title": "Mobile Health Unit",
+             "desc": "Healthcare on wheels—reaching underserved areas with essential medical services, diagnostics, and emergency care.",
+             "image": "175160471568675debc70f4.jpg"
+        },
+        {
+             "id":4,
+             "title": "Submersible Water Pump",
+             "desc": "Providing deep water access to drought-hit regions—ensuring clean, safe drinking water for families in need.",
+             "image": "175160492968675ec15cdeb.jpg"
+        },
+        {
+             "id":5,
+             "title": "Submersible Water Pump 1",
+             "desc": "Providing deep water access to drought-hit regions—ensuring clean, safe drinking water for families in need.",
+             "image": "169147598764d1e0137b4dd.jpg"
+        }
+     ]
+}

@@ -7,11 +7,18 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import '../../../css/style.css';
-import { Head } from '@inertiajs/react'
+import donationData from '../../static-data/home/donations.json';
+import helpData from '../../static-data/home/help.json';
+import WhoWeAre from '../../static-data/Home/whoWeArea.json';
+import OurHero from '../../static-data/Home/ourHero.json';
+import featuredCauses from '../../static-data/home/featuredCauses.json';
+import getInvolved from '../../static-data/Home/getInvolved.json';
+import sprojects from '../../static-data/Home/sprojects.json';
+import MetaData from '../../Layouts/MetaData';
 
 
 const HomeLayout = ({ page,sliders }) => {
-     console.log(sliders);
+     console.log(page);
      const [activeType, setActiveType] = useState('Sadaqah for Gaza');
     const [amount, setAmount] = useState('');
 
@@ -20,79 +27,12 @@ const HomeLayout = ({ page,sliders }) => {
         'Zakat for Gaza',
         'Sadaqah for Gaza'
     ];
-    const causes = [
-    {
-      id: 1,
-      image: "assets/images/home/cause-1.webp",
-      title: "Rebuild Gaza",
-      desc: "The most beloved deeds to Allah are those done regularly, even if small. (Bukhari, 6465)"
-    },
-    {
-      id: 2,
-      image: "assets/images/home/cause-2.webp",
-      title: "Give Zakat",
-      desc: "\"Zakat is for the poor, the needy, those in debt, and in the cause of Allah.\" Surah At-Tawbah (9:60)"
-    },
-    {
-      id: 3,
-      image: "assets/images/home/cause-3.webp",
-      title: "Give Sadaqah",
-      desc: "\"Whatever you spend in Sadaqah, Allah will replace it; and He is the Best of Providers.\" Surah Saba (34:39)"
+    const data = {
+         description: "Hello"
     }
-  ];
-  const cards = [
-    {
-      title: "Become Volunteer",
-      text: "Are you looking for an opportunity to make a difference guided by Islamic principles? Become a volunteer with Alkhidmat Foundation and discover the transformative power of volunteerism and change lives.",
-      btnText: "REGISTER NOW",
-      link: "#"
-    },
-    {
-      title: "Bank Transfer",
-      text: "Direct deposits or transfers can be made into our accounts at any of the banks. Select your preferred bank from the list.",
-      btnText: "VIEW BANK LIST",
-      link: "#"
-    },
-    {
-      title: "Doorstep Collection",
-      text: "You can donate through cheques or bank drafts, simply call at 0800 44 44 8 or 0304 111 4 22 and Alkhidmat's representative will collect it.",
-      btnText: "CASH PICKUP",
-      link: "#"
-    }
-  ];
-  const projects = [
-    {
-      title: "Aghosh College Murree",
-      desc: "Empowering orphans with top-tier education in a serene and secure residential environment nestled in the hills of Murree.",
-      img: "https://alkhidmat.org/backend/images/modules/home/slider/169147657964d1e263a454e.jpg"
-    },
-    {
-      title: "Alkhidmat Hospital Tharparkar",
-      desc: "Delivering quality healthcare to remote communities in Tharparkar—equipped with modern facilities and compassionate care.",
-      img: "https://alkhidmat.org/backend/images/modules/home/slider/175160454768675d4370f58.jpg"
-    },
-    {
-      title: "Mobile Health Unit",
-      desc: "Healthcare on wheels—reaching underserved areas with essential medical services, diagnostics, and emergency care.",
-      img: "https://alkhidmat.org/backend/images/modules/home/slider/175160471568675debc70f4.jpg"
-    },
-    {
-      title: "Submersible Water Pump",
-      desc: "Providing deep water access to drought-hit regions—ensuring clean, safe drinking water for families in need.",
-      img: "https://alkhidmat.org/backend/images/modules/home/slider/175160492968675ec15cdeb.jpg"
-    },
-    {
-      title: "Submersible Water Pump 1",
-      desc: "Providing deep water access to drought-hit regions—ensuring clean, safe drinking water for families in need.",
-      img: "https://alkhidmat.org/backend/images/modules/home/slider/169147598764d1e0137b4dd.jpg"
-    }
-  ];
    return (
         <div className="home-template">
-          <Head>
-            <title>Home Page</title>
-            <meta name="description" content="Your page description" />
-            </Head>
+           <MetaData title={page.title} data={data} />
             
             <section className="hero-slider-section">
                 <Swiper
@@ -214,203 +154,106 @@ const HomeLayout = ({ page,sliders }) => {
                      <h2>Your Impact In 2025</h2>
                      <p>In 2025, amidst global hardships, Alkhidmat Foundation continues to create a lasting impact through your unwavering support and generosity.</p>
                      <div className="donations">
-                          <div className="donation-card">
-                              <img src="https://alkhidmat.org/backend/images/modules/home/area-of-working/169381096864f58118b25fe.svg" />
+                          {donationData && donationData.map((item,index) => (
+                           <div key={index} className="donation-card">
+                              <img src={item.image_url} />
                               <div className="donation-content">
-                                <h4>24,640,000</h4>
-                                <p>Lives Impacted</p>
+                                <h4>{item.count}</h4>
+                                <p>{item.title}</p>
                               </div>
                           </div>
-                          <div className="donation-card">
-                              <img src="https://alkhidmat.org/backend/images/modules/home/area-of-working/169381080764f58077d2fab.svg" />
-                              <div className="donation-content">
-                                <h4>281,240</h4>
-                                <p>Food Packs</p>
-                              </div>
-                          </div>
-                          <div className="donation-card">
-                              <img src="https://alkhidmat.org/backend/images/modules/home/area-of-working/169381077464f58056eeb41.svg" />
-                              <div className="donation-content">
-                                <h4>280,846</h4>
-                                <p>Meat Packs Distributed</p>
-                              </div>
-                          </div>
-                          <div className="donation-card">
-                              <img src="https://alkhidmat.org/backend/images/modules/home/area-of-working/169381073964f58033e30d2.svg" />
-                              <div className="donation-content">
-                                <h4>25,809</h4>
-                                <p>Water Projects</p>
-                              </div>
-                          </div>
-                          <div className="donation-card">
-                              <img src="https://alkhidmat.org/backend/images/modules/home/area-of-working/169381070564f580111bc66.svg" />
-                              <div className="donation-content">
-                                <h4>34,113</h4>
-                                <p>Orphans Sponsored</p>
-                              </div>
-                          </div>
-                          <div className="donation-card">
-                              <img src="https://alkhidmat.org/backend/images/modules/home/area-of-working/169381066664f57feab775e.svg" />
-                              <div className="donation-content">
-                                <h4>24</h4>
-                                <p>Aghosh Homes</p>
-                              </div>
-                          </div>
-                          <div className="donation-card">
-                              <img src="https://alkhidmat.org/backend/images/modules/home/area-of-working/169381062064f57fbc67017.svg" />
-                              <div className="donation-content">
-                                <h4>57</h4>
-                                <p>Hospitals</p>
-                              </div>
-                          </div>
-                          <div className="donation-card">
-                              <img src="https://alkhidmat.org/backend/images/modules/home/area-of-working/169381058764f57f9b58d94.svg" />
-                              <div className="donation-content">
-                                <h4>296</h4>
-                                <p>Ambulances</p>
-                              </div>
-                          </div>
-                          <div className="donation-card">
-                              <img src="https://alkhidmat.org/backend/images/modules/home/area-of-working/169381054964f57f75adae1.svg" />
-                              <div className="donation-content">
-                                <h4>80,000</h4>
-                                <p>Volunteers</p>
-                              </div>
-                          </div>
-                          <div className="donation-card">
-                              <img src="https://alkhidmat.org/backend/images/modules/home/area-of-working/169381054964f57f75adae1.svg" />
-                              <div className="donation-content">
-                                <h4>866,000,000</h4>
-                                <p>Loan Portfolio (PKR)</p>
-                              </div>
-                          </div>
-                          <div className="donation-card">
-                              <img src="https://alkhidmat.org/backend/images/modules/home/area-of-working/169381054964f57f75adae1.svg" />
-                              <div className="donation-content">
-                                <h4>1,569</h4>
-                                <p>Alkhidmat Academic Scholarships</p>
-                              </div>
-                          </div>
-                          <div className="donation-card">
-                              <img src="https://alkhidmat.org/backend/images/modules/home/area-of-working/169381011664f57dc40d3a1.svg" />
-                              <div className="donation-content">
-                                <h4>60</h4>
-                                <p>Alkhidmat Schools</p>
-                              </div>
-                          </div>
+
+                          ))}
+                          
+                          
                      </div>
                 </div>
                 </div>
             </section>
             <section className="whoWeAre">
                 <div className="container">
-                    <h2>Who We Are</h2>
-                    <div className="whowearecontent">
-                        <p>We are a network of community leaders – made up of committed volunteers, donors, members of media and civil society, partners and staff – endeavouring together to make a difference in people and communities’ lives.</p>
-                        <p>We seek to improve the lives of some of the world’s poorest and most vulnerable people especially orphan and street children, widows and unemployed men and women through relief, development and community work.</p>
-                        <p>We do our best to provide solutions to serious human problems such as poverty, hunger, unemployment, orphanage and widowhood through our sustainable development projects.</p>
+                   {WhoWeAre && 
+                   <>
+                   <h2>{WhoWeAre.title}</h2>
+                   <div className="whowearecontent">
+                        {WhoWeAre.para && WhoWeAre.para.map((item,index) => (
+                        <p key={index}>{item.pd}</p>
+                        ))}
+                        
                     </div>
+                   </>
+                   }
+                    
                 </div>
             </section>
             <section className="help-card-wraper mt-10">    
                 <div className="container">
                      <div className="helpWrapper">
-                     <a className="help-card">
+                      {helpData && helpData.map((item,index) => (
+                        <a key={`help-${item.id}`} className="help-card">
                         <div className="imgwrap">
-                            <img src="https://alkhidmat.org/_next/image?url=https%3A%2F%2Falkhidmat.org%2Fbackend%2Fimages%2Fmodules%2Fhome%2Fwho-we-are%2F1770803624698c51a84e95b.png&w=640&q=75" alt="" />
-                            <h5>Disaster Management</h5>
+                            <img src={`assets/images/home${item.image}`} alt={item.title} />
+                            <h5>{item.title}</h5>
                         </div>
-                     </a>
-                     <a className="help-card">
-                        <div className="imgwrap">
-                            <img src="https://alkhidmat.org/_next/image?url=https%3A%2F%2Falkhidmat.org%2Fbackend%2Fimages%2Fmodules%2Fhome%2Fwho-we-are%2F1770803609698c51990112c.png&w=640&q=75" alt="" />
-                            <h5>Health Services</h5>
-                        </div>
-                     </a>
-                     <a className="help-card">
-                        <div className="imgwrap">
-                            <img src="https://alkhidmat.org/_next/image?url=https%3A%2F%2Falkhidmat.org%2Fbackend%2Fimages%2Fmodules%2Fhome%2Fwho-we-are%2F1770803579698c517b7f429.png&w=640&q=75" alt="" />
-                            <h5>Education Program</h5>
-                        </div>
-                     </a>
-                     <a className="help-card">
-                        <div className="imgwrap">
-                            <img src="https://alkhidmat.org/_next/image?url=https%3A%2F%2Falkhidmat.org%2Fbackend%2Fimages%2Fmodules%2Fhome%2Fwho-we-are%2F1770803563698c516ba69e8.png&w=640&q=75" alt="" />
-                            <h5>WASH Program</h5>
-                        </div>
-                     </a>
-                     <a className="help-card">
-                        <div className="imgwrap">
-                            <img src="https://alkhidmat.org/_next/image?url=https%3A%2F%2Falkhidmat.org%2Fbackend%2Fimages%2Fmodules%2Fhome%2Fwho-we-are%2F1770803549698c515d123bf.png&w=640&q=75" alt="" />
-                            <h5>Orphan Care Program</h5>
-                        </div>
-                     </a>
-                     <a className="help-card">
-                        <div className="imgwrap">
-                            <img src="https://alkhidmat.org/_next/image?url=https%3A%2F%2Falkhidmat.org%2Fbackend%2Fimages%2Fmodules%2Fhome%2Fwho-we-are%2F1770803438698c50eeba516.png&w=640&q=75" alt="" />
-                            <h5>Islamic Microfinance</h5>
-                        </div>
-                     </a>
-                     <a className="help-card">
-                        <div className="imgwrap">
-                            <img src="https://alkhidmat.org/_next/image?url=https%3A%2F%2Falkhidmat.org%2Fbackend%2Fimages%2Fmodules%2Fhome%2Fwho-we-are%2F1770803455698c50ff7e805.png&w=640&q=75" alt="" />
-                            <h5>Islamic Microfinance</h5>
-                        </div>
-                     </a>
+                     </a>    
+                      ))}
+                    
                      </div>
                 </div>
             </section>
            <section className="volunteer">
             <div className="volunteer-container container">
-         <div className="content-side">
-        <h2 className="title">Our Volunteers, Our Hero</h2>
+         
+        {OurHero && 
+        <>
+        <div className="content-side">
+        <h2 className="title">{OurHero.title}</h2>
         <p className="description">
-          Volunteers are very interesting people who have passion to serve humanity 
-          without asking for any favor in return. They do not necessarily have extra 
-          time, yet the passion that drives them to attentively be involved in 
-          humanitarian work inspires and impacts millions of lives around the world. 
-          Volunteering is not only about giving back to the community, but it is also a 
-          great way to learn new skills, meet new people, and gain valuable 
-          experiences that can benefit both personal and professional development.
+          {OurHero.para}
         </p>
-        <button className="volunteer-btn">
-          Become a Volunteer <span className="arrow">→</span>
+          <button className="volunteer-btn" onClick={() => window.location.href = OurHero.button_url }>
+          {OurHero.button_text.toUpperCase()} <span className="arrow">→</span>
         </button>
       </div>
-
-      <div className="image-side">
+    <div className="image-side">
         {/* Is div mein aap apni image ya image collage set kar sakte hain */}
         <div className="image-wrapper">
            <img 
-            src="/assets/images/home/volunteer-sec.webp" 
-            alt="Volunteers helping people" 
+            src={`/assets/images/home/${OurHero.image}`} 
+            alt={OurHero.title} 
             className="main-image" 
           />
         </div>
       </div>
+        </>
+        }
+        
       </div>
     </section>
     <section className="featured-section">
         <div className="container">
-      <div className="header-text">
-        <h2>Featured Causes</h2>
-        <p>This year has been like no other. We've carried out a record-breaking number of relief activities</p>
+      {featuredCauses && 
+        <>
+          <div className="header-text">
+        <h2>{featuredCauses.title}</h2>
+        <p>{featuredCauses.para}</p>
       </div>
-
-      <div className="causes-grid">
-        {causes.map((cause) => (
+       <div className="causes-grid">
+        {featuredCauses.causes && featuredCauses.causes.map((cause,index) => (
           <div key={cause.id} className="cause-card">
             <div className="image-container">
-              <img src={cause.image} alt={cause.title} />
+              <img src={`assets/images/home/${cause.image}`} alt={cause.title} />
             </div>
             <div className="card-content">
               <h3>{cause.title}</h3>
-              <p>{cause.desc}</p>
-              <button className="donate-btn">DONATE NOW</button>
+              <p>{cause.para}</p>
+              <button className="donate-btn" onClick={() => window.location.href = cause.button_url}>{cause.button_text.toUpperCase()}</button>
             </div>
           </div>
         ))}
-      </div>
+      </div>  
+        </>
+      }
       </div>
     </section>
     <section className="ak-dashboard-wrapper">
@@ -476,7 +319,7 @@ const HomeLayout = ({ page,sliders }) => {
               <div className="ak-header-simple">Alkhidmat LIVE</div>
               <div className="ak-video-container">
                 <div className="ak-video-placeholder">
-                  <img src="https://placehold.co/400x225/000000/ffffff?text=LIVE+STREAM" alt="Live" class="w-full max-w-full" />
+                  <img src="https://placehold.co/400x225/000000/ffffff?text=LIVE+STREAM" alt="Live" className="w-full max-w-full" />
                   <div className="ak-play-btn">▶</div>
                 </div>
               </div>
@@ -518,29 +361,38 @@ const HomeLayout = ({ page,sliders }) => {
     </section>
     <section className="gi-section">
       <div className="container">
-        <h2 className="gi-section-title">Get Involved</h2>
-        
-        <div className="gi-grid">
-          {cards.map((card, index) => (
+        {getInvolved && 
+         <>
+         <h2 className="gi-section-title">{getInvolved.title}</h2>
+         <div className="gi-grid">
+          {getInvolved.cards && getInvolved.cards.map((card, index) => (
             <div key={index} className="gi-card">
               <div className="gi-card__content">
                 <h3 className="gi-card__title">{card.title}</h3>
                 <p className="gi-card__description">{card.text}</p>
               </div>
-              <a href={card.link} className="gi-card__button">
-                {card.btnText}
-              </a>
+              <button onClick={() => window.Location.href = card.button_url} className="gi-card__button">
+                {card.button_text}
+              </button>
             </div>
           ))}
         </div>
+         </> 
+        }
+        
+        
+        
       </div>
     </section>
 <section className="soa-section">
       <div className="container">
-        <div className="soa-header">
-          <h2 className="soa-title">State of the Arts Project</h2>
+        {sprojects && 
+           <>
+           <div className="soa-header">
+          
+          <h2 className="soa-title">{sprojects.title}</h2>
           <p className="soa-subtitle">
-            Alkhidmat Foundation Pakistan is one of the leading, non-profit organization, fully dedicated to humanitarian services since 1990. Alkhidmat's workers and volunteers continue to work tirelessly.
+            {sprojects.text}
           </p>
           
           {/* Custom Navigation Arrows */}
@@ -549,8 +401,7 @@ const HomeLayout = ({ page,sliders }) => {
             <div className="soa-next">→</div>
           </div>
         </div>
-
-        <Swiper
+         <Swiper
           modules={[Navigation]}
           spaceBetween={0}
           slidesPerView={1}
@@ -564,10 +415,10 @@ const HomeLayout = ({ page,sliders }) => {
           }}
           className="soa-swiper"
         >
-          {projects.map((item, index) => (
-            <SwiperSlide key={index} className="soa-slide">
+          {sprojects.projects && sprojects.projects.map((item, index) => (
+            <SwiperSlide key={item.id} className="soa-slide">
               <div className="soa-card">
-                <img src={item.img} alt={item.title} className="soa-card-img" />
+                <img src={`assets/images/home/sprojects/${item.image}`} alt={item.title} className="soa-card-img" />
                 <div className="soa-overlay">
                   <div className="soa-content">
                     <h3 className="soa-card-title">{item.title}</h3>
@@ -578,6 +429,11 @@ const HomeLayout = ({ page,sliders }) => {
             </SwiperSlide>
           ))}
         </Swiper>
+           </>
+          }
+        
+
+       
       </div>
     </section>
         </div>

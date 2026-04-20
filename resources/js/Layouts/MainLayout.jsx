@@ -1,12 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,Fragment } from 'react';
 import { Link } from '@inertiajs/react';
 import '../../css/style.css';
-
-export default function MainLayout({ children }) {
+import FooterDonation from '../static-data/footer/footer-links/donation-links/donations.json';
+import Address from '../static-data/footer/footer-links/address/address.json';
+import FirstColumn  from '../static-data/footer/firstColumn.json'
+import OurAppeal from '../static-data/footer/footer-links/our-appeals/appeals.json';
+import Resources from '../static-data/footer/footer-links/our-resources/resources.json'
+import AboutUs from '../static-data/footer/footer-links/about-us/about.json'
+import CopyRight from '../static-data/footer/settings.json'
+export default function MainLayout({ children}) {
+    const {settings,menus} = children.props;
+    console.log(menus);
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeAccordion, setActiveAccordion] = useState(null); // Mobile accordion state
-
+    const topLevelMenus = menus ? menus.filter(menu => menu.parent_id === null) : [];
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 50);
         window.addEventListener('scroll', handleScroll);
@@ -40,57 +48,61 @@ export default function MainLayout({ children }) {
                     {/* Logo */}
                     <Link href="/" className="z-50">
                         <img 
-                            src="/assets/images/logo-AKFP.png" 
-                            alt="Logo" 
+                            src={`storage/${settings.site_logo.file_path}`} 
+                            alt="Alkhidmat Womans Home Logo" 
                             className="transition-all duration-300"
                             style={{ height: isScrolled ? '45px' : '60px' }} 
                         />
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <ul className="hidden lg:flex nav-links items-center">
-                        <li className="ak-has-mega">
-                            <Link href="/" className="flex items-center gap-1">
-                                HOME <span className="text-[10px]">▼</span>
-                            </Link>
-                            
-                            {/* Mega Menu Desktop */}
-                            <div className="ak-mega-wrapper shadow-2xl border-t-4 border-green-600">
-                                <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 p-10">
-                                    <div className="ak-mega-col">
-                                        <h4 className="font-bold text-dark-green border-b-2 border-green-500 pb-2 mb-4">WHO WE ARE</h4>
-                                        <Link href="/history">Our History</Link>
-                                        <Link href="/vision">Vision & Mission</Link>
-                                        <Link href="/team">Our Team</Link>
-                                    </div>
-                                    <div className="ak-mega-col">
-                                        <h4 className="font-bold text-dark-green border-b-2 border-green-500 pb-2 mb-4">PROGRAMS</h4>
-                                        <Link href="/health">Health Services</Link>
-                                        <Link href="/education">Education</Link>
-                                        <Link href="/orphan-care">Orphan Care</Link>
-                                    </div>
-                                    <div className="ak-mega-col">
-                                        <h4 className="font-bold text-dark-green border-b-2 border-green-500 pb-2 mb-4">EMERGENCY</h4>
-                                        <Link href="/rescue">Rescue 1023</Link>
-                                        <Link href="/disaster">Disaster Relief</Link>
-                                        <Link href="/ambulance">Ambulance</Link>
-                                    </div>
-                                    <div className="bg-green-50 p-6 rounded-xl text-center">
-                                        <span className="text-green-600 font-bold text-sm block mb-2 underline">URGENT APPEAL</span>
-                                        <p className="text-sm font-semibold mb-4">Support Gaza Emergency Relief Fund</p>
-                                        <Link href="/donate" className="ak-btn-primary py-2 px-4 text-xs">DONATE NOW</Link>
+<ul className="hidden lg:flex nav-links items-center">
+    {topLevelMenus.filter(menu => menu.status?.name === 'publish').map((menu) => {
+        const hasMegaMenu = menu.mega_menus && menu.mega_menus.length > 0;
+
+        return (
+            /* FIX: Parent 'li' must be relative for absolute menu positioning */
+            <li key={menu.id} className={`relative group ${hasMegaMenu ? 'ak-has-mega' : ''}`}>
+                <Link href={menu.url} className="flex items-center gap-1 uppercase px-4 py-5 hover:text-green-600 transition">
+                    {menu.title} {hasMegaMenu && <span className="text-[10px]">▼</span>}
+                </Link>
+
+                {hasMegaMenu && (
+                    <div className="ak-mega-wrapper shadow-2xl border-t-4 border-green-600">
+                        {/* FIX: Removed 'grid' and 'max-w-7xl'. Used 'flex' for auto-width */}
+                        <div className="flex flex-nowrap gap-12 p-8">
+                            {menu.mega_menus.map((mega) => (
+                                <div key={mega.id} className="ak-mega-col min-w-[150px]">
+                                    <h4 className="font-bold text-dark-green border-b-2 border-green-500 pb-2 mb-4 uppercase whitespace-nowrap">
+                                        {mega.group_name}
+                                    </h4>
+                                    
+                                    <div className="flex flex-col space-y-2">
+                                        {mega.links_data && mega.links_data.map((link) => (
+                                            <Link 
+                                                key={link.id} 
+                                                href={link.url}
+                                                className="text-gray-600 hover:text-green-600 hover:translate-x-1 transition-all"
+                                            >
+                                                {link.title}
+                                            </Link>
+                                        ))}
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li><Link href="/who-we-are">WHO WE ARE</Link></li>
-                        <li><Link href="/services">SERVICES</Link></li>
-                        <li><Link href="/disaster-management">DISASTER</Link></li>
-                    </ul>
+                            ))}
+                            
+                           
+                        </div>
+                    </div>
+                )}
+            </li>
+        );
+    })}
+</ul>
 
                     {/* Right Side Buttons */}
                     <div className="flex items-center gap-4">
-                        <Link href="/donate" className="hidden sm:block btn-donate">DONATE NOW</Link>
+                        <Link href="/donate" className="btn-donate !hidden sm:!block ">DONATE NOW</Link>
                         
                         {/* Mobile Menu Toggle */}
                         <button 
@@ -103,32 +115,74 @@ export default function MainLayout({ children }) {
 
                     {/* Mobile Navigation Drawer (Accordion Style) */}
                     <div className={`ak-mobile-drawer lg:hidden fixed inset-0 top-[70px] bg-white z-40 transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                        <ul className="flex flex-col p-6 overflow-y-auto h-full pb-20">
-                            {/* Accordion Item 1 */}
-                            <li className="border-b border-gray-100">
-                                <div 
-                                    className="flex justify-between items-center py-4 font-bold text-gray-700"
-                                    onClick={() => toggleAccordion(0)}
-                                >
-                                    HOME {activeAccordion === 0 ? '−' : '+'}
+    <ul className="flex flex-col p-6 overflow-y-auto h-full pb-20">
+        
+        {topLevelMenus.filter(menu => menu.status?.name === 'publish').map((menu, index) => {
+            const hasMegaMenu = menu.mega_menus && menu.mega_menus.length > 0;
+
+            return (
+                <li key={menu.id} className="border-b border-gray-100">
+                    {hasMegaMenu ? (
+                        /* --- Accordion Header (For Mega Me    nus) --- */
+                        <>
+                            <div 
+                                className="flex justify-between items-center py-4 font-bold text-gray-700 uppercase cursor-pointer"
+                                onClick={() => toggleAccordion(index)}
+                            >
+                                {menu.title} 
+                                <span className="text-xl">{activeAccordion === index ? '−' : '+'}</span>
+                            </div>
+
+                            {/* --- Accordion Content --- */ }
+                            <div className={`overflow-hidden transition-all duration-300 ${activeAccordion === index ? 'max-h-screen mb-4' : 'max-h-0'}`}>
+                                <div className="pl-4 flex flex-col gap-6 bg-gray-50 p-4 rounded-lg">
+                                    {menu.mega_menus.map((mega) => (
+                                        <div key={mega.id} className="flex flex-col gap-2">
+                                            {/* Mega Menu Group Name */}
+                                            <h5 className="font-bold text-green-600 text-sm border-b border-green-100 pb-1 uppercase">
+                                                {mega.group_name}
+                                            </h5>
+                                            
+                                            {/* Links inside this group */}
+                                            <div className="flex flex-col gap-3 pl-2 mt-1">
+                                                {mega.links_data && mega.links_data.map((link) => (
+                                                    <Link 
+                                                        key={link.id} 
+                                                        href={link.url} 
+                                                        className="text-gray-600 text-sm hover:text-green-600"
+                                                        onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
+                                                    >
+                                                        {link.title}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                                <div className={`overflow-hidden transition-all duration-300 ${activeAccordion === 0 ? 'max-h-screen mb-4' : 'max-h-0'}`}>
-                                    <ul className="pl-4 flex flex-col gap-3 text-gray-600 bg-gray-50 p-4 rounded-lg">
-                                        <li><Link href="/history">Our History</Link></li>
-                                        <li><Link href="/vision">Vision & Mission</Link></li>
-                                        <li><Link href="/health">Health Services</Link></li>
-                                        <li><Link href="/education">Education</Link></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li className="border-b border-gray-100 py-4"><Link href="/who-we-are" className="font-bold">WHO WE ARE</Link></li>
-                            <li className="border-b border-gray-100 py-4"><Link href="/services" className="font-bold">SERVICES</Link></li>
-                            <li className="border-b border-gray-100 py-4"><Link href="/disaster-management" className="font-bold">DISASTER MANAGEMENT</Link></li>
-                            <li className="mt-8">
-                                <Link href="/donate" className="btn-donate w-full text-center">DONATE NOW</Link>
-                            </li>
-                        </ul>
-                    </div>
+                            </div>
+                        </>
+                    ) : (
+                        /* --- Simple Link (For menus with no child/mega menu) --- */
+                        <Link 
+                            href={menu.url} 
+                            className="block py-4 font-bold text-gray-700 uppercase"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            {menu.title}
+                        </Link>
+                    )}
+                </li>
+            );
+        })}
+
+        {/* --- Static Donate Button at Bottom --- */}
+        <li className="mt-8">
+            <Link href="/donate" className="btn-donate w-full text-center block py-3 rounded-md bg-green-600 text-white font-bold">
+                DONATE NOW
+            </Link>
+        </li>
+    </ul>
+</div>
                 </nav>
             </header>
 
@@ -154,73 +208,126 @@ export default function MainLayout({ children }) {
             
             {/* Column 1: Organization Info */}
             <div className="ak-f-col">
-                <img src="https://alkhidmat.org/images/footer-logo.svg" className="ak-f-logo" />
+                <img src={`storage/${settings.footer_logo.file_path}`} alt="Alkhidmat Womans footer logo" className="ak-f-logo" onClick={() => window.location.href = "/"} />
+                {FirstColumn && 
+                <>
                 <p className="ak-f-text">
-                    Alkhidmat Foundation is one of the leading, non-profit organization in Pakistan, 
-                    fully dedicated to humanitarian services since 1990.
+                    {FirstColumn.short_description}
                 </p>
-                <Link href="#" className="ak-f-link-arrow">➔ Donate for Gaza from Pakistan</Link>
+                <Link to={FirstColumn.link.url} className="ak-f-link-arrow">➔ {FirstColumn.link.link_name}</Link>
                 <div className="ak-f-legal">
-                    <p>D&B D-U-N-S: 64-579-3014</p>
-                    <p>National Taxation Number: C777982</p>
-                    <p>Registration Number: RP/4243/L/S/90/375</p>
-                    <p className="ak-f-tax-note">Alkhidmat Foundation Pakistan is tax exempted under FBR act 2(36)c.</p>
+                    <p>{FirstColumn.digital_id_no}</p>
+                    <p>National Taxation Number: {FirstColumn.tax_number}</p>
+                    <p>Registration Number: {FirstColumn.reg_number}</p>
+                    <p className="ak-f-tax-note">{FirstColumn.tax_exempt}</p>
                 </div>
+                
+                </>
+                }
             </div>
 
             {/* Column 2: Donation & Contact */}
             <div className="ak-f-col">
-                <h4 className="ak-f-heading">Donate Now</h4>
+                {FooterDonation && 
+                 <>
+                <h4 className="ak-f-heading">{FooterDonation.title}</h4>
                 <div className="ak-f-donate-box">
-                    <p>Meezan Bank: <strong>021401008611151</strong></p>
-                    <p>Cash Pick-Up: <strong>0800-44448</strong></p>
-                    <p>Donate In-Person:</p>
-                    <Link href="#" className="ak-f-link-arrow">➔ At Our Collection Centers</Link>
+               {FooterDonation.links && FooterDonation.links.map((item, index, array) => {
+  const isLast = index === array.length - 1;
+
+  return (
+    <Fragment key={index}>
+      {!isLast ? (
+        <p>{item.title}: <strong>{item.value}</strong></p>
+      ) : (
+        <>
+          <p>{item.title}:</p>
+          <Link href={item.value} className="ak-f-link-arrow">
+            ➔ At Our Collection Centers
+          </Link>
+        </>
+      )}
+    </Fragment>
+  );
+})}
+                   
+                    
                 </div>
+                 </> 
+                }
                 
-                <h4 className="ak-f-heading mt-8">Address</h4>
-                <p className="ak-f-address">
-                    Alkhidmat Foundation Headoffice, 3km Khayaban-e-Jinnah, Lahore, Punjab, Pakistan
-                </p>
-                <p className="ak-f-contact-info">
-                    Phone: +92 42 3802 0222<br />
-                    Email: info@alkhidmat.org
-                </p>
+                
+                
 
                 <div className="ak-f-social">
-                    <span>Connect With Us</span>
-                    <div className="ak-f-social-icons">
-                        <a href="#">f</a> <a href="#">x</a> <a href="#">yt</a> <a href="#">in</a> <a href="#">tk</a>
+                    {Address && 
+                      <>
+                      <h4 className="ak-f-heading mt-8">{Address.title}</h4>
+                        <p className="ak-f-address">
+                            {Address.text}
+                        </p>
+                        <p className="ak-f-contact-info">
+                            Phone: <Link to={`tel:${Address.phone}`}>{Address.phone}</Link> <br />
+                            Email: <Link to={`mail:${Address.email}`}>{Address.email}</Link>
+                        </p>
+                      <span>{Address.social_link_title}</span>
+                      <div className="ak-f-social-icons">
+                       {Address.social_links && Address.social_links.map((item,index) => (
+                          
+                        <Link key={index} to={item.url}>{item.link_name}</Link>
+                        ))}
                     </div>
+                      </>
+                     }
+                    
                 </div>
             </div>
 
             {/* Column 3: Orange Quick Links */}
             <div className="ak-f-col ak-f-orange-box">
                 <div className="ak-f-link-group">
-                    <h5>Our Appeals</h5>
+                    {OurAppeal && 
+                    <>
+                    <h5>{OurAppeal.title}</h5>
                     <ul>
-                        <li><Link href="#">➔ Ramadan 2025</Link></li>
-                        <li><Link href="#">➔ Zakat</Link></li>
-                        <li><Link href="#">➔ Fidya</Link></li>
-                        <li><Link href="#">➔ Food Pack</Link></li>
-                        <li><Link href="#">➔ Palestine Emergency Appeal</Link></li>
+                        {OurAppeal.links && OurAppeal.links.map((item,index) => (
+                            
+                            <li><Link key={index} to={item.url}>➔ {item.title}</Link></li>
+                        ))}
+                        
                     </ul>
+                    </>
+                    }
+                    
+                    
                 </div>
                 <div className="ak-f-link-group">
-                    <h5>Resources</h5>
+                     {Resources && 
+                    <>
+                    <h5>{Resources.title}</h5>
                     <ul>
-                        <li><Link href="#">➔ Our Resources</Link></li>
-                        <li><Link href="#">➔ Women Philanthropy</Link></li>
-                        <li><Link href="#">➔ Our Impact</Link></li>
+                        {Resources.links && Resources.links.map((item,index) => (
+                            
+                            <li><Link key={index} to={item.url}>➔ {item.title}</Link></li>
+                        ))}
+                        
                     </ul>
+                    </>
+                    }
                 </div>
                 <div className="ak-f-link-group">
-                    <h5>About Us</h5>
+                    {AboutUs && 
+                    <>
+                    <h5>{AboutUs.title}</h5>
                     <ul>
-                        <li><Link href="#">➔ Our Journey</Link></li>
-                        <li><Link href="#">➔ Regions</Link></li>
+                        {AboutUs.links && AboutUs.links.map((item,index) => (
+                            
+                            <li><Link key={index} to={item.url}>➔ {item.title}</Link></li>
+                        ))}
+                        
                     </ul>
+                    </>
+                    }
                 </div>
             </div>
         </div>
@@ -229,20 +336,23 @@ export default function MainLayout({ children }) {
     {/* 3. Bottom Copyright Bar */}
     <div className="ak-f-bottom-bar">
         <div className="container ak-f-bottom-inner">
-            <p>© Copyright 1990-2025 Alkhidmat Foundation Pakistan</p>
+            {CopyRight && 
+            <>
+            <p>{CopyRight.copyright}</p>
             <div className="ak-f-bottom-nav">
-                <Link href="#">Home</Link>
-                <Link href="#">Careers</Link>
-                <Link href="#">Contact Us</Link>
-                <Link href="#">HRMS</Link>
-                <Link href="#">FAQs</Link>
-                <Link href="#">Privacy Policy</Link>
-            </div>
+                {CopyRight.links && CopyRight.links.map((item,index) => (
+                <Link key={index} to={item.url}>{item.title}</Link>
+                ))}
+                </div>
+            </>
+            }
+            
+            
         </div>
     </div>
     
     {/* Sticky Button */}
-    <div className="ak-f-sticky-btn">Ways To Donate</div>
+    {/* <div className="ak-f-sticky-btn">Ways To Donate</div> */}
 </footer>
         </div>
     );

@@ -135,29 +135,34 @@ body {
 
     /* Mega Menu Wrapper */
     .ak-mega-wrapper {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%); /* Isse menu screen ki poori width cover karega */
-        background: #ffffff;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(15px);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 999;
-        border-top: 1px solid #f3f4f6;
-    }
+    position: absolute;
+    top: 100%;
+    left: 0; 
+    
+    /* Width changes: full-width logic remove kar di */
+    width: max-content;      /* Content ke mutabiq width lega */
+    min-width: 300px;        /* Kam se kam itni width (optional) */
+    max-width: 90vw;         /* Screen se bahar na nikal jaye */
+    
+    /* Padding add karein taaki content chipka hua na lage */
+    padding: 25px; 
+
+    background: #ffffff;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(15px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    border-top: 1px solid #f3f4f6;
+}
 
     /* Hover State */
-    .ak-has-mega:hover .ak-mega-wrapper {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
+   .ak-has-mega:hover .ak-mega-wrapper {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
     /* Inner Column Styling */
     .ak-mega-col h4 {
         font-size: 15px;

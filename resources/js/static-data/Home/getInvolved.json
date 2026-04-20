@@ -1,0 +1,26 @@
+{
+     "title":"Get Involved",
+     "cards":[
+        {
+            "id":1,
+            "title": "Become Volunteer",
+            "text": "Are you looking for an opportunity to make a difference guided by Islamic principles? Become a volunteer with Alkhidmat Foundation and discover the transformative power of volunteerism and change lives.",
+            "button_text": "REGISTER NOW",
+            "button_url" : "#"
+        },
+        {
+            "id":2,
+            "title": "Bank Transfer",
+            "text": "Direct deposits or transfers can be made into our accounts at any of the banks. Select your preferred bank from the list.",
+            "button_text": "VIEW BANK LIST",
+            "button_url" : "#"
+        },
+        {
+            "id":1,
+            "title": "Doorstep Collection",
+            "text": "You can donate through cheques or bank drafts, simply call at 0800 44 44 8 or 0304 111 4 22 and Alkhidmat's representative will collect it.",
+            "button_text": "CASH PICKUP",
+            "button_url" : "#"
+        }
+     ]
+}
