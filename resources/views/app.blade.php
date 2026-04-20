@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <title>{{(!empty($page['props']['page']['meta_title'])) ? $page['props']['page']['meta_title'] : $page['props']['settings']['site_title']}} | {{$page['props']['settings']['site_tag']}}</title>
+        <title>
+    {{ $page['props']['page']['meta_title'] ?? $page['props']['settings']['site_title'] ?? 'Default Title' }} | {{ $page['props']['settings']['site_tag'] ?? 'Default Tagline' }}
+</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="{{$page['props']['page']['meta_description']}}" />
