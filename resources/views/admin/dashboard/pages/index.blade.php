@@ -28,7 +28,11 @@
                           @foreach($pages as $page)
                           <tr>
                             <td class="py-1">
+                              @if(isset($page['profile_image']))
                               <img src="{{asset('storage/'.$page['profile_image']['file_path'])}}" alt="image" />
+                              @else
+                              <p>No Image</p>
+                              @endif
                             </td>
                             <td>{{$page['title']}} </td>
                             <td>
