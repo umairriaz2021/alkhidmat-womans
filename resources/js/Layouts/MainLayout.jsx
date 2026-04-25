@@ -56,6 +56,7 @@ export default function MainLayout({ children}) {
                     </Link>
 
                     {/* Desktop Navigation */}
+{/* Desktop Navigation */}
 <ul className="hidden lg:flex nav-links items-center">
     {topLevelMenus.filter(menu => menu.status?.name === 'publish').map((menu) => {
         const hasMegaMenu = menu.mega_menus && menu.mega_menus.length > 0;
@@ -90,8 +91,7 @@ export default function MainLayout({ children}) {
                                     </div>
                                 </div>
                             ))}
-                            
-                           
+                     
                         </div>
                     </div>
                 )}

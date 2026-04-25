@@ -213,7 +213,7 @@ public function deletePage($id)
 
      $settingsData = Setting::with(['siteLogo', 'footerLogo'])->first();
 
-
+   
 $settings = $settingsData ? $settingsData->toArray() : [];
         $menus = Menu::with(['submenu','parent','status'])->get()->toArray();
        
