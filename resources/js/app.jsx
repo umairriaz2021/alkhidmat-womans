@@ -13,7 +13,7 @@ createInertiaApp({
     title: (title) => title ? `${title} - ${appName}` : appName,
     
     resolve: async (name) => {
-        
+            
         const page = await resolvePageComponent(
             `./Components/${name}.jsx`,
             import.meta.glob('./Components/**/*.jsx')

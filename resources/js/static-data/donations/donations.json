@@ -1,0 +1,15 @@
+{
+
+     "first_sec":{
+          "title":"Appeals",
+          "description":"Explore our ongoing appeals and find a cause close to your heart. Each card represents a unique campaign where your contributions can provide food, shelter, medical aid, education, and hope to those in need. Click on any appeal to learn more and help transform lives today. Your generosity can bring immediate relief and lasting impact to vulnerable communities."
+     },
+    "second_sec":{
+           "data":[
+              {"id":1,"name":"Team","slug":"/team","img":"/IMG_697db6f66dd591769846518"},
+              {"id":2,"name":"President Message","slug":"/president-message","img":"/IMG_697db7d572d8d1769846741"},
+              {"id":3,"name":"Women Philanthropy","slug":"/women-philanthropy","img":"/IMG_697db9cca522e1769847244"},
+              {"id":4,"name":"Privacy Policy","slug":"/privacy-policy","img":"/IMG_6980ad0a560571770040586"}
+           ]
+    } 
+}

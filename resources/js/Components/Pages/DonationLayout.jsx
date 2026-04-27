@@ -1,13 +1,14 @@
 import React from 'react'
 import Breadcrumb from '@/Components/Pages/aboutPage/breadcrumbs/BreadCrumb';
 import AboutData from '@/static-data/about/aboutData.json';
-const AboutLayout = ({page}) => {
- const crumbName = page.template.template_name === 'about_layout' ? {
+const DonationLayout = ({page}) => {
+console.log(page.template.template_name);
+    const crumbName = page.template.template_name === 'donations_layout' ? {
          page:page.title,
-         title:"introduction",
+         title:"appeals",
          dynamic_page:"" 
-    } : ""; 
-
+    } : "";  
+    console.log(crumbName)
   return (
     <div className="ap-main-wrapper">
       {/* Introduction Section */}
@@ -52,4 +53,4 @@ const AboutLayout = ({page}) => {
   );
 };
 
-export default AboutLayout;
+export default DonationLayout;

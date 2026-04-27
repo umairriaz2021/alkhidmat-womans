@@ -50,6 +50,28 @@ class TemplateController extends Controller
 
     public function updateTemplate(Request $request,$id)
     {
+      // 1. Fetch the existing record or fail if not found
+    $template = PageTemplate::findOrFail($id);
+    $request->validate([
+            'temp_name'   => 'required|string|max:255',
+            'temp_status' => 'required|exists:status,id'
+        ]);
+
+        try {
+            // 3. Map the request data to the model properties
+            $template->display_name = ucfirst($request->temp_name);
+            $template->template_name = str_replace(' ', '_', strtolower($request->temp_name));
+            $template->status_id = $request->temp_status;
+            
+            // 4. Save the changes
+            $template->save();
+
+            return redirect()->back()->with('success', 'Template updated successfully!');
+        } 
+        catch (\Exception $e) {
+            return back()->withInput()->with('error', 'Something went wrong: ' . $e->getMessage());
+        }
+
 
     }
 }

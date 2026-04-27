@@ -220,6 +220,7 @@ $settings = $settingsData ? $settingsData->toArray() : [];
     $page = Page::with(['profileImage','template'])
                 ->where('slug', $slug)
                 ->firstOrFail();
+                
 
                 $sliderIds = json_decode($page->slider_id) ?? []; 
                     
@@ -229,7 +230,7 @@ $settings = $settingsData ? $settingsData->toArray() : [];
     return Inertia::render('DynamicPage', [
         'page' => $page,
         'sliders' => $sliders, // Alag se pass karein
-        'template_name' => $page->template->name,
+        'template_name' => $page->template->template_name,
         'settings' => $settings,
         'menus' =>  $menus
     ]);

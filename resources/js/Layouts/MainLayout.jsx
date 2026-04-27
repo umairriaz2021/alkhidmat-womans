@@ -10,7 +10,7 @@ import AboutUs from '@/static-data/footer/footer-links/about-us/about.json'
 import CopyRight from '@/static-data/footer/settings.json' 
 export default function MainLayout({ children}) {
     const {settings,menus} = children.props;
-    console.log(menus);
+    
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeAccordion, setActiveAccordion] = useState(null); // Mobile accordion state
@@ -55,33 +55,35 @@ export default function MainLayout({ children}) {
                         />
                     </Link>
 
-                    {/* Desktop Navigation */}
+
 {/* Desktop Navigation */}
 <ul className="hidden lg:flex nav-links items-center">
     {topLevelMenus.filter(menu => menu.status?.name === 'publish').map((menu) => {
         const hasMegaMenu = menu.mega_menus && menu.mega_menus.length > 0;
 
         return (
-            /* FIX: Parent 'li' must be relative for absolute menu positioning */
-            <li key={menu.id} className={`relative group ${hasMegaMenu ? 'ak-has-mega' : ''}`}>
+            /* FIX 1: Li tag par hamesha unique key honi chahiye */
+            <li key={`menu-${menu.id}`} className={`relative group ${hasMegaMenu ? 'ak-has-mega' : ''}`}>
                 <Link href={menu.url} className="flex items-center gap-1 uppercase px-4 py-5 hover:text-green-600 transition">
                     {menu.title} {hasMegaMenu && <span className="text-[10px]">▼</span>}
                 </Link>
 
                 {hasMegaMenu && (
                     <div className="ak-mega-wrapper shadow-2xl border-t-4 border-green-600">
-                        {/* FIX: Removed 'grid' and 'max-w-7xl'. Used 'flex' for auto-width */}
                         <div className="flex flex-nowrap gap-12 p-8">
                             {menu.mega_menus.map((mega) => (
-                                <div key={mega.id} className="ak-mega-col min-w-[150px]">
+                                /* FIX 2: Mega Menu columns par bhi key lazmi hai */
+                                <div key={`mega-${mega.id}`} className="ak-mega-col min-w-[150px]">
                                     <h4 className="font-bold text-dark-green border-b-2 border-green-500 pb-2 mb-4 uppercase whitespace-nowrap">
                                         {mega.group_name}
                                     </h4>
                                     
                                     <div className="flex flex-col space-y-2">
                                         {mega.links_data && mega.links_data.map((link) => (
+                                            
+                                            /* FIX 3: Inner Links par unique key */
                                             <Link 
-                                                key={link.id} 
+                                                key={`link-${link.id}`} 
                                                 href={link.url}
                                                 className="text-gray-600 hover:text-green-600 hover:translate-x-1 transition-all"
                                             >
@@ -91,7 +93,15 @@ export default function MainLayout({ children}) {
                                     </div>
                                 </div>
                             ))}
-                     
+                            
+                            {/* Static content like this Appeal Box doesn't need a key as it's not part of a map loop */}
+                            <div className="bg-green-50 p-6 rounded-xl text-center w-[240px] shrink-0 border border-green-100">
+                                <span className="text-green-600 font-bold text-sm block mb-2 underline">URGENT APPEAL</span>
+                                <p className="text-sm font-semibold mb-4 text-gray-800">Support Gaza Emergency Relief Fund</p>
+                                <Link href="/donate" className="bg-green-600 text-white py-2 px-6 rounded-lg text-xs font-bold hover:bg-green-700 transition inline-block">
+                                    DONATE NOW
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -292,7 +302,7 @@ export default function MainLayout({ children}) {
                     <ul>
                         {OurAppeal.links && OurAppeal.links.map((item,index) => (
                             
-                            <li><Link key={index} to={item.url}>➔ {item.title}</Link></li>
+                            <li key={`appeal-${index}`}><Link key={index} to={item.url}>➔ {item.title}</Link></li>
                         ))}
                         
                     </ul>
@@ -308,7 +318,7 @@ export default function MainLayout({ children}) {
                     <ul>
                         {Resources.links && Resources.links.map((item,index) => (
                             
-                            <li><Link key={index} to={item.url}>➔ {item.title}</Link></li>
+                            <li key={`res-${index}`}><Link to={item.url}>➔ {item.title}</Link></li>
                         ))}
                         
                     </ul>
@@ -322,7 +332,7 @@ export default function MainLayout({ children}) {
                     <ul>
                         {AboutUs.links && AboutUs.links.map((item,index) => (
                             
-                            <li><Link key={index} to={item.url}>➔ {item.title}</Link></li>
+                            <li key={`about-${index}`}><Link to={item.url}>➔ {item.title}</Link></li>
                         ))}
                         
                     </ul>
