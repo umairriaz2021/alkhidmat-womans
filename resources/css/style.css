@@ -1446,4 +1446,86 @@ gap: 40px;
     .slider-heading { font-size: 2.5rem; }
     .hero-slider-section { height: 450px; }
     .nav-links { display: none; } /* Mobile menu needs JS or separate logic */
+    .slider-content{flex-direction:column;}
+     .gt-donation-title{
+       font-size:21px;
+     }
+     .gt-form-subtitle {
+    font-size: 13px;
+    margin-bottom: 16px;
 }
+.gt-form-label-small{
+   font-size:13px;
+}
+.gt-form-select, .gt-form-input{
+    font-size:14px;
+    padding:10px;
+}
+.sliderWrapper {
+    display: none;
+}
+.gt-donation-card{
+  padding:15px;
+}
+.gt-submit-btn {
+    padding: 7px;
+    font-size: 14px;
+    margin-top: 0px;
+}
+.container {
+    padding: 0 20px;
+}
+.your-impact h2,.whoWeAre h2,.volunteer-container .title,.gi-section-title,.soa-title{
+  font-size:1.6rem;
+}
+.whoWeAre p,.volunteer-container .description{
+  font-size:14px; 
+  line-height:1.6;
+}
+.donations{
+  grid-template-columns: 100%;
+  justify-items: center;
+}
+.donation-card{
+   flex-direction: column;
+    text-align: center;
+}
+.ak-f-newsletter{
+   width:100%;
+}
+.ak-f-newsletter-form {
+   
+    flex-direction: column;
+}
+.gi-card__title{
+   font-size:1.4rem;
+}
+.gi-card__button{
+      padding: 10px 20px;
+}
+.soa-section{
+   padding:0;
+}
+.donation-content h4 {
+    font-size: 1.5rem;
+}
+.about-section{
+   padding:30px 0;
+}
+.donation-content p{
+   font-size:14px;
+}
+.helpWrapper {
+    grid-template-columns: 100%;
+    align-items: center;
+    justify-items: center;
+}
+.imgwrap h5 {
+    font-size: 18px;
+    line-height: 1.4rem;
+}
+.volunteer {
+
+    padding: 0 20px;
+}
+  }

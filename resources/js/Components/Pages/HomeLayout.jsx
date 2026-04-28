@@ -40,7 +40,8 @@ const HomeLayout = ({ page,sliders }) => {
                     effect="fade"
                     
                     pagination={{ clickable: true }}
-                    autoplay={{ delay: 5000 }}
+                    //autoplay={{ delay: 5000 }}
+                    autoplay={false}
                     loop={sliders?.length > 1}
                     className="h-full w-full"
                 >
