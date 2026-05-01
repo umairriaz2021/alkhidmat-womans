@@ -869,6 +869,44 @@ body {
     justify-content: center;
     column-gap: 20px;
 }
+/* Swiper Pagination Container */
+.swiper-pagination-horizontal {
+    bottom: 25px !important; /* Image ke mutabiq thora upar position */
+}
+
+/* Base Bullet Styling */
+.swiper-pagination-bullet {
+    width: 10px !important;
+    height: 10px !important;
+    background: #cccccc !important; /* Default grey color */
+    opacity: 1 !important;
+    border-radius: 50px !important; /* Round shapes */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Smooth bounce effect */
+    margin: 0 5px !important !important;
+}
+
+/* Active Bullet Styling (Elongated Look) */
+.swiper-pagination-bullet-active {
+    width: 30px !important; /* Bullet lamba ho jayega */
+    background: #ffcc00 !important; /* Alkhidmat Blue ya aapka primary theme color */
+    border-radius: 5px !important;
+}
+
+/* Hover Effect */
+.swiper-pagination-bullet:hover {
+    background: #ffcc00 !important;
+    transform: scale(1.2) !important;
+}
+
+/* Clickable feedback */
+.swiper-pagination-clickable .swiper-pagination-bullet {
+    cursor: pointer !important;
+}
+
+/* Dark Section ke liye contrast adjustment */
+.swiper-pagination-bullet-active {
+    box-shadow: 0px 0px 10px rgba(0, 86, 179, 0.4) !important; /* Glow effect */
+}
 .donations {
     display: grid;
     justify-content: center;
