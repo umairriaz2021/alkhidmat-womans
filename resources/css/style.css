@@ -238,10 +238,10 @@ body {
     .ak-donation-cart {
         display: none !important;
     }
-
+    
     /* Mobile toggle ko show karna */
     .ak-mobile-toggle {
-        display: block !important;
+        display: none !important;
     }
 }
 /* Mobile Action Section */
@@ -403,7 +403,7 @@ body {
     color: var(--primary-color);
 }
 /* --- Desktop Mega Menu Unique Styling --- */
-@media (min-width: 1024px) {
+@media (min-width: 769px) {
     /* Header Container fix */
     .nav-container {
         position: relative;
@@ -875,6 +875,7 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 50px;
     margin-top: 50px;
+    padding: 0 75px;
 }
 .donation-content h4 {
     font-size: 1.4rem;
@@ -1763,10 +1764,41 @@ gap: 40px;
 .sliderWrapper {
     display: none;
 }
-
+ 
+  }
+  @media(max-width:1280px)
+  {
+    .container{
+        padding: 0 30px;
+    }
+    .nav-container{
+       padding:0 20px;
+    }
+    .ak-btn-yellow,.ak-btn-red{
+  padding:10px 15px;
+  font-size:14px;
+  font-weight:700;
+}
+.ak-btn-red i{
+   display:none;
+}
+.nav-links{
+   gap:15px;
+}
+  .donation-card{
+     flex-direction:column;
+  }
+  .donations{
+        grid-row-gap: 50px;
+    grid-column-gap: 0;
+  }
+  .donation-content{
+     text-align:center;
+  }
   }
  @media(max-width:1024px)
  {
+
   .sliderWrapper h1 {
     font-size: 30px;
     line-height: 1.4;
@@ -1788,6 +1820,7 @@ gap: 40px;
     font-size: 14px;
     margin-top: 0px;
 }
+
 .container {
     padding: 0 20px;
 }
@@ -1851,9 +1884,12 @@ gap: 40px;
     width:100%;
     align-items:center;
 }
+.ak-f-bottom-inner p {
+    order: 2;
+}
 .ak-f-bottom-inner{
   flex-direction:column;
-
+  row-gap:8px;
 }
 /* Sirf Yellow aur Red buttons ko hide karein */
     .ak-btn-yellow, 
@@ -1880,10 +1916,14 @@ gap: 40px;
 
     /* Mobile toggle ko show karein */
     .ak-mobile-toggle {
-        display: block !important;
+        display: none !important;
         margin-left: 5px;
         padding: 5px;
     }
+    .nav-container{
+       padding:0 30px;
+    }
+   
  } 
  @media(max-width:768px)
  {
@@ -1957,11 +1997,14 @@ gap: 40px;
     padding: 0 20px;
 }
 .ak-f-bottom-nav {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-row-gap: 5px;
-    justify-items:flex-start;
-    width:85%;
+   
+    flex-wrap:wrap;
+    width:100%;
+    gap:10px;
+    row-gap:5px;
+}
+.ak-f-bottom-inner p {
+    order: 2;
 }
 .ak-f-input {
   width:300px;
@@ -2000,10 +2043,11 @@ nav.nav-container a img {
   width:100%;
 }
 .ak-f-bottom-nav {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-row-gap: 5px;
-    justify-items:flex-start;
-    width:85%;
+   
+    flex-wrap:wrap;
+    width:100%;
+}
+.ak-f-bottom-inner p {
+    order: 2;
 }
   }

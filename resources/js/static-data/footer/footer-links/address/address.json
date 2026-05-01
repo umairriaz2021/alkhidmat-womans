@@ -7,23 +7,23 @@
      "social_links":[
          {
              "link_name" : "f",
-             "url": "#"
+             "url": "https://www.facebook.com/alkhidmat.org/"
          },
          {
               "link_name": "x",
-              "url":"#"
+              "url":"https://twitter.com/alkhidmatorg"
          },
          {
               "link_name":"yt",
-              "url":"#"
+              "url":"https://www.youtube.com/@alkhidmatpakistann"
          },
          {
               "link_name":"in",
-              "url":"#"
+              "url":"https://pk.linkedin.com/company/alkhidmat-foundation-pakistan"
          },
          {
                "link_name":"tk",
-               "url":"#"
+               "url":"https://www.tiktok.com/@alkhidmatorg"
          }
      ]
 }

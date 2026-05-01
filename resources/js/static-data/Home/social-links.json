@@ -2,27 +2,27 @@
      "socials":[
          {
             "icon":"fab fa-facebook-f",
-            "link":"#"
+            "link":"https://www.facebook.com/alkhidmat.org/"
          },
          {
             "icon":"fab fa-x-twitter",
-            "link":"#"
+            "link":"https://twitter.com/alkhidmatorg"
          },
          {
             "icon":"fab fa-youtube",
-            "link":"#"
+            "link":"https://www.youtube.com/@alkhidmatpakistann"
          },
          {
             "icon":"fab fa-instagram",
-            "link":"#"
+            "link":"https://www.instagram.com/alkhidmatpakistan/"
          },
          {
             "icon":"fab fa-linkedin-in",
-            "link":"#"
+            "link":"https://pk.linkedin.com/company/alkhidmat-foundation-pakistan"
          },
          {
             "icon":"fab fa-tiktok",
-            "link":"#"
+            "link":"https://www.tiktok.com/@alkhidmatorg"
          }
      ]
 }
