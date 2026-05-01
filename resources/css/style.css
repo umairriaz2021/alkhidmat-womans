@@ -47,7 +47,282 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+/* Unique Wrapper to avoid conflicts */
+.ak-top-header-wrapper {
+    background-color: #0056b3; /* Alkhidmat Blue */
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    width: 100%;
+}
 
+.ak-top-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Left Contact Info */
+.ak-contact-info {
+    padding: 10px 15px;
+}
+
+.ak-contact-item {
+    margin-right: 20px;
+}
+
+/* Right Side Grouping */
+.ak-actions-group {
+    display: flex;
+    align-items: stretch; /* Taake buttons poori height cover karein */
+}
+
+/* Social Icons Styling */
+.ak-social-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    position: relative;
+    left: 25px;
+    
+}
+
+.ak-social-link {
+    color: #ffffff;
+    text-decoration: none;
+    transition: opacity 0.3s;
+    font-size:16px;
+}
+
+.ak-social-link:hover {
+    opacity: 0.7;
+}
+
+/* Action Buttons Styles */
+.ak-btn-gaza {
+    background-color: #e30613; /* Red from image_8387d9.png */
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.ak-btn-partners {
+    background-color: #cccccc; /* Grey from image_8387d9.png */
+    color: #0056b3;
+    padding: 12px 25px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+/* Responsive: Hide on mobile, only show logo/main menu if needed */
+@media (max-width: 768px) {
+    .ak-top-header-wrapper {
+        display: none !important;
+    }
+}
+
+/* Container styling */
+.ak-header-actions-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Yellow Button (Give Qurbani) */
+.ak-btn-yellow {
+    background-color: #ffcc00;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 15px;
+    transition: background 0.3s;
+}
+
+/* Red Button (Donate Now) */
+.ak-btn-red {
+    background-color: #e30613;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s;
+}
+
+.ak-btn-red:hover { background-color: #c00510; }
+.ak-btn-yellow:hover { background-color: #e6b800; }
+
+/* Cart Section Styling */
+.ak-donation-cart {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 10px;
+}
+
+.ak-cart-icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.ak-hand-icon {
+    font-size: 28px;
+    color: #003d79; /* Dark Blue from Alkhidmat logo */
+}
+
+.ak-cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #e30613;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+}
+
+.ak-cart-details {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.ak-currency {
+    font-size: 10px;
+    color: #666;
+    font-weight: bold;
+}
+
+.ak-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Mobile Toggle Switch */
+.ak-mobile-toggle {
+    display: none; /* Desktop pe hide */
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #005a2c; /* Alkhidmat Green */
+}
+
+/* Responsive Logic */
+@media (max-width: 1024px) {
+    /* Buttons aur Cart ko hide karna */
+    .ak-btn-yellow, 
+    .ak-btn-red, 
+    .ak-donation-cart {
+        display: none !important;
+    }
+
+    /* Mobile toggle ko show karna */
+    .ak-mobile-toggle {
+        display: block !important;
+    }
+}
+/* Mobile Action Section */
+.ak-mob-btn-yellow {
+    background-color: #ffcc00;
+    color: #000;
+    text-align: center;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.ak-mob-btn-red {
+    background-color: #e30613;
+    color: #fff;
+    text-align: center;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Mobile Cart Styling */
+.ak-mob-cart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.ak-mob-cart-icon {
+    position: relative;
+    font-size: 32px;
+    color: #003d79;
+}
+
+.ak-mob-badge {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: #e30613;
+    color: white;
+    font-size: 11px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+}
+
+.ak-mob-cart-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.ak-mob-currency {
+    font-size: 11px;
+    color: #666;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.ak-mob-amount {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
 /* --- REUSABLE COMPONENTS --- */
 .btn-donate {
     background-color: var(--primary-color);
@@ -937,7 +1212,7 @@ gap: 40px;
 
 .ak-read-more { color: #d3181f; text-decoration: none; font-weight: bold; font-size: 13px; }
 
-.ak-social-icons { display: flex; gap: 8px; color: #00305b; font-size: 12px; }
+
 
 /* VIDEO BOX */
 .ak-video-placeholder { position: relative; cursor: pointer; }
@@ -1556,6 +1831,35 @@ gap: 40px;
   flex-direction:column;
 
 }
+/* Sirf Yellow aur Red buttons ko hide karein */
+    .ak-btn-yellow, 
+    .ak-btn-red {
+        display: none !important;
+    }
+
+    /* Wrapper ko handle karein taake items baraber mein ayen */
+    .ak-header-actions-wrapper {
+        gap: 10px; /* Mobile par gap kam kar dein */
+    }
+
+    /* Cart section ko mobile pe show rakhein aur adjust karein */
+    .ak-donation-cart {
+        display: flex !important; /* Force show on mobile */
+        padding-left: 0;
+        margin-right: 5px;
+    }
+
+    /* Choti screen pe amount ka size thora kam kar sakte hain agar space kam ho */
+    .ak-amount {
+        font-size: 16px;
+    }
+
+    /* Mobile toggle ko show karein */
+    .ak-mobile-toggle {
+        display: block !important;
+        margin-left: 5px;
+        padding: 5px;
+    }
  } 
  @media(max-width:768px)
  {
@@ -1585,8 +1889,12 @@ gap: 40px;
    flex-direction: column;
     text-align: center;
 }
+.ak-f-newsletter-inner{
+  flex-direction:column;
+}
 .ak-f-newsletter{
    width:100%;
+   border-radius:unset;
 }
 .ak-f-newsletter-form {
    
@@ -1631,11 +1939,20 @@ gap: 40px;
     justify-items:flex-start;
     width:85%;
 }
+.ak-f-input {
+  width:300px;
+}
  }
   @media(max-width:480px)
   {
    
-
+nav.nav-container a img {
+    width: auto;
+    height: 45px !important;
+}
+.ak-cart-details {
+        display: none;
+    }
 .donations{
   grid-template-columns: 100%;
   justify-items: center;
@@ -1654,6 +1971,9 @@ gap: 40px;
 .volunteer {
 
     padding: 0 20px;
+}
+.ak-f-input {
+  width:100%;
 }
 .ak-f-bottom-nav {
     display: grid;

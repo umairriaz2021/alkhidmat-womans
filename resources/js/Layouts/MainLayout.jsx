@@ -8,6 +8,7 @@ import OurAppeal from '@/static-data/footer/footer-links/our-appeals/appeals.jso
 import Resources from '@/static-data/footer/footer-links/our-resources/resources.json'
 import AboutUs from '@/static-data/footer/footer-links/about-us/about.json'
 import CopyRight from '@/static-data/footer/settings.json' 
+import SocialLinks from '@/static-data/Home/social-links.json';
 export default function MainLayout({ children}) {
     const {settings,menus} = children.props;
     
@@ -28,19 +29,43 @@ export default function MainLayout({ children}) {
     return (
         <div className="layout-wrapper overflow-x-hidden">
             {/* --- TOP BAR --- */}
-            <div className="top-bar hidden md:block">
-                <div className="top-bar-container">
-                    <div>
-                        <span className="mr-4">📞 +92 21 111 503 503</span>
-                        <span>✉️ info@alkhidmat.org</span>
-                    </div>
-                    <div className="flex gap-4">
-                        <Link href="/careers" className="hover:text-green-400">Careers</Link>
-                        <Link href="/news" className="hover:text-green-400">News</Link>
-                        <Link href="/contact" className="hover:text-green-400">Contact Us</Link>
-                    </div>
-                </div>
-            </div>
+            <div className="ak-top-header-wrapper">
+    <div className="ak-top-container">
+        {/* Left Section: Contact */}
+        <div className="ak-contact-info">
+            <span className="ak-contact-item"><i class="fa-solid fa-phone"></i> +92 21 111 503 503</span>
+            <span className="ak-contact-item"><i class="fa-regular fa-envelope"></i> info@alkhidmat.org</span>
+        </div>
+       
+        {/* Right Section: Social & Buttons */}
+        <div className="ak-actions-group">
+            {/* Social Icons */}
+            {SocialLinks.socials.length > 0 && 
+             
+                <div className="ak-social-icons">
+                 {SocialLinks.socials.map((social,index) => (
+                   <>
+                    <a key={`social-${index}`} href={social.link} className="ak-social-link"><i className={social.icon}></i></a>   
+                   </>
+                 ))}
+                
+                <a href="#" className="ak-social-link"><i className="lni lni-twitter-original"></i></a>
+                <a href="#" className="ak-social-link"><i className="lni lni-youtube"></i></a>
+                <a href="#" className="ak-social-link"><i className="lni lni-instagram-filled"></i></a>
+                <a href="#" className="ak-social-link"><i className="lni lni-linkedin-original"></i></a>
+                <a href="#" className="ak-social-link"><i className="lni lni-tiktok"></i></a>
+               </div> 
+             
+            
+            }
+            
+
+            {/* Action Buttons based on image_8387d9.png */}
+            <Link href="/gaza" className="ak-btn-gaza">Give for Gaza</Link>
+            <Link href="/partners" className="ak-btn-partners">International Partners</Link>
+        </div>
+    </div>
+</div>
 
             {/* --- STICKY HEADER --- */}
             <header className={`main-header bg-white ${isScrolled ? 'header-scrolled' : 'header-default'}`}>
@@ -70,7 +95,7 @@ export default function MainLayout({ children}) {
 
                 {hasMegaMenu && (
                     <div className="ak-mega-wrapper shadow-2xl border-t-4 border-green-600">
-                        <div className="flex flex-nowrap gap-12 p-8">
+                        <div className="flex flex-nowrap gap-12">
                             {menu.mega_menus.map((mega) => (
                                 /* FIX 2: Mega Menu columns par bhi key lazmi hai */
                                 <div key={`mega-${mega.id}`} className="ak-mega-col min-w-[150px]">
@@ -94,14 +119,6 @@ export default function MainLayout({ children}) {
                                 </div>
                             ))}
                             
-                            {/* Static content like this Appeal Box doesn't need a key as it's not part of a map loop */}
-                            <div className="bg-green-50 p-6 rounded-xl text-center w-[240px] shrink-0 border border-green-100">
-                                <span className="text-green-600 font-bold text-sm block mb-2 underline">URGENT APPEAL</span>
-                                <p className="text-sm font-semibold mb-4 text-gray-800">Support Gaza Emergency Relief Fund</p>
-                                <Link href="/donate" className="bg-green-600 text-white py-2 px-6 rounded-lg text-xs font-bold hover:bg-green-700 transition inline-block">
-                                    DONATE NOW
-                                </Link>
-                            </div>
                         </div>
                     </div>
                 )}
@@ -111,17 +128,37 @@ export default function MainLayout({ children}) {
 </ul>
 
                     {/* Right Side Buttons */}
-                    <div className="flex items-center gap-4">
-                        <Link href="/donate" className="btn-donate !hidden sm:!block ">DONATE NOW</Link>
-                        
-                        {/* Mobile Menu Toggle */}
-                        <button 
-                            className="lg:hidden p-2 text-2xl text-dark-green"
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        >
-                            {isMobileMenuOpen ? '✖' : '☰'}
-                        </button>
-                    </div>
+                 <div className="ak-header-actions-wrapper">
+    {/* Give Qurbani Button */}
+    <Link href="/qurbani" className="ak-btn-yellow">
+        Give Qurbani
+    </Link>
+
+    {/* Donate Now Button */}
+    <Link href="/donate" className="ak-btn-red">
+        Donate Now <i className="fas fa-arrow-right"></i>
+    </Link>
+
+    {/* Donation Cart Section */}
+    <div className="ak-donation-cart">
+        <div className="ak-cart-icon-container">
+            <i className="fas fa-hand-holding ak-hand-icon"></i>
+            <span className="ak-cart-badge">0</span>
+        </div>
+        <div className="ak-cart-details">
+            <span className="ak-currency">PKR</span>
+            <span className="ak-amount">0</span>
+        </div>
+    </div>
+
+    {/* Mobile Menu Toggle (Hamesha dikhayi dega mobile pe) */}
+    <button 
+        className="ak-mobile-toggle"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+    >
+        {isMobileMenuOpen ? '✖' : '☰'}
+    </button>
+</div>
 
                     {/* Mobile Navigation Drawer (Accordion Style) */}
                     <div className={`ak-mobile-drawer lg:hidden fixed inset-0 top-[70px] bg-white z-40 transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
@@ -186,13 +223,22 @@ export default function MainLayout({ children}) {
         })}
 
         {/* --- Static Donate Button at Bottom --- */}
-        <li className="mt-8">
-            <Link href="/donate" className="btn-donate w-full text-center block py-3 rounded-md bg-green-600 text-white font-bold">
-                DONATE NOW
-            </Link>
-        </li>
+        <li className="mt-6 flex flex-col gap-4 px-2">
+    {/* Give Qurbani Button */}
+    <Link href="/qurbani" className="ak-mob-btn-yellow">
+        Give Qurbani
+    </Link>
+
+    {/* Donate Now Button (Image style) */}
+    <Link href="/donate" className="ak-mob-btn-red">
+        Donate Now <i className="fas fa-arrow-right ml-2"></i>
+    </Link>
+
+    
+</li>
     </ul>
 </div>
+
                 </nav>
             </header>
 
