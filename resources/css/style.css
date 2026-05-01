@@ -13,11 +13,12 @@
     
     /* Layout */
     --container-max: 1450px;
+    --mini-container: 1360px;
     --transition-base: 0.3s ease;
     
     /* Typography Sizes */
-    --h1-size: 3.5rem;
-    --h2-size: 2.5rem;
+    --h1-size: 3.1rem;
+    --h2-size: 2rem;
     --h4-size: 18px;
     --body-size: 14px;
 }
@@ -515,7 +516,7 @@ body {
 
 .slider-content {
     position: relative;
-    max-width: var(--container-width);
+    max-width: var(--mini-container);
     padding: 0 24px;
     color: var(--white);
     z-index: 10;
@@ -523,11 +524,15 @@ body {
     justify-content: space-between;
     width: 100%;
     align-items:center;
+    margin: 0 auto;
 }
-
+.slider-content h2{
+   font-size:1rem;
+   font-weight: 500;
+}
 .slider-heading {
     font-size: var(--h1-size);
-    font-weight: 800;
+    font-weight: 700;
     margin-bottom: 24px;
     line-height: 1.2;
 }
@@ -856,6 +861,9 @@ body {
 .your-impact h2 + p{
     text-align:center;
 }
+.about-section .container{
+   max-width:var(--mini-container)
+}
 .donations {
     display: flex;
     justify-content: center;
@@ -869,7 +877,7 @@ body {
     margin-top: 50px;
 }
 .donation-content h4 {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: 700;
     line-height:2.5rem;
     color:var(--light-blue);
@@ -885,7 +893,7 @@ body {
   transform: rotateY(720deg);
 }
 .donation-content p {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 1.3rem;
 }
@@ -903,17 +911,22 @@ body {
 }
 .whoWeAre p{
     text-align:center;
-    font-size:1.1rem;
+    font-size:1rem;
     color:var(--text-muted);
     padding-bottom: 20px;
         width: 80%;
     margin: 0 auto;
-}
+    line-height:1.6;
+  }
+  .help-card-wraper .container{
+    max-width:var(--mini-container);
+  }
 .helpWrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-content: center;
     grid-row-gap: 20px;
+    grid-column-gap:10px;
 }
 a.help-card {
     text-align: center;
@@ -930,7 +943,8 @@ a.help-card {
   justify-content: space-between;
 gap: 40px;
   background-color: #fff;
-   
+   max-width:var(--mini-container);
+   margin:72px auto;
 }
 
 .content-side {
@@ -938,7 +952,7 @@ gap: 40px;
 }
 
 .volunteer-container .title {
-  font-size: 2.5rem;
+  font-size: var(--h2-size);
   color: #1a233a; /* Dark blue/black color */
   margin-bottom: 20px;
   font-weight: 600;
@@ -1006,12 +1020,12 @@ gap: 40px;
 }
 /*Featured Cause*/
 .featured-section {
- 
-  
   text-align: center;
   margin-top:50px;
 }
-
+.featured-section .container{
+   max-width:var(--mini-container);
+}
 .header-text h2 {
   font-size: 2rem;
   font-weight: 700;
@@ -1120,6 +1134,9 @@ gap: 40px;
   padding: 60px 0;
   margin-top:50px;
 
+}
+.ak-dashboard-wrapper .container{
+   max-width:var(--mini-container);
 }
 .ak-event-content {
     padding: 15px;
@@ -1276,7 +1293,9 @@ gap: 40px;
   background-color: #ffffff;
   font-family: 'Arial', sans-serif;
 }
-
+.gi-section .container{
+   max-width:var(--mini-container);
+}
 /* Header Styling */
 .gi-section-title {
   text-align: center;
@@ -1385,7 +1404,9 @@ gap: 40px;
   font-family: 'Arial', sans-serif;
   overflow: hidden;
 }
-
+.soa-section .container{
+   max-width:var(--mini-container);
+}
 .soa-header {
   text-align: center;
   margin-bottom: 20px;
@@ -1565,6 +1586,8 @@ gap: 40px;
 /* Main Content Section */
 .ak-f-main-content {
     padding: 60px 0;
+    max-width:var(--mini-container);
+    margin:0 auto;
 }
 
 .ak-f-grid {
@@ -1675,6 +1698,7 @@ gap: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width:var(--mini-container);
 }
 
 .ak-f-bottom-nav {

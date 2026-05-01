@@ -57,7 +57,7 @@ const HomeLayout = ({ page,sliders }) => {
                                     
                                     <div className="slider-content" >
                                         <div className={`sliderWrapper ${slider.cta_text == null && 'invisible'}`}>
-                                        <h2 style={{ fontSize: '1.5rem', marginBottom: '10px' }}>
+                                        <h2>
                                             {slider.tagline}
                                         </h2>
                                         <h1 className="slider-heading">
