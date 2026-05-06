@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{asset('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/js/select.dataTables.min.css')}}">
     <!-- End plugin css for this page -->
-       @if(request()->routeIs(['admin.add.pages','admin.edit.pages']))
+       @if(request()->routeIs(['admin.add.pages','admin.edit.pages','posts.create','posts.edit']))
     <script src="{{asset('assets/js/ckeditor.min.js')}}"></script>
     @endif  
     <!-- inject:css -->

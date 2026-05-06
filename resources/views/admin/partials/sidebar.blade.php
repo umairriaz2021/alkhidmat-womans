@@ -35,6 +35,46 @@
                 </ul>
               </div>
             </li>
+             <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#posts-elements" aria-expanded="false" aria-controls="posts-elements">
+                <i class="menu-icon mdi mdi-newspaper-variant-outline"></i>
+                <span class="menu-title">Blogs</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="posts-elements">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"><a class="nav-link" href="{{route('posts.index')}}">All Blogs</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{route('posts.create')}}">Add Category</a></li>
+
+                </ul>
+              </div>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#categories-elements" aria-expanded="false" aria-controls="categories-elements">
+                <i class="menu-icon mdi mdi-label-multiple-outline"></i>
+                <span class="menu-title">Categories</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="categories-elements">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"><a class="nav-link" href="{{route('categories.index')}}">All Categories</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{route('categories.create')}}">Add Category</a></li>
+                </ul>
+              </div>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#tags-elements" aria-expanded="false" aria-controls="tags-elements">
+                <i class="menu-icon mdi mdi-label-multiple-outline"></i>
+                <span class="menu-title">Tags</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="tags-elements">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"><a class="nav-link" href="{{route('tags.index')}}">All Categories</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{route('tags.create')}}">Add Category</a></li>
+                </ul>
+              </div>
+            </li>
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#basic-templates" aria-expanded="false" aria-controls="form-elements">
                 <i class="menu-icon mdi mdi-checkbox-multiple-blank-outline"></i>

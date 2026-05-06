@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\TemplateController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\TagController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -89,6 +92,10 @@ Route::prefix('admin')->group(function () {
              Route::match(['get','post'],'/settings',[SettingsController::class,'settingUpdate'])->name('admin.settings');
         });
         Route::post('/logout', [UserController::class, 'logout'])->name('admin.logout');
+        Route::resource('/posts',PostController::class);
+        Route::resource('/categories',CategoryController::class);
+        Route::resource('/tags',TagController::class);
+            
     });
 });
 
