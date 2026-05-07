@@ -1,0 +1,351 @@
+/* =========================================
+   GLOBAL
+========================================= */
+
+.akf-blog-page-wrapper *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.akf-blog-page-wrapper{
+    width:100%;
+    background:#ffffff;
+    font-family:'Inter',sans-serif;
+    color:#222222;
+}
+
+.akf-blog-container{
+    width:90%;
+    max-width:1540px;
+    margin:auto;
+}
+
+/* =========================================
+   BREADCRUMBS
+========================================= */
+
+.akf-blog-breadcrumb-main-wrap{
+    width:100%;
+    background:#f1f3f6;
+    border-top:1px solid #dfe3e8;
+    border-bottom:1px solid #dfe3e8;
+    padding:26px 0;
+}
+
+.akf-blog-breadcrumb-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.akf-blog-breadcrumb-row a{
+    text-decoration:none;
+    color:#3774ff;
+    font-size:18px;
+    font-weight:600;
+    transition:0.3s ease;
+}
+
+.akf-blog-breadcrumb-row a:hover{
+    opacity:0.8;
+}
+
+.akf-blog-breadcrumb-row span{
+    color:#6f7682;
+    font-size:18px;
+    font-weight:400;
+}
+
+.akf-blog-breadcrumb-row p{
+    color:#000000;
+    font-size:18px;
+    font-weight:700;
+    margin:0;
+}
+
+/* =========================================
+   HERO SECTION
+========================================= */
+
+.akf-blog-hero-section{
+    position:relative;
+    width:100%;
+    height:540px;
+    overflow:hidden;
+}
+
+.akf-blog-hero-image{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.akf-blog-hero-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,0.82),
+        rgba(0,0,0,0.20)
+    );
+}
+
+.akf-blog-hero-content{
+    position:absolute;
+    left:70px;
+    bottom:70px;
+    z-index:2;
+    width:100%;
+}
+
+.akf-blog-main-title{
+    max-width:900px;
+    font-size:62px;
+    line-height:1.1;
+    font-weight:800;
+    color:#ffffff;
+}
+
+/* =========================================
+   MAIN SECTION
+========================================= */
+
+.akf-blog-main-section{
+    padding:90px 0;
+}
+
+.akf-blog-layout-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:70px;
+}
+
+/* =========================================
+   ARTICLE CONTENT
+========================================= */
+
+.akf-blog-article-content p{
+    font-size:18px;
+    line-height:1.95;
+    color:#444444;
+    margin-bottom:28px;
+}
+
+.akf-blog-article-content h2{
+    font-size:38px;
+    line-height:1.2;
+    color:#0b5d37;
+    margin-top:50px;
+    margin-bottom:25px;
+    font-weight:700;
+}
+
+.akf-blog-content-image{
+    width:100%;
+    display:block;
+    margin:45px 0;
+    border-radius:24px;
+    object-fit:cover;
+}
+
+/* =========================================
+   CTA
+========================================= */
+
+.akf-blog-donation-box{
+    margin-top:60px;
+    background:#0b5d37;
+    border-radius:28px;
+    padding:60px 40px;
+    text-align:center;
+}
+
+.akf-blog-donation-box h3{
+    color:#ffffff;
+    font-size:42px;
+    font-weight:800;
+    margin-bottom:18px;
+}
+
+.akf-blog-donation-box p{
+    color:#e5e5e5;
+    max-width:700px;
+    margin:auto;
+    margin-bottom:30px;
+}
+
+.akf-blog-donation-box a{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    height:56px;
+    padding:0 34px;
+    border-radius:999px;
+    background:#ffffff;
+    color:#0b5d37;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:700;
+    transition:0.3s ease;
+}
+
+.akf-blog-donation-box a:hover{
+    transform:translateY(-2px);
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.akf-blog-sidebar-wrapper{
+    position:sticky;
+    top:40px;
+    height:fit-content;
+}
+
+.akf-blog-sidebar-card{
+    background:#ffffff;
+    border:1px solid #ececec;
+    border-radius:24px;
+    padding:30px;
+    margin-bottom:30px;
+}
+
+.akf-blog-sidebar-card h3{
+    color:#0b5d37;
+    font-size:26px;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+/* =========================================
+   RECENT POSTS
+========================================= */
+
+.akf-blog-recent-post-item{
+    display:flex;
+    gap:16px;
+    margin-bottom:24px;
+    align-items:center;
+}
+
+.akf-blog-recent-post-item:last-child{
+    margin-bottom:0;
+}
+
+.akf-blog-recent-post-item img{
+    width:95px;
+    height:80px;
+    border-radius:14px;
+    object-fit:cover;
+    flex-shrink:0;
+}
+
+.akf-blog-recent-post-item h4{
+    font-size:16px;
+    line-height:1.5;
+    color:#222222;
+    font-weight:600;
+}
+
+/* =========================================
+   CATEGORY LIST
+========================================= */
+
+.akf-blog-category-list{
+    list-style:none;
+}
+
+.akf-blog-category-list li{
+    padding:14px 0;
+    border-bottom:1px solid #eeeeee;
+    font-size:16px;
+    color:#444444;
+}
+
+.akf-blog-category-list li:last-child{
+    border-bottom:none;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:991px){
+
+    .akf-blog-layout-grid{
+        grid-template-columns:1fr;
+    }
+
+    .akf-blog-sidebar-wrapper{
+        position:relative;
+        top:0;
+    }
+
+    .akf-blog-main-title{
+        font-size:44px;
+    }
+
+    .akf-blog-hero-section{
+        height:430px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .akf-blog-breadcrumb-main-wrap{
+        padding:20px 0;
+    }
+
+    .akf-blog-breadcrumb-row{
+        gap:10px;
+        flex-wrap:wrap;
+    }
+
+    .akf-blog-breadcrumb-row a,
+    .akf-blog-breadcrumb-row span,
+    .akf-blog-breadcrumb-row p{
+        font-size:15px;
+    }
+
+    .akf-blog-hero-section{
+        height:340px;
+    }
+
+    .akf-blog-hero-content{
+        bottom:40px;
+    }
+
+    .akf-blog-main-title{
+        font-size:32px;
+        line-height:1.2;
+    }
+
+    .akf-blog-main-section{
+        padding:70px 0;
+    }
+
+    .akf-blog-article-content p{
+        font-size:16px;
+    }
+
+    .akf-blog-article-content h2{
+        font-size:28px;
+    }
+
+    .akf-blog-donation-box{
+        padding:40px 24px;
+    }
+
+    .akf-blog-donation-box h3{
+        font-size:30px;
+    }
+
+    .akf-blog-sidebar-card{
+        padding:24px;
+    }
+
+}

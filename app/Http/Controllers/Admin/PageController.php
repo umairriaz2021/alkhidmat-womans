@@ -9,6 +9,8 @@ use App\Models\Slider;
 use App\Models\Menu;
 use App\Models\PageTemplate;
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use App\Models\Setting;
@@ -210,30 +212,62 @@ public function deletePage($id)
 
  public function show($slug = 'home') // Default slug 'home' rakha hai
 { 
+  
+$check_page = Page::where('slug',$slug)->first()->toArray();
 
-     $settingsData = Setting::with(['siteLogo', 'footerLogo'])->first();
-
-   
+$settingsData = Setting::with(['siteLogo', 'footerLogo'])->first();
 $settings = $settingsData ? $settingsData->toArray() : [];
-        $menus = Menu::with(['submenu','parent','status'])->get()->toArray();
-       
-    $page = Page::with(['profileImage','template'])
+$menus = Menu::with(['submenu','parent','status'])->get()->toArray();
+$page = Page::with(['profileImage','template'])
                 ->where('slug', $slug)
                 ->firstOrFail();
                 
-
-                $sliderIds = json_decode($page->slider_id) ?? []; 
-                    
-    $sliders = Slider::with(['profileImage'])->whereIn('id', $sliderIds)->where('status_id',2)->get()->toArray();
+$sliderIds = json_decode($page->slider_id) ?? []; 
+$sliders = Slider::with(['profileImage'])->whereIn('id', $sliderIds)->where('status_id',2)->get()->toArray();
     //echo "<pre>"; print_r($settings);die;
-
+    $dynamicData = ['blogs'];
     return Inertia::render('DynamicPage', [
         'page' => $page,
         'sliders' => $sliders, // Alag se pass karein
         'template_name' => $page->template->template_name,
         'settings' => $settings,
-        'menus' =>  $menus
+        'menus' =>  $menus,
+        'data' => (in_array($slug,$dynamicData)) ? $this->getData($slug) : []
     ]);
 }
 
+
+public function getData($slug){
+     $data = []; 
+     if($slug === 'blogs')
+      {
+        $data = Category::with(['posts.profileImage'])->where('slug',$slug)->first()->toArray();
+      }
+      return $data; 
 }
+public function blogsDisplay($cat,$slug)
+{
+    $category = Category::where('slug',$cat)->first();
+    
+    $post = Post::with(['category'])->where(['category_id'=>$category->id,'slug'=>$slug])
+                ->firstOrFail()->toArray();
+
+    $settingsData = Setting::with(['siteLogo', 'footerLogo'])->first();
+    $settings = $settingsData ? $settingsData->toArray() : [];
+    $menus = Menu::with(['submenu','parent','status'])->get()->toArray();
+    return Inertia::render('DynamicPage', [
+        'page' => $post,
+        'sliders' => [], // Alag se pass karein
+        'template_name' => 'single_blog_page',
+        'settings' => $settings,
+        'menus' =>  $menus,
+        'data' => ['categories'=>Category::get()->toArray(),'posts'=>Post::with('profileImage')->latest()->paginate(5)]
+        
+    ]);
+
+      
+}
+
+}
+
+

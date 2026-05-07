@@ -3,6 +3,8 @@ import MainLayout from '@/Layouts/MainLayout'; // Header/Footer yahan hain
 import HomeLayout from '@/Components/Pages/HomeLayout';
 import AboutLayout from '@/Components/Pages/AboutLayout';
 import DonationLayout from './Pages/DonationLayout';
+import SingleBlog from '@/Components/Pages/Blogs/SingleBlog';
+import Blogs from '@/Components/Pages/Blogs/Blogs';
 
 const DynamicPage = (props) => {
     const { page, template_name } = props;
@@ -11,7 +13,9 @@ const DynamicPage = (props) => {
     const components = {
         'home_layout': HomeLayout,
         'about_layout': AboutLayout,
-        'donations_layout':DonationLayout
+        'donations_layout':DonationLayout,
+        'single_blog_page': SingleBlog,
+        'blog_template':Blogs
     };
 
     const SelectedLayout = components[template_name] || HomeLayout;
