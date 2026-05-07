@@ -249,7 +249,7 @@ public function blogsDisplay($cat,$slug)
 {
     $category = Category::where('slug',$cat)->first();
     
-    $post = Post::with(['category'])->where(['category_id'=>$category->id,'slug'=>$slug])
+    $post = Post::with(['category','profileImage'])->where(['category_id'=>$category->id,'slug'=>$slug])
                 ->firstOrFail()->toArray();
 
     $settingsData = Setting::with(['siteLogo', 'footerLogo'])->first();

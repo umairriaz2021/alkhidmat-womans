@@ -3,7 +3,7 @@ import '@/Components/Pages/Blogs/css/blog.css';
 import { Link } from '@inertiajs/react';
 
 const SingleBlog = ({ page,data }) => {
-   console.log('categories',data);
+   console.log('page_layout',page);
     return (
 
         <div className="akf-blog-page-wrapper">
@@ -17,7 +17,7 @@ const SingleBlog = ({ page,data }) => {
             <section className="akf-blog-hero-section">
               
                 <img
-                    src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1600&auto=format&fit=crop"
+                    src={`/storage/${page.profile_image.file_path}`}
                     alt="Flood Relief"
                     className="akf-blog-hero-image"
                 />
