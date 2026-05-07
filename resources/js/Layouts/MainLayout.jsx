@@ -348,7 +348,7 @@ export default function MainLayout({ children}) {
                     <ul>
                         {OurAppeal.links && OurAppeal.links.map((item,index) => (
                             
-                            <li key={`appeal-${index}`}><Link key={index} to={item.url}>➔ {item.title}</Link></li>
+                            <li key={`appeal-${index}`}><Link key={index} href={item.url}>➔ {item.title}</Link></li>
                         ))}
                         
                     </ul>
@@ -378,7 +378,7 @@ export default function MainLayout({ children}) {
                     <ul>
                         {AboutUs.links && AboutUs.links.map((item,index) => (
                             
-                            <li key={`about-${index}`}><Link to={item.url}>➔ {item.title}</Link></li>
+                            <li key={`about-${index}`}><Link href={item.url}>➔ {item.title}</Link></li>
                         ))}
                         
                     </ul>
