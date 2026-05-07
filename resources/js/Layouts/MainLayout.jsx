@@ -73,7 +73,7 @@ export default function MainLayout({ children}) {
                     {/* Logo */}
                     <Link href="/" className="z-50">
                         <img 
-                            src={`storage/${settings.site_logo.file_path}`} 
+                            src={`/storage/${settings.site_logo.file_path}`} 
                             alt="Alkhidmat Womans Home Logo" 
                             className="transition-all duration-300"
                             style={{ height: isScrolled ? '45px' : '60px' }} 
