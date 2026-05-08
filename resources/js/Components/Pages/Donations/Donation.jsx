@@ -184,7 +184,7 @@ function DonationCard({ item, onAdd }) {
           <p>{item.desc}</p>
         </div>
         <div className="akf-quantity-box">
-          <button className="akf-quantity-btn" onClick={() => setQuantity(q => Math.max(1, q - 1))}>-</button>
+          <button className="akf-quantity-btn" onClick={() => setQuantity(q => Math.max(0, q - 1))}>-</button>
           <span>{quantity}</span>
           <button className="akf-quantity-btn" onClick={() => setQuantity(q => q + 1)}>+</button>
         </div>

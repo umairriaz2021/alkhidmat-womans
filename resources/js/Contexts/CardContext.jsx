@@ -11,56 +11,64 @@ export const CartProvider = ({ children }) => {
     });
 
     const addToCart = (item, quantity) => {
+    // Pehle check karein ke quantity number hai
+    const qty = parseInt(quantity);
 
-        setCart(prev => {
+    setCart(prev => {
+        let updatedItems;
 
+        // AGAR QUANTITY 0 YA US SE KAM HAI: Item ko nikaal do
+        if (qty <= 0) {
+            updatedItems = prev.items.filter(
+                cartItem => cartItem.title !== item.title
+            );
+        } else {
             const existingItem = prev.items.find(
                 cartItem => cartItem.title === item.title
             );
 
-            let updatedItems = [];
-
             if (existingItem) {
-
+                // Item exist karta hai toh update karo
                 updatedItems = prev.items.map(cartItem =>
                     cartItem.title === item.title
                         ? {
                             ...cartItem,
-                            quantity,
-                            total: quantity * item.amount
+                            quantity: qty,
+                            total: qty * item.amount
                         }
                         : cartItem
                 );
-
             } else {
-
+                // Naya item add karo
                 updatedItems = [
                     ...prev.items,
                     {
                         ...item,
-                        quantity,
-                        total: quantity * item.amount
+                        quantity: qty,
+                        total: qty * item.amount
                     }
                 ];
             }
+        }
 
-            const totalAmount = updatedItems.reduce(
-                (sum, item) => sum + item.total,
-                0
-            );
+        // Nayi calculations
+        const totalAmount = updatedItems.reduce(
+            (sum, item) => sum + item.total,
+            0
+        );
 
-            const count = updatedItems.reduce(
-                (sum, item) => sum + item.quantity,
-                0
-            );
+        const count = updatedItems.reduce(
+            (sum, item) => sum + item.quantity,
+            0
+        );
 
-            return {
-                items: updatedItems,
-                count,
-                totalAmount
-            };
-        });
-    };
+        return {
+            items: updatedItems,
+            count,
+            totalAmount
+        };
+    });
+};
 
     return (
         <CartContext.Provider value={{ cart, addToCart }}>
