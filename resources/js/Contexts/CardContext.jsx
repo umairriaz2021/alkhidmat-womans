@@ -1,14 +1,21 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext,useEffect } from 'react';
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
 
-    const [cart, setCart] = useState({
-        items: [],
-        count: 0,
-        totalAmount: 0
+    const [cart, setCart] = useState(() => {
+        const savedCart = sessionStorage.getItem('akf_cart');
+        return savedCart ? JSON.parse(savedCart) : {
+            items: [],
+            count: 0,
+            totalAmount: 0
+        };
     });
+   
+    useEffect(() => {
+        sessionStorage.setItem('akf_cart', JSON.stringify(cart));
+    }, [cart]);
 
     const addToCart = (item, quantity) => {
     // Pehle check karein ke quantity number hai
