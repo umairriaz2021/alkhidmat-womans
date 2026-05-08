@@ -12,11 +12,16 @@ class Setting extends Model
     'site_title', 
     'site_tag', 
     'site_logo', 
-    'footer_logo'
+    'footer_logo',
+    'general'
 ];
  protected $hidden = [
      'created_at',
      'updated_at'
+ ];
+
+ protected $casts = [
+    'general' => 'array'
  ];
     public function siteLogo()
     {

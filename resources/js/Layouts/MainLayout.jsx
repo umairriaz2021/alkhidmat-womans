@@ -9,13 +9,17 @@ import Resources from '@/static-data/footer/footer-links/our-resources/resources
 import AboutUs from '@/static-data/footer/footer-links/about-us/about.json'
 import CopyRight from '@/static-data/footer/settings.json' 
 import SocialLinks from '@/static-data/Home/social-links.json';
+import { useCart } from '@/Contexts/CardContext';
+
 export default function MainLayout({ children}) {
     const {settings,menus} = children.props;
-    
+    console.log(children.props);
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeAccordion, setActiveAccordion] = useState(null); // Mobile accordion state
     const topLevelMenus = menus ? menus.filter(menu => menu.parent_id === null) : [];
+    const { cart } = useCart();
+    
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 50);
         window.addEventListener('scroll', handleScroll);
@@ -25,7 +29,7 @@ export default function MainLayout({ children}) {
     const toggleAccordion = (index) => {
         setActiveAccordion(activeAccordion === index ? null : index);
     };
-
+    
     return (
         <div className="layout-wrapper overflow-x-hidden">
             {/* --- TOP BAR --- */}
@@ -143,11 +147,11 @@ export default function MainLayout({ children}) {
     <div className="ak-donation-cart">
         <div className="ak-cart-icon-container">
             <i className="fas fa-hand-holding ak-hand-icon"></i>
-            <span className="ak-cart-badge">0</span>
+            <span className="ak-cart-badge">{cart.count}</span>
         </div>
         <div className="ak-cart-details">
             <span className="ak-currency">PKR</span>
-            <span className="ak-amount">0</span>
+            <span className="ak-amount">{cart.totalAmount}</span>
         </div>
     </div>
 

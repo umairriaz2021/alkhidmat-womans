@@ -5,6 +5,7 @@ import AboutLayout from '@/Components/Pages/AboutLayout';
 import DonationLayout from './Pages/DonationLayout';
 import SingleBlog from '@/Components/Pages/Blogs/SingleBlog';
 import Blogs from '@/Components/Pages/Blogs/Blogs';
+import DonationPage from './Pages/Donations/Donation';
 
 const DynamicPage = (props) => {
     const { page, template_name } = props;
@@ -15,7 +16,8 @@ const DynamicPage = (props) => {
         'about_layout': AboutLayout,
         'donations_layout':DonationLayout,
         'single_blog_page': SingleBlog,
-        'blog_template':Blogs
+        'blog_template':Blogs,
+        'donation_page':DonationPage
     };
 
     const SelectedLayout = components[template_name] || HomeLayout;
