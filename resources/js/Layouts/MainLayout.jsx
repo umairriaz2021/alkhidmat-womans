@@ -139,16 +139,16 @@ export default function MainLayout({ children}) {
     </Link>
 
     {/* Donate Now Button */}
-    <Link href="/donate" className="ak-btn-red">
+    <Link href="/donation-page" className="ak-btn-red">
         Donate Now <i className="fas fa-arrow-right"></i>
     </Link>
 
     {/* Donation Cart Section */}
     <div className="ak-donation-cart">
-        <div className="ak-cart-icon-container">
+        <Link href="/donation-summary" className="ak-cart-icon-container">
             <i className="fas fa-hand-holding ak-hand-icon"></i>
             <span className="ak-cart-badge">{cart.count}</span>
-        </div>
+        </Link>
         <div className="ak-cart-details">
             <span className="ak-currency">PKR</span>
             <span className="ak-amount">{cart.totalAmount}</span>
