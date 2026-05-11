@@ -29,6 +29,10 @@
                             <p class="mb-1 text-truncate"><strong>Name:</strong> <span id="info-name"></span></p>
                             <p class="mb-3"><strong>Size:</strong> <span id="info-size"></span></p>
                             <button class="btn btn-success w-100 fw-bold" id="confirm-selection-btn">Insert Image</button>
+                            <!-- Naya Delete Button -->
+                            <button class="btn btn-danger mt-3 w-100 btn-sm" id="delete-media-btn">
+                                <i class="mdi mdi-delete"></i> Delete Permanently
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -550,11 +550,15 @@ jQuery(document).ready(function($) {
                         </div>
                     </div>
                 </div>`;
-            });
-            $('#media-list-container').html(html);
+              });
+              $('#media-list-container').html(html);
+              
         });
     }
-
+    $(document).on('click','.media-item',function(){
+                $('#delete-media-btn').attr('data-id',$(this).attr('data-id'));
+                 
+              })
     // 2. Modal Open Logic
     $(document).on('click', '.open-media-manager', function(e) {
         e.preventDefault();
@@ -562,7 +566,7 @@ jQuery(document).ready(function($) {
         // Inputs ko globally assign karein taaki har function access kar sake
         window.currentInput = $($(this).data('target-input'));
         window.currentPreview = $($(this).data('target-preview'));
-
+        $('#delete-media-btn').attr('data-id',currentId);
         var modalElement = document.getElementById('mediaModal');
         if (modalElement) {
             var modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
@@ -762,5 +766,32 @@ jQuery(document).ready(function($) {
         $('#slugField').val(slug);
     });
     //Pages End
-    
+    $(document).on('click', '#delete-media-btn', function() {
+    let mediaId = $('#confirm-selection-btn').data('id'); // Farz karein aapne id yahan store ki hai
+
+    if (confirm('Are you sure you want to delete this image? This cannot be undone.')) {
+        $.ajax({
+            url: `/admin/media/${mediaId}`, // Aapka route
+            type: 'DELETE',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                if (response.success) {
+                    // 1. Modal sidebar ko reset karein
+                    $('#detail-info').addClass('d-none');
+                    $('#detail-preview').html('<i class="mdi mdi-image-off h1 text-light"></i>');
+                    
+                    // 2. List se image ka element remove karein
+                    $(`.media-item[data-id="${mediaId}"]`).remove();
+                    
+                    alert('File deleted successfully');
+                }
+            },
+            error: function() {
+                alert('Error deleting file');
+            }
+        });
+    }
+});
 });
