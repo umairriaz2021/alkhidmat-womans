@@ -37,8 +37,8 @@ export default function MainLayout({ children}) {
     <div className="ak-top-container">
         {/* Left Section: Contact */}
         <div className="ak-contact-info">
-            <span className="ak-contact-item"><i class="fa-solid fa-phone"></i> +92 21 111 503 503</span>
-            <span className="ak-contact-item"><i class="fa-regular fa-envelope"></i> info@alkhidmat.org</span>
+            <span className="ak-contact-item"><i className="fa-solid fa-phone"></i> +92 21 111 503 503</span>
+            <span className="ak-contact-item"><i className="fa-regular fa-envelope"></i> info@alkhidmat.org</span>
         </div>
        
         {/* Right Section: Social & Buttons */}
@@ -48,9 +48,9 @@ export default function MainLayout({ children}) {
              
                 <div className="ak-social-icons">
                  {SocialLinks.socials.map((social,index) => (
-                   <>
-                    <a key={`social-${index}`} href={social.link} className="ak-social-link"><i className={social.icon}></i></a>   
-                   </>
+                   <Fragment key={`social-${index}`}>
+                    <a  href={social.link} className="ak-social-link"><i className={social.icon}></i></a>   
+                   </Fragment>
                  ))}
                 
                 <a href="#" className="ak-social-link"><i className="lni lni-twitter-original"></i></a>
@@ -296,6 +296,7 @@ export default function MainLayout({ children}) {
   const isLast = index === array.length - 1;
 
   return (
+    /* key ko hamesha curly braces {} mein likhein, quotes "" mein nahi */
     <Fragment key={index}>
       {!isLast ? (
         <p>{item.title}: <strong>{item.value}</strong></p>

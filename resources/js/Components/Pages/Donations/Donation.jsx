@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCart } from '@/Contexts/CardContext';
-
+import {Link} from '@inertiajs/react';
 export default function DonationPage() {
  const { cart, addToCart } = useCart();
 
@@ -80,7 +80,8 @@ const handleAddDonation = (item, quantity) => {
                 <span>Total Donation</span>
                 <h3>PKR {cart.totalAmount.toLocaleString()}</h3>
               </div>
-              <button className="akf-donation-main-btn">Continue</button>
+              <Link href="/donation-summary" as="button" className="akf-donation-main-btn">Continue</Link>
+              {/* <button className="akf-donation-main-btn">Continue</button> */}
             </div>
           </div>
         </div>
@@ -149,6 +150,7 @@ const handleAddDonation = (item, quantity) => {
         .akf-donation-card-bottom { margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
         .akf-donation-price { color: #00a86b; font-size: 20px; font-weight: 700; }
         .akf-donation-add-btn { border: none; background: #042c5c; color: #fff; padding: 10px 20px; border-radius: 50px; font-weight: 600; cursor: pointer; }
+        .akf-donation-total-box span {color: #fff; font-size: 28px; font-weight: 700; border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
         .akf-donation-total-box { margin-top: 25px; padding: 20px; border-radius: 20px; background: #042c5c; display: flex; justify-content: space-between; align-items: center; }
         .akf-donation-total-box h3 { margin: 5px 0 0; color: #fff; font-size: 28px; }
         .akf-donation-main-btn { border: none; background: #00c389; color: #fff; padding: 12px 25px; border-radius: 50px; font-weight: 700; cursor: pointer; }
