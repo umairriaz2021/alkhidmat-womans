@@ -11,6 +11,7 @@ use App\Models\PageTemplate;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use App\Models\Setting;
@@ -218,6 +219,7 @@ $check_page = Page::where('slug',$slug)->first()->toArray();
 $settingsData = Setting::with(['siteLogo', 'footerLogo'])->first();
 $settings = $settingsData ? $settingsData->toArray() : [];
 $menus = Menu::with(['submenu','parent','status'])->get()->toArray();
+$paymentMethod = PaymentMethod::with(['status'])->get()->toArray();
 $page = Page::with(['profileImage','template'])
                 ->where('slug', $slug)
                 ->firstOrFail();
@@ -226,14 +228,19 @@ $sliderIds = json_decode($page->slider_id) ?? [];
 $sliders = Slider::with(['profileImage'])->whereIn('id', $sliderIds)->where('status_id',2)->get()->toArray();
     //echo "<pre>"; print_r($settings);die;
     $dynamicData = ['blogs'];
-    return Inertia::render('DynamicPage', [
+    $dynamicDataArr = [
         'page' => $page,
         'sliders' => $sliders, // Alag se pass karein
         'template_name' => $page->template->template_name,
         'settings' => $settings,
         'menus' =>  $menus,
         'data' => (in_array($slug,$dynamicData)) ? $this->getData($slug) : []
-    ]);
+    ];
+    if($slug === 'donation-summary')
+    {
+          $dynamicDataArr['payment_methods'] = $paymentMethod;
+    }
+    return Inertia::render('DynamicPage',$dynamicDataArr );
 }
 
 

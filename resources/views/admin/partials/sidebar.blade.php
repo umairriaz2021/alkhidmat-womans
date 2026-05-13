@@ -115,6 +115,19 @@
               </div>
             </li>
              <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#payment_method" aria-expanded="false" aria-controls="payment_method">
+                <i class="menu-icon mdi mdi-credit-card-outline"></i>
+                <span class="menu-title">Payment Methods</span>
+                 <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="payment_method">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{{route('payment-methods.index')}}">All Methods</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{route('payment-methods.create')}}">Add Method</a></li>
+                </ul>
+              </div>
+            </li>
+             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
                 <i class="menu-icon mdi mdi-file-document"></i>
                 <span class="menu-title">Settings</span>

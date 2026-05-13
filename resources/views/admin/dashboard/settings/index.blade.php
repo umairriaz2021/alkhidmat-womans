@@ -63,18 +63,7 @@
                     :preview_path="isset($settings->footer_logo) ? $settings->footerLogo->file_path : ''"    
                   />
                 </div>
-                  <div class="form-group">
-                    <label for="p_key">Stripe Public Key</label>
-                    <input type="text" name="general[p_key]" id="p_key" class="form-control" 
-                           placeholder="Enter public key" 
-                           value="{{ old('p_key', $settings->general['p_key'] ?? '') }}">
-                </div>
-                  <div class="form-group">
-                    <label for="p_key">Stripe Secret Key</label>
-                    <input type="text" name="general[s_key]" id="s_key" class="form-control" 
-                           placeholder="Enter secret key" 
-                           value="{{ old('p_key', $settings->general['s_key'] ?? '') }}">
-                </div>
+                
                 <div class="form-group mt-3">
                     <button type="submit" class="btn btn-primary me-2">Update Settings</button>
                 </div>

@@ -18,7 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
         'role' => \App\Http\Middleware\RoleMiddleware::class,
     ]);
-
+    $middleware->validateCsrfTokens(except: [
+        'api/create-stripe-session', // Is route ko CSRF se maaf kar dein
+    ]);
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
