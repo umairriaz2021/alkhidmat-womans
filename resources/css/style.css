@@ -134,6 +134,9 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
+    flex: 0 0 auto;
+    width: 35%;
+    justify-content: flex-end;
 }
 
 /* Yellow Button (Give Qurbani) */
@@ -383,6 +386,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.logoPath{
+  flex: 0 0 auto;
+    width: 10%;
+}
+.logoPath + ul {
+    flex: 0 0 auto;
+    width: 55%;
 }
 
 .nav-links {

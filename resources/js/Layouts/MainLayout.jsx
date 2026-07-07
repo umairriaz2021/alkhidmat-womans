@@ -75,12 +75,12 @@ export default function MainLayout({ children}) {
             <header className={`main-header bg-white ${isScrolled ? 'header-scrolled' : 'header-default'}`}>
                 <nav className="nav-container relative flex items-center justify-between px-4">
                     {/* Logo */}
-                    <Link href="/" className="z-50">
+                    <Link href="/" className="z-50 logoPath">
                         <img 
                             src={`/storage/${settings.site_logo.file_path}`} 
                             alt="Alkhidmat Womans Home Logo" 
                             className="transition-all duration-300"
-                            style={{ height: isScrolled ? '45px' : '60px' }} 
+                            style={{ height: isScrolled ? '45px' : '80px' }} 
                         />
                     </Link>
 
