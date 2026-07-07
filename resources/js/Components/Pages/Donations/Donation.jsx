@@ -161,7 +161,7 @@ const handleAddDonation = (item, quantity) => {
         .akf-impact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
         .akf-impact-card { background: #fff; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .akf-impact-card h3 { font-size: 32px; color: #042c5c; margin: 0; }
-        .akf-faq-wrapper { max-width: 800px; margin: 40px auto; display: flex; flex-direction: column; gap: 15px; }
+        .akf-faq-wrapper { max-width: 100%; margin: 40px 0; display: flex; flex-direction: column; gap: 15px; }
         .akf-accordion-item { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .akf-accordion-header { padding: 20px; cursor: pointer; font-weight: 700; color: #042c5c; list-style: none; display: flex; justify-content: space-between; }
         .akf-accordion-content { padding: 0 20px 20px; color: #6f7d92; }

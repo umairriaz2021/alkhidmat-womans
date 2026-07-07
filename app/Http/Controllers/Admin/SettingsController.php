@@ -30,8 +30,8 @@ class SettingsController extends Controller
                 'site_title'  => $request->stitle,
                 'site_tag'    => $request->stag,
                 'site_logo'   => $request->profile_image_id,
-                'footer_logo' => $request->profile_footer_image_id,
-                'general'     => $request->general,
+                'footer_logo' => $request->profile_footer_image_id
+                
             ]
         );
 
