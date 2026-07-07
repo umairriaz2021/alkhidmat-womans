@@ -89,11 +89,13 @@ export default function MainLayout({ children}) {
 <ul className="hidden lg:flex nav-links items-center">
     {topLevelMenus.filter(menu => menu.status?.name === 'publish').map((menu) => {
         const hasMegaMenu = menu.mega_menus && menu.mega_menus.length > 0;
-
+            const correctUrl = menu.url && !menu.url.startsWith('/') && !menu.url.startsWith('http') 
+        ? `/${menu.url}` 
+        : menu.url;
         return (
             /* FIX 1: Li tag par hamesha unique key honi chahiye */
             <li key={`menu-${menu.id}`} className={`relative group ${hasMegaMenu ? 'ak-has-mega' : ''}`}>
-                <Link href={menu.url} className="flex items-center gap-1 uppercase px-4 py-5 hover:text-green-600 transition">
+                <Link href={correctUrl} className="flex items-center gap-1 uppercase px-4 py-5 hover:text-green-600 transition">
                     {menu.title} {hasMegaMenu && <span className="text-[10px]">▼</span>}
                 </Link>
 

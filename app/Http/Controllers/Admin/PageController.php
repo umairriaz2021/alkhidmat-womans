@@ -262,6 +262,7 @@ public function blogsDisplay($cat,$slug)
     $settingsData = Setting::with(['siteLogo', 'footerLogo'])->first();
     $settings = $settingsData ? $settingsData->toArray() : [];
     $menus = Menu::with(['submenu','parent','status'])->get()->toArray();
+    // echo "<pre>"; print_r($menus);die;
     return Inertia::render('DynamicPage', [
         'page' => $post,
         'sliders' => [], // Alag se pass karein
