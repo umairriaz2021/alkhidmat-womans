@@ -58,10 +58,10 @@
             </button>
           </div>
           <div>
-            <a class="navbar-brand brand-logo" href="index.html">
+            <a class="navbar-brand brand-logo" href="{{route('admin.dashboard')}}">
               <img src="{{asset('assets/images/logo-AKFP.png')}}" alt="logo" />
             </a>
-            <a class="navbar-brand brand-logo-mini" href="index.html">
+            <a class="navbar-brand brand-logo-mini" href="{{route('admin.dashboard')}}">
               <img src="{{asset('assets/images/logo-AKFP.png')}}" alt="logo" />
             </a>
           </div>
