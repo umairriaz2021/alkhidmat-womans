@@ -390,12 +390,13 @@ body {
 .logoPath{
   flex: 0 0 auto;
     width: 10%;
-        position: relative;
-    left: 30px;
+        
 }
 .logoPath + ul {
     flex: 0 0 auto;
     width: 55%;
+    position: relative;
+    left: 30px;
 }
 
 .nav-links {
