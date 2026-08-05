@@ -18,6 +18,13 @@ return [
         'key' => env('POSTMARK_API_KEY'),
     ],
 
+    'meezan' => [
+        'base_url' => env('MEEZAN_BASE_URL'),
+        'username' => env('MEEZAN_USERNAME'),
+        'password' => env('MEEZAN_PASSWORD'),
+        'currency' => env('MEEZAN_CURRENCY', '586'),
+    ],
+
     'resend' => [
         'key' => env('RESEND_API_KEY'),
     ],

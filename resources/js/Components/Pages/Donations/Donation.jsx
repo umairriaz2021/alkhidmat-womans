@@ -1,35 +1,44 @@
 import React, { useState } from 'react';
-import { useCart } from '@/Contexts/CardContext';
-import {Link} from '@inertiajs/react';
+import { useCardContext as useCart } from '@/Contexts/CardContext';
+import { Link } from '@inertiajs/react';
+
 export default function DonationPage() {
- const { cart, addToCart } = useCart();
+  const { cart = { items: [], totalAmount: 0 }, addToCart } = useCart() || {};
 
   const donationPrograms = [
     {
+      id: 'prog-1',
       title: 'Emergency Relief Fund',
       desc: 'Support families affected by disasters and emergencies across the country.',
       amount: 5000,
     },
     {
+      id: 'prog-2',
       title: 'Food Support Program',
       desc: 'Provide ration packages and meals to deserving families.',
       amount: 3000,
     },
     {
+      id: 'prog-3',
       title: 'Clean Water Project',
       desc: 'Help install water filtration plants and hand pumps.',
       amount: 10000,
     },
     {
+      id: 'prog-4',
       title: 'Education Support',
       desc: 'Sponsor books, uniforms and educational support for children.',
       amount: 7000,
     },
   ];
 
-const handleAddDonation = (item, quantity) => {
-    addToCart(item, quantity);
-};
+  const handleAddDonation = (item, quantity) => {
+    if (typeof addToCart === 'function') {
+      addToCart(item, quantity);
+    }
+  };
+
+  const totalPayable = cart?.totalAmount || 0;
 
   return (
     <div className="akf-donation-wrapper">
@@ -69,7 +78,6 @@ const handleAddDonation = (item, quantity) => {
               <p>Select a cause and contribute instantly.</p>
             </div>
 
-            {/* Added onAdd prop here */}
             <DonationPagination 
               donationPrograms={donationPrograms} 
               onAdd={handleAddDonation} 
@@ -78,10 +86,9 @@ const handleAddDonation = (item, quantity) => {
             <div className="akf-donation-total-box">
               <div>
                 <span>Total Donation</span>
-                <h3>PKR {cart.totalAmount.toLocaleString()}</h3>
+                <h3>PKR {totalPayable.toLocaleString()}</h3>
               </div>
               <Link href="/donation-summary" as="button" className="akf-donation-main-btn">Continue</Link>
-              {/* <button className="akf-donation-main-btn">Continue</button> */}
             </div>
           </div>
         </div>
@@ -149,11 +156,12 @@ const handleAddDonation = (item, quantity) => {
         .akf-quantity-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: #042c5c; color: #fff; cursor: pointer; }
         .akf-donation-card-bottom { margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
         .akf-donation-price { color: #00a86b; font-size: 20px; font-weight: 700; }
-        .akf-donation-add-btn { border: none; background: #042c5c; color: #fff; padding: 10px 20px; border-radius: 50px; font-weight: 600; cursor: pointer; }
-        .akf-donation-total-box span {color: #fff; font-size: 28px; font-weight: 700; border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
+        .akf-donation-add-btn { border: none; background: #042c5c; color: #fff; padding: 10px 20px; border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .akf-donation-add-btn:active { transform: scale(0.95); }
+        .akf-donation-total-box span {color: #fff; font-size: 14px; text-transform: uppercase; font-weight: 600; }
         .akf-donation-total-box { margin-top: 25px; padding: 20px; border-radius: 20px; background: #042c5c; display: flex; justify-content: space-between; align-items: center; }
         .akf-donation-total-box h3 { margin: 5px 0 0; color: #fff; font-size: 28px; }
-        .akf-donation-main-btn { border: none; background: #00c389; color: #fff; padding: 12px 25px; border-radius: 50px; font-weight: 700; cursor: pointer; }
+        .akf-donation-main-btn { border: none; background: #00c389; color: #fff; padding: 12px 25px; border-radius: 50px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
         .akf-pagination-wrapper { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
         .akf-pagination-number { width: 35px; height: 35px; border-radius: 8px; border: none; background: #edf2f8; cursor: pointer; }
         .akf-pagination-number.active { background: #042c5c; color: #fff; }
@@ -175,9 +183,18 @@ const handleAddDonation = (item, quantity) => {
   );
 }
 
-// Separate Sub-components for better readability
 function DonationCard({ item, onAdd }) {
   const [quantity, setQuantity] = useState(1);
+  const [added, setAdded] = useState(false);
+
+  const handleAddClick = () => {
+    if (quantity > 0) {
+      onAdd(item, quantity);
+      setAdded(true);
+      setTimeout(() => setAdded(false), 1500);
+    }
+  };
+
   return (
     <div className="akf-donation-card">
       <div className="akf-donation-card-top">
@@ -186,14 +203,20 @@ function DonationCard({ item, onAdd }) {
           <p>{item.desc}</p>
         </div>
         <div className="akf-quantity-box">
-          <button className="akf-quantity-btn" onClick={() => setQuantity(q => Math.max(0, q - 1))}>-</button>
+          <button className="akf-quantity-btn" onClick={() => setQuantity(q => Math.max(1, q - 1))}>-</button>
           <span>{quantity}</span>
           <button className="akf-quantity-btn" onClick={() => setQuantity(q => q + 1)}>+</button>
         </div>
       </div>
       <div className="akf-donation-card-bottom">
         <div className="akf-donation-price">PKR {(item.amount * quantity).toLocaleString()}</div>
-        <button className="akf-donation-add-btn" onClick={() => onAdd(item, quantity)}>Add</button>
+        <button 
+          className="akf-donation-add-btn" 
+          style={{ background: added ? '#00c389' : '#042c5c' }} 
+          onClick={handleAddClick}
+        >
+          {added ? 'Added ✓' : 'Add'}
+        </button>
       </div>
     </div>
   );
@@ -209,7 +232,7 @@ function DonationPagination({ donationPrograms, onAdd }) {
     <>
       <div className="akf-donation-program-list">
         {currentItems.map((item, index) => (
-          <DonationCard key={index} item={item} onAdd={onAdd} />
+          <DonationCard key={item.id || index} item={item} onAdd={onAdd} />
         ))}
       </div>
       <div className="akf-pagination-wrapper">

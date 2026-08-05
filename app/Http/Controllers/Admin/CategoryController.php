@@ -81,6 +81,7 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $statuses = Status::all();
+        $category = Category::find($id);
         return view('admin.dashboard.categories.create_edit', compact('category', 'statuses'));
     }
 

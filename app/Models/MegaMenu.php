@@ -34,7 +34,7 @@ class MegaMenu extends Model
     if (!empty($this->links) && is_array($this->links)) {
         // Menu table se data fetch karna
         return \App\Models\Menu::whereIn('id', $this->links)
-            ->select('id', 'title', 'url')
+            ->select('id', 'title', 'url','custom_link')
             ->get();
     }
     return collect();

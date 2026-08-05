@@ -50,6 +50,20 @@
               </div>
             </li>
              <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#area-elements" aria-expanded="false" aria-controls="area-elements">
+                <i class="menu-icon mdi mdi-briefcase-outline"></i>
+                <span class="menu-title">Area of Work</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="area-elements">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"><a class="nav-link" href="{{route('area-of-work.index')}}">All Areas</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{route('area-of-work.create')}}">Add Area</a></li>
+
+                </ul>
+              </div>
+            </li>
+             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#categories-elements" aria-expanded="false" aria-controls="categories-elements">
                 <i class="menu-icon mdi mdi-label-multiple-outline"></i>
                 <span class="menu-title">Categories</span>

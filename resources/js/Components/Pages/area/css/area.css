@@ -1,0 +1,450 @@
+ .akd-services-container {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 35px 30px;
+            max-width: 1100px;
+            margin: 30px auto;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            text-align:center;
+           
+        }
+        
+        .akd-services-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #1e293b; /* Dark Navy/Slate text */
+            margin-bottom: 25px;
+            margin-top: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .akd-services-title span {
+            color: #d95300; /* Distinct Orange Highlight */
+        }
+        .akd-dm-section-wrapper {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 50px 20px;
+            box-sizing: border-box;
+           
+        }
+
+        /* Inner Container for Max Width & Centering */
+        .akd-dm-container {
+            max-width: 960px;
+            margin: 0 auto;
+            text-align: center;
+        }
+         .akd-banner-v2-section {
+            position: relative;
+            background: linear-gradient(135deg, #1e58c8 0%, #2563eb 50%, #1d4ed8 100%);
+            padding: 60px 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* Subtle Decorative Background Elements */
+        .akd-banner-v2-section::before,
+        .akd-banner-v2-section::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            pointer-events: none;
+        }
+
+        .akd-banner-v2-section::before {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -80px;
+        }
+
+        .akd-banner-v2-section::after {
+            width: 250px;
+            height: 250px;
+            bottom: -80px;
+            right: -50px;
+        }
+
+        /* Container */
+        .akd-banner-v2-container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+        }
+
+        /* Large Quote Icon Watermark */
+        .akd-banner-v2-quote-icon {
+            font-size: 3.5rem;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.25);
+            font-family: Georgia, serif;
+            margin-bottom: -20px;
+            user-select: none;
+        }
+
+        /* Quote Text Styling */
+        .akd-banner-v2-text p {
+            color: #ffffff;
+            font-size: 1.25rem;
+            line-height: 1.7;
+            font-weight: 500;
+            margin: 0;
+            letter-spacing: -0.2px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Hadith Reference Tag */
+        .akd-banner-v2-ref {
+            display: inline-block;
+            margin-top: 8px;
+            font-weight: 700;
+            color: #fde047; /* Warm Gold Accent */
+            background: rgba(0, 0, 0, 0.15);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(253, 224, 71, 0.25);
+        }
+
+        /* Action Button */
+        .akd-banner-v2-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 14px 40px;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.45);
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .akd-banner-v2-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.6);
+            background: linear-gradient(135deg, #25d366 0%, #15803d 100%);
+        }
+          
+        .akd-banner-v2-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .akd-banner-v2-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+
+        .akd-banner-v2-btn:hover svg {
+            transform: translateX(4px);
+        }
+        .custom-gallery-wrapper * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .custom-gallery-wrapper {
+            max-width: 1280px;
+            margin: 40px auto;
+            padding: 0 20px;
+            position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        }
+
+        /* Top Header Area */
+        .custom-gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .custom-gallery-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #111;
+        }
+
+        .custom-gallery-title span {
+            color: #0072bc;
+        }
+
+        /* Nav Arrows */
+        .custom-gallery-arrows {
+            display: flex;
+            gap: 10px;
+        }
+
+        .custom-gallery-prev-btn, 
+        .custom-gallery-next-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .custom-gallery-prev-btn:hover, 
+        .custom-gallery-next-btn:hover {
+            background: #0072bc;
+            color: #fff;
+            border-color: #0072bc;
+        }
+
+        /* Swiper Container Override */
+        .custom-gallery-slider {
+            width: 100%;
+            padding-bottom: 45px !important;
+        }
+
+        /* Gallery Slide Card */
+        .custom-gallery-slide {
+            height: 380px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            background: #000;
+            cursor: pointer;
+        }
+
+        .custom-gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease, opacity 0.3s ease;
+        }
+
+        .custom-gallery-slide:hover .custom-gallery-img {
+            transform: scale(1.08);
+            opacity: 0.9;
+        }
+
+        /* Gradient Overlay for Text */
+        .custom-gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            z-index: 2;
+        }
+
+        .custom-gallery-tag {
+            color: #0072bc;
+            background: rgba(255, 255, 255, 0.95);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            width: fit-content;
+            margin-bottom: 8px;
+        }
+
+        .custom-gallery-card-title {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        /* Zoom Icon on Hover */
+        .custom-gallery-zoom-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 50%;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .custom-gallery-slide:hover .custom-gallery-zoom-icon {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Pagination Bullets */
+        .custom-gallery-slider .swiper-pagination-bullet {
+            background: #ccc;
+            opacity: 1;
+        }
+
+        .custom-gallery-slider .swiper-pagination-bullet-active {
+            background: #0072bc !important;
+            width: 22px;
+            border-radius: 6px;
+        }
+         .swiper-pagination-bullet:hover{
+            background:#d95300 !important
+           } 
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            .akd-banner-v2-section {
+                padding: 45px 20px;
+            }
+
+            .akd-banner-v2-text {
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+
+            .akd-banner-v2-btn {
+                padding: 12px 32px;
+                font-size: 0.98rem;
+            }
+        }
+        /* Bold Upper-case Heading (Condensed Look) */
+        .akd-dm-heading {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: #1e252b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            
+        }
+        .swiper-pagination-horizontal{
+              bottom:0 !important;
+        }
+        /* Content Paragraph Styling */
+        .akd-dm-paragraph p{
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #333333;
+            margin-bottom: 22px;
+            font-weight: 400;
+        }
+
+        .akd-dm-paragraph:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .akd-dm-section-wrapper {
+                padding: 30px 15px;
+            }
+
+            .akd-dm-heading {
+                font-size: 1.75rem;
+                margin-bottom: 20px;
+            }
+
+            .akd-dm-paragraph {
+                font-size: 0.95rem;
+                line-height: 1.55;
+                margin-bottom: 16px;
+            }
+        }
+        /* Row Layout */
+        .akd-services-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .akd-pills-group {
+            display: flex;
+            gap: 15px;
+            flex: 1;
+            flex-wrap: wrap;
+        }
+
+        /* Service Item Pill Styling */
+        .akd-service-pill {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 1.05rem;
+            color: #334155;
+            font-weight: 500;
+            flex: 1;
+            min-width: 265px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .akd-service-pill strong {
+            color: #d95300; /* Price in Orange */
+            font-weight: 700;
+            margin-left: 4px;
+        }
+
+        /* Red Action Button */
+        .akd-donate-btn-red {
+            background-color: #d90429; /* Vibrant Red */
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 13px 28px;
+            border-radius: 8px;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.2s ease-in-out;
+            white-space: nowrap;
+        }
+
+        .akd-donate-btn-red:hover {
+            background-color: #b90222;
+        }
+
+        /* Responsive Behavior */
+        @media (max-width: 768px) {
+            .akd-services-container {
+                padding: 20px 15px;
+            }
+            .akd-services-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .akd-pills-group {
+                flex-direction: column;
+            }
+            .akd-donate-btn-red {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }

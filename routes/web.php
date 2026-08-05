@@ -10,9 +10,11 @@ use App\Http\Controllers\Admin\TemplateController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\MeezanPaymentController;
 use App\Models\Transaction;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -32,11 +34,11 @@ Route::prefix('admin')->group(function () {
 
     // Sirf Guests (Log out users) ke liye
     Route::middleware('guest')->group(function () {
-        Route::get('/login', [UserController::class, 'login'])->name('admin.login');
+       
+    });
+ Route::get('/login', [UserController::class, 'login'])->name('admin.login');
         Route::get('/register', [UserController::class, 'register'])->name('admin.register');
         Route::post('/login', [UserController::class, 'store'])->name('admin.login.submit');
-    });
-
     // Sirf Authenticated Super Admins ke liye
     Route::middleware(['auth', 'role:super_admin'])->group(function () {
         // Users List
@@ -94,6 +96,7 @@ Route::prefix('admin')->group(function () {
         });
         Route::post('/logout', [UserController::class, 'logout'])->name('admin.logout');
         Route::resource('/posts',PostController::class);
+        Route::resource('/area-of-work',AreaController::class);
         Route::resource('/categories',CategoryController::class);
         Route::resource('/tags',TagController::class);
         Route::resource('/payment-methods',PaymentMethodController::class);
@@ -120,6 +123,22 @@ Route::get('/success', function () {
 
     return view('payment-success', ['sessionId' => $sessionId]);
 })->name('payment.success');
+
+// Payment initiating route
+Route::get('/checkout', [MeezanPaymentController::class, 'showCheckout'])->name('meezan.checkout');
+    Route::post('/payment/meezan/initiate', [MeezanPaymentController::class, 'processPayment'])->name('meezan.pay');
+
+    // Bank Callback route (Meezan Bank is URL par redirect/POST karega)
+    Route::match(['get', 'post'], '/payment/meezan/callback', [MeezanPaymentController::class, 'handleCallback'])->name('meezan.callback');
+
+    // Success & Checkout Pages (Placeholder Examples)
+    // Route::get('/checkout', function () {
+    //     return view('checkout');
+    // })->name('checkout');
+
+    Route::get('/payment/success', function () {
+        return view('pay-success');
+    })->name('payment.success');
 
 Route::get('/{slug?}', [PageController::class, 'show'])->name('pages.show');
 Route::get('/{cat}/{slug}',[PageController::class,'blogsDisplay'])->name('blogs.show');

@@ -372,7 +372,7 @@ const HomeLayout = ({ page,sliders }) => {
                 <h3 className="gi-card__title">{card.title}</h3>
                 <p className="gi-card__description">{card.text}</p>
               </div>
-              <button onClick={() => window.Location.href = card.button_url} className="gi-card__button">
+              <button onClick={() => window.location.href = card.button_url} className="gi-card__button">
                 {card.button_text}
               </button>
             </div>

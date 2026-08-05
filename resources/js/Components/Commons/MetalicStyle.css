@@ -1,0 +1,154 @@
+.akd-md-wrapper {
+  width: 100%;
+  padding: 40px 16px;
+  background-color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  color: #222222;
+}
+
+.akd-md-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Main Section Heading */
+.akd-md-main-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  text-align: center;
+  color: #111111;
+  letter-spacing: 0.5px;
+  margin-bottom: 32px;
+  text-transform: uppercase;
+}
+
+/* Grid Layout */
+.akd-md-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (min-width: 868px) {
+  .akd-md-grid {
+    grid-template-columns: 460px 1fr;
+    gap: 40px;
+  }
+}
+
+/* Image Container */
+.akd-md-image-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.akd-md-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Text Content Column */
+.akd-md-sub-heading {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0284c7; /* Vibrant Blue Accent */
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.akd-md-text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #374151;
+  margin-bottom: 14px;
+}
+
+.akd-md-benefits-title {
+  margin-top: 18px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* Ordered List */
+.akd-md-list {
+  list-style:disc;
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+
+.akd-md-list li {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+/* Bank Details Box */
+.akd-md-bank-card {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 2px dashed #e5e7eb;
+}
+
+.akd-md-donate-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0284c7;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.akd-md-bank-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.akd-md-bank-info p {
+  font-size: 0.925rem;
+  color: #1f2937;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.akd-md-bank-name {
+  font-size: 1rem;
+  color: #111827;
+  margin-bottom: 4px !important;
+}
+
+.akd-md-whatsapp-note {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-bottom: 8px;
+}
+
+.akd-md-contact-line {
+  font-size: 0.925rem;
+  color: #111827;
+  margin-bottom: 12px;
+  word-break: break-word;
+}
+
+.akd-md-contact-line a {
+  color: #0284c7;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.akd-md-contact-line a:hover {
+  text-decoration: underline;
+}
+
+.akd-md-footer-note {
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin-top: 10px;
+}

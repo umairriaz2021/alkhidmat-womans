@@ -51,9 +51,13 @@
                     <label for="lu">Link URL</label>
                     <select class="form-select mb-3" name="lu">
                          <option value="#">Select URL</option>
-                               @if(!empty($pages)) 
+                               @php
+                               $is_check = false;
+                               @endphp
+                                @if(!empty($pages)) 
                               
                                @foreach($pages as $page) 
+                                         
                                     <option value="{{$page['slug']}}" @if(isset($menu_data) && $menu_data['url'] == $page['slug']) selected @endif>
                                         {{ucfirst($page['title'])}}
                                     </option>
@@ -61,7 +65,14 @@
                                 @endif
                             </select>
                 </div>
-                
+                    @if(isset($menu_data) && !empty($menu_data['custom_link']) || isset($menu_data) && empty($menu_data['custom_link']))
+                    <div class="form-group" id="customLink">
+                    <label for="cl">Custom Link</label>
+                    <input type="text" name="cl" value="{{(isset($menu_data) && $menu_data['custom_link']) ? $menu_data['custom_link'] : ''}}"  id="cl" class="form-control" placeholder="Custom Link"
+                        value="">
+                </div>
+                  @endif
+
                 <div class="form-group">
                      <label for="parent_id">Submenu</label>
                      <select id="parent_id" class="form-select mb-3" name="parent_id">
@@ -69,21 +80,27 @@
                                @if(!empty($menus)) 
                               
                                @foreach($menus as $menu) 
-                                    <option value="{{$menu['id']}}" @if(isset($menu_data) && $menu['id'] == $menu_data['parent_id']) selected @endif>
+                                    @if(isset($menu_data) && $menu['parent_id'] === NULL)
+                                   <option value="{{$menu['id']}}" @if(isset($menu_data) && $menu['id'] == $menu_data['parent_id']) selected @endif>
                                         {{ucfirst($menu['title'])}}
                                     </option>
+                                    @endif
                                 @endforeach
                                 @endif
                             </select>
                 </div>
+              
+                 @if(isset($menu_data) && empty($menu_data['parent_id']))
                 <div class="form-group">
-                    <label for="mega_menus_id">Mega Menus</label>
-                    <select id="mega_menus_id" class="form-select mb-3" name="mega_menus_id[]" multiple>
+                  
+                  <label for="mega_menus_id">Mega Menus</label>
+                    <select id="mega_menus_id" class="form-select mb-3" style="height:100px;" name="mega_menus_id[]" multiple>
                     <option value="">Select Mega Menu</option>
                     
                     @if(!empty($megaMenu)) 
                         @foreach($megaMenu as $mega) 
                             @php
+                           
                                 // Check karna ke kya ye ID selected array mein maujood hai
                                 $isSelected = false;
                                 if(isset($menu_data) && !empty($menu_data['mega_menus_id'])) {
@@ -105,8 +122,8 @@
                     @endif
                 </select>
                 </div>
-                
-
+                @endif
+ 
             </div>
         </div>
     </div>
@@ -135,4 +152,74 @@
               </div>
             </div>
           </div>
+@endsection
+@section('script')
+<script>
+ $(document).ready(function(){
+    $('#mega_menus_id').on('mousedown', 'option', function(e) {
+    e.preventDefault();
+
+    // Toggle selected attribute
+    var $this = $(this);
+    $this.prop('selected', !$this.prop('selected'));
+
+    // Select container focus aur scroll state freeze na ho
+    var $select = $this.parent();
+    $select.focus();
+
+    // Trigger change event for Laravel/Validation sync
+    $select.trigger('change');
+
+    return false;
+});
+var output = ``;
+if($('select[name=lu]').val() === '#')
+{
+       output += `
+                <div class="form-group" id="customLink">
+                    <label for="cl">Custom Link</label>
+                    <input type="text" 
+                        name="cl" 
+                        id="cl" 
+                        class="form-control" 
+                        placeholder="Custom Link" 
+                        value="{{ $menu_data['url'] ?? '' }}">
+                </div>
+            `;
+
+            $(this).parent().after(output);
+}
+else{
+    $('#customLink').remove(); 
+}
+
+$('select[name=lu]').on('change',function(){
+      var lu = $(this).val();
+      console.log(lu);
+      var output = ``;
+      if(lu == '#')
+      {
+         output += `
+                <div class="form-group" id="customLink">
+                    <label for="cl">Custom Link</label>
+                    <input type="text" 
+                        name="cl" 
+                        id="cl" 
+                        class="form-control" 
+                        placeholder="Custom Link" 
+                        value="{{ $menu_data['custom_link'] ?? '' }}">
+                </div>
+            `;
+
+            $(this).parent().after(output);
+      }
+      else{
+         $('#customLink').remove();
+      }
+     
+
+    
+})
+ })
+</script>
 @endsection

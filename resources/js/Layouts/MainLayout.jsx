@@ -9,7 +9,7 @@ import Resources from '@/static-data/footer/footer-links/our-resources/resources
 import AboutUs from '@/static-data/footer/footer-links/about-us/about.json'
 import CopyRight from '@/static-data/footer/settings.json' 
 import SocialLinks from '@/static-data/Home/social-links.json';
-import { useCart } from '@/Contexts/CardContext';
+import { useCardContext as useCart } from '@/Contexts/CardContext';
 
 export default function MainLayout({ children}) {
     const {settings,menus} = children.props;
@@ -18,7 +18,7 @@ export default function MainLayout({ children}) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeAccordion, setActiveAccordion] = useState(null); // Mobile accordion state
     const topLevelMenus = menus ? menus.filter(menu => menu.parent_id === null) : [];
-    const { cart } = useCart();
+   const { cart = { count: 0, items: [] }, count = 0, cartItems = [] } = useCart() || {};
     
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -80,7 +80,7 @@ export default function MainLayout({ children}) {
                             src={`/storage/${settings.site_logo.file_path}`} 
                             alt="Alkhidmat Womans Home Logo" 
                             className="transition-all duration-300"
-                            style={{ height: isScrolled ? '45px' : '80px' }} 
+                            style={{ height: isScrolled ? '45px' : '' }} 
                         />
                     </Link>
 
@@ -110,17 +110,21 @@ export default function MainLayout({ children}) {
                                     </h4>
                                     
                                     <div className="flex flex-col space-y-2">
-                                        {mega.links_data && mega.links_data.map((link) => (
-                                            
-                                            /* FIX 3: Inner Links par unique key */
+                                        {mega.links_data && mega.links_data.map((link) => {
+                                            const targetUrl = (link?.url && link?.url !== '#') 
+                                                ? link.url 
+                                                : (link?.custom_link || '#');
+
+                                                return(
                                             <Link 
                                                 key={`link-${link.id}`} 
-                                                href={link.url}
+                                                href={targetUrl}
                                                 className="text-gray-600 hover:text-green-600 hover:translate-x-1 transition-all"
                                             >
                                                 {link.title}
                                             </Link>
-                                        ))}
+                                            )
+    })}
                                     </div>
                                 </div>
                             ))}
@@ -198,16 +202,22 @@ export default function MainLayout({ children}) {
                                             
                                             {/* Links inside this group */}
                                             <div className="flex flex-col gap-3 pl-2 mt-1">
-                                                {mega.links_data && mega.links_data.map((link) => (
+                                                {mega.links_data && mega.links_data.map((link) => {
+                                                const targetUrl = (link?.url && link?.url !== '#') 
+                                                ? link.url 
+                                                : (link?.custom_link || '#');
+                                                return(   
                                                     <Link 
                                                         key={link.id} 
-                                                        href={link.url} 
+                                                        href={targetUrl}
                                                         className="text-gray-600 text-sm hover:text-green-600"
                                                         onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
                                                     >
                                                         {link.title}
                                                     </Link>
-                                                ))}
+                                                
+                                            )    
+                                            })}
                                             </div>
                                         </div>
                                     ))}

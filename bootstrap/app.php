@@ -19,7 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
         'role' => \App\Http\Middleware\RoleMiddleware::class,
     ]);
     $middleware->validateCsrfTokens(except: [
-        'api/create-stripe-session', // Is route ko CSRF se maaf kar dein
+        'api/create-stripe-session',
+        'payment/meezan/callback'
     ]);
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
     })

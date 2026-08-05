@@ -48,7 +48,6 @@
                                                     <label class="checkbox-item" for="slider_{{$slider['id']}}">
                                                         <input type="checkbox" name="bcat[]" id="slider_{{$slider['id']}}" 
                                                             value="{{$slider['id']}}"
-                                                            {{-- Check if ID exists in slider_id array --}}
                                                             @if(isset($page['slider_id']) && in_array($slider['id'], json_decode($page['slider_id'],true))) checked @endif>
                                                         <span>{{$slider['main_heading']}}</span>
                                                     </label>
@@ -84,8 +83,21 @@
                                 <x-media-picker name="profile_image_id" label="Featured Image" 
                                                :img_id="$page['image_id'] ?? ''" :preview_path="$page['profile_image']['file_path'] ?? ''" />
                             </div>
-            
-                       
+
+                            {{-- ADDED: Category Dropdown --}}
+                            <div class="card-title mb-2">Category</div>
+                            <select class="form-select mb-3" name="category_id">
+                                <option value="">Select Category</option>
+                                @if(!empty($categories))
+                                    @foreach($categories as $category) 
+                                        <option value="{{ $category['id'] }}" 
+                                            {{ (isset($page['category_id']) && $page['category_id'] == $category['id']) ? 'selected' : '' }}>
+                                            {{ ucfirst($category['name'] ?? $category['name']) }}
+                                        </option>
+                                    @endforeach
+                                @endif
+                            </select>
+
                             <div class="card-title mb-2">Post Status</div>
                             <select class="form-select mb-3" name="post_status">
                                 @foreach($statuses as $status) 
@@ -117,20 +129,23 @@
     </div>
 </div>
 @endsection
-      @section('script')
-      <script>
-      $(document).ready(function(){
-          $('#createPageForm').on('submit',function(e){
-               e.preventDefault();
 
-          let selectedValues = $("input[name='bcat[]']:checked").map(function() {
-    return $(this).val();
-}).get();
-let formData = new FormData(this);
-formData.delete('bcat[]'); // Safety check
-selectedValues.forEach(function(value) {
-    formData.append('bcat[]', value);
-});
+@section('script')
+<script>
+$(document).ready(function(){
+    $('#createPageForm').on('submit', function(e){
+        e.preventDefault();
+
+        let selectedValues = $("input[name='bcat[]']:checked").map(function() {
+            return $(this).val();
+        }).get();
+
+        let formData = new FormData(this);
+        formData.delete('bcat[]'); // Safety check
+        selectedValues.forEach(function(value) {
+            formData.append('bcat[]', value);
+        });
+
         $.ajax({
             url: $(this).attr('action'),
             type: 'POST',
@@ -142,39 +157,37 @@ selectedValues.forEach(function(value) {
             },
             success: function(response) {
                 if(response.success) {
-                      $('#ajax-alert-container').html(`
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success!</strong> ${response.message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        `);
-                    window.location.href = "{{route('admin.all.pages')}}"; // List page par redirect
+                    $('#ajax-alert-container').html(`
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Success!</strong> ${response.message}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    `);
+                    window.location.href = "{{route('admin.all.pages')}}";
                 }
             },
             error: function(xhr) {
+                $('.apply').prop('disabled', false).text("{{ isset($page) ? 'Update Page' : 'Create Page' }}");
                 if (xhr.status === 422) {
-        let errors = xhr.responseJSON.errors;
-        let errorList = '';
-        
-        $.each(errors, function(key, value) {
-            errorList += `<li>${value[0]}</li>`;
-        });
+                    let errors = xhr.responseJSON.errors;
+                    let errorList = '';
+                    
+                    $.each(errors, function(key, value) {
+                        errorList += `<li>${value[0]}</li>`;
+                    });
 
-        $('#ajax-alert-container').html(`
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <ul class="mb-0">${errorList}</ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        `);
-    } else {
-        alert("Something went wrong!");
-    }
+                    $('#ajax-alert-container').html(`
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <ul class="mb-0">${errorList}</ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    `);
+                } else {
+                    alert("Something went wrong!");
+                }
             }
         });
-              
-          })
-      })
-
-      </script>
-      @endsection
-        
+    });
+});
+</script>
+@endsection

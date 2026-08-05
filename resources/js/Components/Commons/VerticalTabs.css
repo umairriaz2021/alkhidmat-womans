@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Font Setup */
+.ak-vtab-wrapper * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Container Box */
+.ak-vtab-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 960px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  overflow: hidden;
+  margin: 20px auto;
+}
+
+/* Left Navigation / Tab List */
+.ak-vtab-nav {
+  width: 32%;
+  min-width: 240px;
+  background: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ak-vtab-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 16px 24px;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: all 0.25s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ak-vtab-btn:not(:last-child) {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.ak-vtab-btn:hover {
+  background-color: #f1f5f9;
+  color: #1e3a8a;
+}
+
+/* Active Tab State */
+.ak-vtab-btn.ak-active {
+  background-color: #ffffff;
+  color: #2563eb;
+  border-left-color: #2563eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+/* Right Content Panel */
+.ak-vtab-content-container {
+  width: 68%;
+  padding: 32px 40px;
+  background: #ffffff;
+  min-height: 320px;
+}
+
+.ak-vtab-pane {
+  display: none;
+  animation: akFadeIn 0.35s ease-in-out;
+}
+
+.ak-vtab-pane.ak-active {
+  display: block;
+}
+
+.ak-vtab-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 16px;
+}
+
+.ak-vtab-text {
+  font-size: 0.925rem;
+  line-height: 1.7;
+  color: #475569;
+  margin-bottom: 14px;
+}
+
+/* Smooth Fade-in Animation */
+@keyframes akFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ak-vtab-wrapper {
+    flex-direction: column;
+  }
+  .ak-vtab-nav {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .ak-vtab-content-container {
+    width: 100%;
+    padding: 24px;
+  }
+  .ak-vtab-btn.ak-active {
+    border-left: none;
+    border-bottom: 3px solid #2563eb;
+  }
+}

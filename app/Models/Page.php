@@ -7,6 +7,7 @@ use App\Models\Media;
 use App\Models\PageTemplate;
 use App\Models\Slider;
 use App\Models\Status;
+use App\Models\Category;
 
 class Page extends Model
 {
@@ -20,7 +21,11 @@ class Page extends Model
     {
         return $this->belongsTo(PageTemplate::class, 'template_id');
     }
-
+     public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    
     public function profileImage()
     {
         // belongsTo(RelatedModel, foreign_key, owner_key)

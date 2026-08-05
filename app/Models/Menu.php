@@ -16,12 +16,12 @@ class Menu extends Model
     ];
     protected $appends = ['mega_menus'];
     public function submenu() {
-    return $this->hasMany(Menu::class, 'parent_id')->select('id','title','url');
+    return $this->hasMany(Menu::class, 'parent_id')->select('id','title','url','custom_link');
     }
 
 // Parent menu check karne ke liye
     public function parent() {
-        return $this->belongsTo(Menu::class, 'parent_id')->select('id','title','url');
+        return $this->belongsTo(Menu::class, 'parent_id')->select('id','title','url','custom_link');
     }
 
     public function getMegaMenusAttribute()
@@ -33,8 +33,9 @@ class Menu extends Model
         $ids = array_map('intval', $this->mega_menus_id);
 
         $data =  \App\Models\MegaMenu::with(['status'=>function($query){$query->select('id','name');}])->whereIn('id', $ids)->select('id','group_name','status_id','links')->get();
-
+          
         return $data->each(function($item) {
+             
             $item->makeHidden(['status_id', 'links']);
         });
     }

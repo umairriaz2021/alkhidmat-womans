@@ -31,6 +31,7 @@ class MenuController extends Controller
         $rules = [
             'ln'            => 'required|string|max:255',
             'lu'            => 'nullable|string',
+            'cl'            => 'nullable|string',
             'parent_id'     => 'nullable|exists:menus,id',
             'post_status'   => 'required|exists:status,id',
             'mega_menus_id'  => 'nullable|array', // Checkbox array validate karein
@@ -51,8 +52,16 @@ class MenuController extends Controller
         try {
             $menu = new Menu();
             $menu->title       = $request->ln;
-            $menu->url         = $request->lu;
-            $menu->parent_id   = $request->parent_id ?: null;
+            if(!empty($request->cl))
+            {
+                $menu->custom_link         = $request->cl;
+                 $menu->url  = NULL;
+              }
+                else{
+                    $menu->url   = $request->lu;
+                     $menu->custom_link  = NULL;
+                }
+                $menu->parent_id   = $request->parent_id ?: null;
             $menu->status_id   = $request->post_status;
             
             // Multiple IDs save karna (Model casting isay JSON bana degi)
@@ -84,10 +93,12 @@ class MenuController extends Controller
 
       public function updateMenu(Request $request, $id)
 {
+     //echo "<pre>"; print_r($request->all());die;
     // 1. Validation Rules
     $rules = [
         'ln'               => 'required|string|max:255',
-        'lu'               => 'nullable|string', 
+        'lu'               => 'nullable|string',
+        'cl'               => 'nullable|string', 
         'parent_id'        => 'nullable|exists:menus,id',
         'post_status'      => 'required|exists:status,id', // Check karein table name 'status' hai ya 'statuses'
         'mega_menus_id'    => 'nullable|array',           // Array validation
@@ -110,16 +121,25 @@ class MenuController extends Controller
 
         // 3. Data Updating Logic
         $menu->title       = $request->ln;
-        $menu->url         = $request->lu;
+        if(!empty($request->cl))
+        {
+            $menu->custom_link         = $request->cl;
+              $menu->url  = NULL;
+        }
+        else{
+            $menu->custom_link   = NULL;
+            $menu->url         = $request->lu;
+        }
         $menu->parent_id   = $request->parent_id ?: null;
         $menu->status_id   = $request->post_status;
         
         // 4. Mega Menu Logic (Array handle karna)
         // Agar parent_id empty hai to mega_menus save karein, warna null (optional safety logic)
         if ($request->filled('parent_id')) {
-            $menu->mega_menus_id = null; 
+           
+                $menu->mega_menus_id = null;
         } else {
-            $menu->mega_menus_id = $request->mega_menus_id; 
+                $menu->mega_menus_id = $request->mega_menus_id; 
         }
 
         $menu->save(); 

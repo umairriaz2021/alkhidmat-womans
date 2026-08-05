@@ -5,8 +5,11 @@ import AboutLayout from '@/Components/Pages/AboutLayout';
 import DonationLayout from './Pages/DonationLayout';
 import SingleBlog from '@/Components/Pages/Blogs/SingleBlog';
 import Blogs from '@/Components/Pages/Blogs/Blogs';
+import SingleArea from '@/Components/Pages/area/SingleArea';
 import DonationPage from './Pages/Donations/Donation';
 import DonationSummary from './Pages/Donations/DonationSummary';
+import AppealPage from './Pages/Donations/AppealPage';
+import ProgramPage from './Pages/ProgramPage';
 
 const DynamicPage = (props) => {
     const { page, template_name } = props;
@@ -17,6 +20,9 @@ const DynamicPage = (props) => {
         'about_layout': AboutLayout,
         'donations_layout':DonationLayout,
         'single_blog_page': SingleBlog,
+        'single_area_of_work':SingleArea,
+        'appeals': AppealPage,
+        'programs_pages': ProgramPage,
         'blog_template':Blogs,
         'donation_page':DonationPage,
         'donation_summary':DonationSummary

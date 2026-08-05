@@ -11,6 +11,7 @@ use App\Models\PageTemplate;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Area;
 use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
@@ -32,13 +33,15 @@ class PageController extends Controller
     $statuses = Status::get()->toArray();
     $sliders = Slider::get()->toArray();
     $templates = PageTemplate::get()->toArray();
-  
+    $categories = Category::select('id','name','slug')->get()->toArray();
+
     if ($request->isMethod('post')) {
         $rules = [
             'p_title'     => 'required|string|max:255',
             'slug'        => 'required|string|unique:pages,slug',
             'template_id' => 'required|exists:page_templates,id',
             'post_status' => 'required|integer',
+            'category_id' => 'nullable|exists:categories,id', // Optional Category Validation
             'bcat'        => 'nullable|array',
         ];
 
@@ -48,6 +51,7 @@ class PageController extends Controller
             'slug.unique'          => 'This slug is already in use for another page.',
             'template_id.required' => 'Selecting a template is mandatory.',
             'post_status.required' => 'Please select a post status.',
+            'category_id.exists'   => 'The selected category is invalid.',
             'bcat.array'           => 'The format of the selected slides is invalid.',
         ];
 
@@ -61,7 +65,7 @@ class PageController extends Controller
         }
 
         try {
-            DB::beginTransaction(); // Transaction start karein
+            DB::beginTransaction();
 
             $page = new \App\Models\Page();
             
@@ -73,15 +77,14 @@ class PageController extends Controller
             $page->meta_description = $request->meta_desc;
             $page->template_id      = $request->template_id;
             $page->status_id        = $request->post_status;
-            $page->image_id         = $request->profile_image_id; // Rename column image_id
+            $page->image_id         = $request->profile_image_id;
+            
+            // Category Logic (Optional Check)
+            $page->category_id      = $request->filled('category_id') ? $request->category_id : null;
 
-            // --- Nayi Logic: bcat array ko Page table mein save karna ---
+            // Slider Logic
             if ($request->has('bcat') && is_array($request->bcat)) {
-                // Agar column JSON hai (Recommended):
                 $page->slider_id = json_encode($request->bcat);
-                
-                // Agar column String/Text hai (Old way):
-                // $page->slider_id = implode(',', $request->bcat);
             } else {
                 $page->slider_id = null;
             }
@@ -104,7 +107,7 @@ class PageController extends Controller
         }
     }
 
-    return view('admin.dashboard.pages.create', compact('statuses', 'sliders', 'templates'));
+    return view('admin.dashboard.pages.create', compact('statuses', 'sliders', 'templates', 'categories'));
 }
 
   public function editPage($id)
@@ -113,6 +116,7 @@ class PageController extends Controller
       //echo "<pre>"; print_r($page);die;
       $sliderIds = json_decode($page['slider_id'],true);
       $statuses = Status::get()->toArray();
+      $categories = Category::select('id','name','slug')->get()->toArray();
       $sliders = Slider::get()->toArray();
       $templates = PageTemplate::get()->toArray();
 
@@ -120,7 +124,7 @@ class PageController extends Controller
     //         ->orderByRaw("FIELD(id, ".implode(',', $sliderIds).")")
     //         ->select('id','main_heading')
     //         ->get()->toArray();
-      return view('admin.dashboard.pages.create',compact('page','statuses','sliders','templates'));
+      return view('admin.dashboard.pages.create',compact('page','statuses','sliders','templates','categories'));
   }
 
   public function updatePage(Request $request, $id)
@@ -213,12 +217,12 @@ public function deletePage($id)
 
  public function show($slug = 'home') // Default slug 'home' rakha hai
 { 
-  
-$check_page = Page::where('slug',$slug)->first()->toArray();
+
 
 $settingsData = Setting::with(['siteLogo', 'footerLogo'])->first();
 $settings = $settingsData ? $settingsData->toArray() : [];
 $menus = Menu::with(['submenu','parent','status'])->get()->toArray();
+
 $paymentMethod = PaymentMethod::with(['status'])->get()->toArray();
 $page = Page::with(['profileImage','template'])
                 ->where('slug', $slug)
@@ -226,7 +230,6 @@ $page = Page::with(['profileImage','template'])
                 
 $sliderIds = json_decode($page->slider_id) ?? []; 
 $sliders = Slider::with(['profileImage'])->whereIn('id', $sliderIds)->where('status_id',2)->get()->toArray();
-    //echo "<pre>"; print_r($settings);die;
     $dynamicData = ['blogs'];
     $dynamicDataArr = [
         'page' => $page,
@@ -254,16 +257,56 @@ public function getData($slug){
 }
 public function blogsDisplay($cat,$slug)
 {
+    
+   
     $category = Category::where('slug',$cat)->first();
     
-    $post = Post::with(['category','profileImage'])->where(['category_id'=>$category->id,'slug'=>$slug])
-                ->firstOrFail()->toArray();
+    
 
     $settingsData = Setting::with(['siteLogo', 'footerLogo'])->first();
     $settings = $settingsData ? $settingsData->toArray() : [];
     $menus = Menu::with(['submenu','parent','status'])->get()->toArray();
-    // echo "<pre>"; print_r($menus);die;
-    return Inertia::render('DynamicPage', [
+   
+    
+    if($category->slug === 'area-of-work')
+    {
+        $slug = '/area-of-work/'.$slug;
+        //echo "<pre>"; print_r($slug);die;
+        $area = Area::with(['category','profileImage'])->where(['category_id'=>$category->id,'slug'=>$slug])
+                ->firstOrFail()->toArray();
+               //    echo "<pre>"; print_r($area);die;
+     return Inertia::render('DynamicPage', [
+        'page' => $area,
+        'sliders' => [], // Alag se pass karein
+        'template_name' => 'single_area_of_work',
+        'settings' => $settings,
+        'menus' =>  $menus,
+        'data' => ['categories'=>Category::get()->toArray(),'posts'=>Area::with('profileImage')->latest()->paginate(5)]
+        
+    ]);
+    }
+    if($category->slug === 'programs')
+    {
+        
+        //echo "<pre>"; print_r($slug);die;
+        $area = Page::with(['category','profileImage'])->where(['category_id'=>$category->id,'slug'=>$slug])
+                ->firstOrFail()->toArray();
+               //    echo "<pre>"; print_r($area);die;
+     return Inertia::render('DynamicPage', [
+        'page' => $area,
+        'sliders' => [], // Alag se pass karein
+        'template_name' => 'programs_pages',
+        'settings' => $settings,
+        'menus' =>  $menus,
+        'data' => ['categories'=>Category::get()->toArray(),'posts'=>Page::with('profileImage')->latest()->paginate(5)]
+        
+    ]);
+    }
+
+   else{
+        $post = Post::with(['category','profileImage'])->where(['category_id'=>$category->id,'slug'=>$slug])
+                ->firstOrFail()->toArray();
+     return Inertia::render('DynamicPage', [
         'page' => $post,
         'sliders' => [], // Alag se pass karein
         'template_name' => 'single_blog_page',
@@ -272,6 +315,7 @@ public function blogsDisplay($cat,$slug)
         'data' => ['categories'=>Category::get()->toArray(),'posts'=>Post::with('profileImage')->latest()->paginate(5)]
         
     ]);
+   }
 
       
 }

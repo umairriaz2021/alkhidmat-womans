@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
-import { useCart } from '@/Contexts/CardContext';
+import { useCardContext as useCart } from '@/Contexts/CardContext';
 
-export default function DonationSummary({ payment_methods }) {
-    const { cart, addToCart } = useCart();
+export default function DonationSummary({ payment_methods = [] }) {
+    // Context functions
+    const { 
+        cart = { items: [], totalAmount: 0 }, 
+        updateQuantity = () => {}, 
+        removeFromCart = () => {} 
+    } = useCart() || {};
+    
+    const cartItems = cart?.items || [];
+    const totalAmount = cart?.totalAmount || 0;
+
     const [step, setStep] = useState(1); // 1: Summary, 2: Details, 3: Payment
     const [paymentMethod, setPaymentMethod] = useState('');
     const [errors, setErrors] = useState({});
@@ -19,18 +28,17 @@ export default function DonationSummary({ payment_methods }) {
         payment_method_id: null
     });
 
-    // 1. Input Change Handler
+    // Input Change Handler
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
         
-        // Error clear karein jab user typing kare
         if (errors[name]) {
             setErrors(prev => ({ ...prev, [name]: null }));
         }
     };
 
-    // 2. Validation Logic
+    // Validation Logic
     const validateForm = () => {
         let newErrors = {};
         if (!formData.firstName?.trim()) newErrors.firstName = "First name is required";
@@ -57,22 +65,22 @@ export default function DonationSummary({ payment_methods }) {
         return Object.keys(newErrors).length === 0;
     };
 
-    // 3. Final Checkout Logic
+    // Final Checkout Logic
     const handleFinalCheckout = async () => {
-        // Double check validation before API call
         if (!validateForm()) {
             setStep(2);
             return;
         }
 
-        const selectedMethodData = payment_methods.find(
-            (m) => m.name.toLowerCase() === paymentMethod.toLowerCase()
+        const safePaymentMethods = payment_methods || [];
+        const selectedMethodData = safePaymentMethods.find(
+            (m) => m?.name?.toLowerCase() === paymentMethod?.toLowerCase()
         );
 
-        if (selectedMethodData && selectedMethodData.name.toLowerCase() === 'stripe') {
+        if (selectedMethodData && selectedMethodData.name?.toLowerCase() === 'stripe') {
             try {
                 setLoading(true);
-                let cleanAmount = cart.totalAmount.toString().replace(/,/g, '');
+                let cleanAmount = (totalAmount || 0).toString().replace(/,/g, '');
 
                 const response = await fetch('/api/create-stripe-session', {
                     method: 'POST',
@@ -100,7 +108,6 @@ export default function DonationSummary({ payment_methods }) {
                 if (session.error) {
                     alert("Error: " + session.error);
                     setLoading(false);
-                    
                     return;
                 }
 
@@ -109,17 +116,40 @@ export default function DonationSummary({ payment_methods }) {
                     window.location.href = session.url;
                 } else {
                     alert("Could not get payment URL.");
+                    setLoading(false);
                 }
 
             } catch (err) {
-              setLoading(false);
+                setLoading(false);
                 console.error("Stripe Redirect Error:", err);
                 alert("Something went wrong. Check console.");
             }
         }
     };
 
-    const handleUpdateQuantity = (item, newQty) => addToCart(item, newQty);
+    // Handle quantity change from + and - buttons
+    const handleUpdateQuantity = (item, newQty) => {
+        if (newQty <= 0) {
+            handleRemoveItem(item);
+        } else if (typeof updateQuantity === 'function') {
+            updateQuantity(item, newQty);
+        }
+    };
+
+    // Handle item removal from "Remove" link
+    const handleRemoveItem = (item) => {
+        if (typeof removeFromCart === 'function') {
+            removeFromCart(item);
+        } else if (typeof updateQuantity === 'function') {
+            updateQuantity(item, 0);
+        }
+    };
+
+    const handleProceedToPayment = () => {
+        if (validateForm()) {
+            setStep(3);
+        }
+    };
 
     return (
         <div className="akf-combined-wrapper">
@@ -139,7 +169,7 @@ export default function DonationSummary({ payment_methods }) {
                         {step === 1 && (
                             <div className="akf-card">
                                 <div className="akf-card-header"><h2>Donation Summary</h2></div>
-                                {cart.items.length > 0 ? (
+                                {cartItems.length > 0 ? (
                                     <table className="akf-table">
                                         <thead>
                                             <tr>
@@ -149,20 +179,36 @@ export default function DonationSummary({ payment_methods }) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {cart.items.map((item, i) => (
-                                                <tr key={i}>
+                                            {cartItems.map((item, i) => (
+                                                <tr key={item.id || i}>
                                                     <td>
                                                         <strong>{item.title}</strong>
-                                                        <button className="remove-link" onClick={() => handleUpdateQuantity(item, 0)}>Remove</button>
+                                                        <button 
+                                                            type="button"
+                                                            className="remove-link" 
+                                                            onClick={() => handleRemoveItem(item)}
+                                                        >
+                                                            Remove
+                                                        </button>
                                                     </td>
                                                     <td className="text-center">
                                                         <div className="qty-btns">
-                                                            <button onClick={() => handleUpdateQuantity(item, item.quantity - 1)}>-</button>
-                                                            <span>{item.quantity}</span>
-                                                            <button onClick={() => handleUpdateQuantity(item, item.quantity + 1)}>+</button>
+                                                            <button 
+                                                                type="button"
+                                                                onClick={() => handleUpdateQuantity(item, (item.quantity || 1) - 1)}
+                                                            >
+                                                                -
+                                                            </button>
+                                                            <span>{item.quantity || 1}</span>
+                                                            <button 
+                                                                type="button"
+                                                                onClick={() => handleUpdateQuantity(item, (item.quantity || 1) + 1)}
+                                                            >
+                                                                +
+                                                            </button>
                                                         </div>
                                                     </td>
-                                                    <td className="text-right">PKR {item.total.toLocaleString()}</td>
+                                                    <td className="text-right">PKR {(item.total || 0).toLocaleString()}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
@@ -221,7 +267,7 @@ export default function DonationSummary({ payment_methods }) {
                                             <input type="text" name="postalCode" value={formData.postalCode} onChange={handleInputChange} />
                                         </div>
                                     </div>
-                                    <button className="back-link" onClick={() => setStep(1)}>← Back to Summary</button>
+                                    <button type="button" className="back-link" onClick={() => setStep(1)}>← Back to Summary</button>
                                 </div>
                             </div>
                         )}
@@ -231,7 +277,7 @@ export default function DonationSummary({ payment_methods }) {
                             <div className="akf-card">
                                 <div className="akf-card-header"><h2>Select Payment Method</h2></div>
                                 <div className="akf-payment-options">
-                                    {payment_methods?.map((method) => (
+                                    {(payment_methods || []).map((method) => (
                                         <label key={method.id} className={`akf-pay-card ${paymentMethod === method.name ? 'selected' : ''}`}>
                                             <input 
                                                 type="radio" 
@@ -249,7 +295,7 @@ export default function DonationSummary({ payment_methods }) {
                                             </div>
                                         </label>
                                     ))}
-                                    <button className="back-link" onClick={() => setStep(2)}>← Back to Details</button>
+                                    <button type="button" className="back-link" onClick={() => setStep(2)}>← Back to Details</button>
                                 </div>
                             </div>
                         )}
@@ -259,22 +305,22 @@ export default function DonationSummary({ payment_methods }) {
                     <div className="akf-sidebar">
                         <div className="akf-total-card">
                             <h3>Order Total</h3>
-                            <div className="total-row"><span>Subtotal</span><span>PKR {cart.totalAmount.toLocaleString()}</span></div>
-                            <div className="total-row"><span>Items</span><span>{cart.items.length}</span></div>
+                            <div className="total-row"><span>Subtotal</span><span>PKR {(totalAmount || 0).toLocaleString()}</span></div>
+                            <div className="total-row"><span>Items</span><span>{cartItems.length}</span></div>
                             <hr />
                             <div className="grand-total">
                                 <span>Total Payable</span>
-                                <span className="amt">PKR {cart.totalAmount.toLocaleString()}</span>
+                                <span className="amt">PKR {(totalAmount || 0).toLocaleString()}</span>
                             </div>
                             
                             {step === 1 && (
-                                <button className="main-action-btn" disabled={cart.items.length === 0} onClick={() => setStep(2)}>
+                                <button className="main-action-btn" disabled={cartItems.length === 0} onClick={() => setStep(2)}>
                                     Proceed to Details
                                 </button>
                             )}
                             
                             {step === 2 && (
-                                <button className="main-action-btn" onClick={() => validateForm() && setStep(3)}>
+                                <button className="main-action-btn" onClick={handleProceedToPayment}>
                                     Proceed to Payment
                                 </button>
                             )}
@@ -282,10 +328,10 @@ export default function DonationSummary({ payment_methods }) {
                             {step === 3 && (
                                 <button className="main-action-btn checkout" disabled={!paymentMethod || loading} onClick={handleFinalCheckout}>
                                     {loading ? (
-                                      <span className="loader-spinner"></span> // Loader icon ya text
-                                  ) : (
-                                      "Complete Donation"
-                                  )}
+                                        <span className="loader-spinner"></span>
+                                    ) : (
+                                        "Complete Donation"
+                                    )}
                                 </button>
                             )}
                             <p className="secure-text">🔒 256-bit Secure Encryption</p>

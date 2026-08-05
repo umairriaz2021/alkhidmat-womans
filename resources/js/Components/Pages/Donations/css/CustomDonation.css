@@ -1,0 +1,145 @@
+/* js/Components/Pages/Donations/css/CustomDonation.css */
+
+.cdp-main-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 65vh;
+    padding: 3rem 1.5rem;
+    background-color: #f8fafc;
+}
+
+.cdp-card-box {
+    width: 100%;
+    max-width: 65%;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+    padding: 2.5rem 2rem;
+}
+
+.cdp-card-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.cdp-title {
+    font-size: 1.625rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+}
+
+.cdp-subtitle {
+    font-size: 0.875rem;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+.cdp-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.cdp-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cdp-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.cdp-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cdp-currency-prefix {
+    position: absolute;
+    left: 1rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #64748b;
+    pointer-events: none;
+}
+
+.cdp-input-field {
+    width: 100%;
+    height: 3rem;
+    padding-left: 2.25rem;
+    padding-right: 1rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #0f172a;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.cdp-input-field:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.cdp-input-error {
+    border-color: #dc2626;
+}
+
+.cdp-input-error:focus {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.cdp-error-text {
+    font-size: 0.8125rem;
+    color: #dc2626;
+    font-weight: 500;
+    margin-top: 0.25rem;
+}
+
+.cdp-button-group {
+    margin-top: 0.5rem;
+}
+
+.cdp-submit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #2563eb;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, transform 0.1s ease;
+}
+
+.cdp-submit-button:hover {
+    background-color: #1d4ed8;
+}
+.contentWrapper {
+    width: 60%;
+    margin: 0 auto;
+    text-align: left;
+}
+.contentWrapper p {
+    font-size: 14px;
+}
+.cdp-submit-button:active {
+    transform: scale(0.98);
+}

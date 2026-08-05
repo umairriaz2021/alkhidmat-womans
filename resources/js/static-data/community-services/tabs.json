@@ -1,0 +1,118 @@
+{
+  "community_services": [
+    {
+      "id": "tab-ramadan",
+      "label": "Ramadan Packages",
+      "title": "",
+      "content": [
+        "A large number of affluent and rich people cannot manage to host such Sahoor and Iftaar meals, while most of them do not have access to the poor and needy during this month. Alkhidmat Khawateen Trust Pakistan (AKTP), on its part, fulfills this duty and arranges Iftaar and Sahoor for the poor and deserving people across Pakistan throughout the month.",
+        "AKTP also distributes Ramadan Food Packages among needy families in order to provide them with food during the month of Ramadan. These families fast during the holy month with the food packages provided."
+      ]
+    },
+    {
+      "id": "tab-qurbani",
+      "label": "Qurbani",
+      "title": "Qurbani Services",
+      "content": [
+        "Alkhidmat Khawateen Trust Pakistan’s Qurbani program ensures the provision of Qurbani meat to the deserving poor and needy in the country. Alkhidmat arranges for the procurement of healthy animals and their slaughtering according to international standards, and then distributes the meat among the poor and needy all across Pakistan."
+      ]
+    },
+    {
+      "id": "tab-winter",
+      "label": "Winter Packages",
+      "title": "Winter Support",
+      "content": [
+        "Alkhidmat Khawateen Trust Pakistan, with its vision to serve humanity with integrity, ensures the provision of winter supplies to poor and needy families in Pakistan. The winter package includes blankets, quilts, sweaters, and other winter wear items that help these deserving families avoid the severity of extreme cold."
+      ]
+    },
+    {
+      "id": "tab-marriage",
+      "label": "Marriage Boxes",
+      "title": "Marriage Boxes",
+      "content": [
+        "Alkhidmat Khawateen Trust Pakistan arranges combined marriages and distributes marriage packages to the needy.",
+        "In these times of inflation, wedding gift boxes are provided for newly-wed couples containing essential items for starting a new family. After validation of the needs of intended recipients, boxes are categorized and then distributed."
+      ]
+    },
+    {
+      "id": "tab-wheelchairs",
+      "label": "Wheel Chairs",
+      "title": "Wheelchairs Distribution",
+      "content": [
+        "Wheelchairs assist people with disabilities to become productive members of their communities. They help them mobilize and do their routine tasks on their own, but a large number of physically challenged people can’t afford to buy a wheelchair in Pakistan. Your support can help a disabled person reach his goals and become an independent and contributing member of society."
+      ]
+    },
+    {
+      "id": "tab-minority",
+      "label": "Minority Relief",
+      "title": "Minority Relief",
+      "content": [
+        "<strong class=\"block mb-2\">Christmas &amp; Diwali Gifts</strong> Alkhidmat Khawateen Trust Pakistan spreads joy and hope by distributing Christmas and Diwali gifts to underprivileged communities. Through this initiative, essential items, clothing, food packages, and festive gifts are provided to needy families, children, and the elderly, bringing smiles to their faces during these special occasions. Alkhidmat’s commitment to humanitarian service fosters a spirit of unity, love, and compassion, making festive celebrations more inclusive and meaningful for all."
+      ]
+    }
+  ],
+  "health_services": [
+    {
+      "id": "tab-clinics",
+      "label": "Clinics / Dispensaries",
+      "title": "",
+      "content": [
+        "A clinic is a place where outpatients are given medical treatment or advice, especially of a specialist nature. Alkhidmat Khawateen Trust Pakistan has established a large number of clinics, which help the poor and needy get access to a qualified medical doctor. An average fee of Rs. 25 to 50 is charged, which includes preliminary medicine and the consultancy fee."
+      ]
+    },
+    {
+      "id": "tab-mchc",
+      "label": "MCHC",
+      "title": "MCHC",
+      "content": [
+        "Alkhidmat has established one Mother & Child Healthcare Center in Thar (MCHC) to particularly support and help save the lives of mothers and children by providing quick healthcare services before and after pregnancy, and also to contribute to a healthy nation through detailed nutrition guidelines for both mother and child.",
+        "<p className=\"block font-semibold mb-2\">Services List:</p>",
+        "<ul style=\"list-style:disc; margin:0; padding:0; \"><li>Out-patient Services</li><li>In-patient Services</li><li>Gynae & Obstetrics Department</li><li>Paeds Ward</li><li>Operation Theatre</li><li>Laboratory Services</li><li>Ultrasound</li><li>Pharmacy</li><li>Vaccination</li></ul>"
+      ]
+    },
+    {
+      "id": "tab-medical",
+      "label": "Medical Camps",
+      "title": "Medical Camps",
+      "content": [
+        "Besides its several health and medical facilities, Alkhidmat Khawateen Trust Pakistan also arranges mobile medical camps as its outreach program to provide medical and health facilities to those who cannot afford medical services. These camps provide specialized medical staff to patients at a nearby location. The medical camps offer initial diagnostic facilities through qualified medical staff. Patients are examined and prescribed initial treatment according to their symptoms, and sometimes they are referred to a suitable medical facility."
+      ]
+    }
+  ],
+  "wash_program": [
+    {
+      "id": "tab-pumps",
+      "label": "Hand Pumps",
+      "title": "",
+      "content": [
+        "The Community Hand is a conventional lever-action hand pump. It is designed for heavy-duty use, serving communities of up to 300 individuals. This pump is fully corrosion-resistant, easy to install, and well-suited for community-based maintenance. It is also known as the deep-well piston hand pump.",
+        "Community Hand pumps are ideal for villages and households where surface sources are common and only a basic pump is required to meet water needs. Suction hand pumps are economical, easy to install, and easy to maintain. Maintenance is performed at the village level without the need for specialist parts. The pumps are made from cast iron."
+      ]
+    },
+    {
+      "id": "tab-wells",
+      "label": "Water Wells",
+      "title": "Water Wells",
+      "content": [
+        "It is a traditional source of water in rural areas of Pakistan. The earth is excavated deep to fetch water from below. Digging is done through various techniques, including drilling, blasting, etc. Concrete rings are put in open wells to ensure long life and sustainability. Water motors and hand pulleys are used for pulling the water up from the wells."
+      ]
+    },
+    {
+      "id": "tab-pumps",
+      "label": "Water Pumps",
+      "title": "Water Pumps",
+      "content": [
+        "Water pumping is generally dependent on conventional electricity. Solar pumping systems are environmentally friendly and require low maintenance with no fuel cost. Keeping in view the shortage of electricity in urban, rural, and remote areas in many parts of Pakistan, solar-powered pumping is one of the most promising applications using solar energy. The technology is similar to a conventional water pumping system, i.e., electrical submersible water pumping, except that the power source is solar energy. The solar submersible water pumping technique has gained importance in recent years due to the non-availability of electricity. The flow rate of pumped water is dependent on the incident solar radiation and the size of the PV array. A properly designed PV system results in significant long-term cost savings compared to conventional pumping systems. In addition, tanks can be used for water storage in place of battery backup.",
+        "Solar submersible water pumping is best suited to run water pumping systems in remote areas or where electricity has frequent outages."
+      ]
+    },
+    {
+      "id": "tab-plants",
+      "label": "Filtration Plants",
+      "title": "Filtration Plants",
+      "content": [
+        "Water purification is the process of removing undesirable chemicals, biological contaminants, suspended solids, and gases from contaminated water. The goal is to produce water fit for drinking purposes. Water purification plants are the source of providing pure, safe, and healthy drinking water to people. Water filtration plants make use of “Reverse Osmosis” processes for water purification. The Reverse Osmosis (RO) process is used in those areas where the underground water condition is very poor, i.e., the water is saline."
+      ]
+    }
+  ]
+}
