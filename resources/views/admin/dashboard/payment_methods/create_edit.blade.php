@@ -40,29 +40,7 @@
                                                :img_id="$paymentMethod->image_id ?? ''" :preview_path="$paymentMethod->image->file_path ?? ''" />
                         </div>
 
-                       <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Public Key / Merchant ID</label>
-                                <input type="text" 
-                                    name="general[public_key]" 
-                                    class="form-control" 
-                                    value="{{ $paymentMethod->general['public_key'] ?? '' }}" 
-                                    placeholder="Enter Public Key">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Secret Key / Password</label>
-                                <input type="password" 
-                                    name="general[secret_key]" 
-                                    class="form-control" 
-                                    value="{{ $paymentMethod->general['secret_key'] ?? '' }}" 
-                                    placeholder="Enter Secret Key">
-                            </div>
-                        </div>
-                    </div>
+                    
 
                         <button type="submit" class="btn btn-primary apply">Save Payment Method</button>
                         <a href="{{ route('payment-methods.index') }}" class="btn btn-light">Cancel</a>

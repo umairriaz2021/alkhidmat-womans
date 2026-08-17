@@ -392,6 +392,9 @@ body {
     width: 12%;
         
 }
+.logoPath img{
+   max-width:65%;
+}
 .logoPath + ul {
     flex: 0 0 auto;
     width: 53%;

@@ -77,7 +77,7 @@ export default function DonationSummary({ payment_methods = [] }) {
             (m) => m?.name?.toLowerCase() === paymentMethod?.toLowerCase()
         );
 
-        if (selectedMethodData && selectedMethodData.name?.toLowerCase() === 'stripe') {
+        if (selectedMethodData && selectedMethodData.name?.toLowerCase() === 'meezan') {
             try {
                 setLoading(true);
                 let cleanAmount = (totalAmount || 0).toString().replace(/,/g, '');

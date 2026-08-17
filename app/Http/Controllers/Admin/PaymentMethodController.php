@@ -141,51 +141,74 @@ class PaymentMethodController extends Controller
 
     public function createSession(Request $request)
 {
-    // 1. Key nikalne ka behtar tarika (Loop ke bajaye direct find karein agar possible ho)
-    // Note: Make sure $paymentMethod model upar import ho ya sahi variable use ho
-    $paymentGatewayData = \App\Models\PaymentMethod::all(); 
-    
-    $secretKey = '';
-   
-    foreach($paymentGatewayData as $method) {
-        if(strtolower($method->name) === 'stripe') {
-            // Aapke array structure ke mutabiq keys 'general' JSON column mein hain
-            $secretKey = $method->general['secret_key'] ?? '';
-           
-            break;
-        }
+    $request->validate([
+        'amount'            => 'required|numeric|min:1',
+        'first_name'        => 'required|string',
+        'email'             => 'required|email',
+        'payment_method_id' => 'required',
+    ]);
+
+    // 1. Config se Credentials fetch karein
+    $baseUrl  = config('services.meezan.base_url', 'https://test-securepayment.meezanbank.com:9716');
+    $userName = config('services.meezan.username');
+    $password = config('services.meezan.password');
+    $currency = config('services.meezan.currency', '586');
+
+    if (empty($userName) || empty($password)) {
+        return response()->json(['error' => 'Meezan Bank credentials not configured properly'], 500);
     }
 
-    if (empty($secretKey)) {
-        return response()->json(['error' => 'Stripe secret key not found'], 404);
-    }
-
-    // IMPORTANT: print_r ya die() ko remove karein warna React crash ho jayega
-    // Kyunki React ko sirf JSON chahiye, HTML/Text nahi.
-    
-    \Stripe\Stripe::setApiKey($secretKey);
+    // 2. Unique Order Number aur Amount (Meezan expects amount in minor units/paisa i.e. x100)
+    $orderNumber = 'ORD-' . strtoupper(uniqid());
+    $amountInPaisa = (int)($request->amount * 100);
+    $returnUrl = url('/payment/meezan/callback'); // Apne callback route ka URL dein
 
     try {
-        // 2. Stripe Checkout Session create karein
-        $session = \Stripe\Checkout\Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [[
-                'price_data' => [
-                    'currency' => 'usd', 
-                    'product_data' => [
-                        'name' => 'Donation Payment',
-                    ],
-                    'unit_amount' => (int)($request->amount * 100), // Ensure it's an integer
-                ],
-                'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'success_url' => url('/success') .'?session_id={CHECKOUT_SESSION_ID}', 
-            'cancel_url' => 'http://localhost:5173/cancel',
-        ]);
-        //$method_data = \App\Models\PaymentMethod::where('name','Stripe')->first();
-        $createTransaction = Transaction::create(
-            [
+        // 3. Meezan Bank register.do API Call
+        $apiUrl = rtrim($baseUrl, '/') . '/payment/rest/register.do';
+
+        $response = Http::withoutVerifying()
+            ->timeout(30)
+            ->withQueryParameters([
+                'userName'    => $userName,
+                'password'    => $password,
+                'amount'      => $amountInPaisa,
+                'currency'    => $currency,
+                'orderNumber' => $orderNumber,
+                'returnUrl'   => $returnUrl,
+            ])
+            ->post($apiUrl);
+            dd([
+                'status' => $response->status(),
+                'json'   => $response->json(),
+                'body'   => $response->body()
+            ]);
+        if (!$response->successful()) {
+            return response()->json([
+                'error' => 'Failed to communicate with Meezan Payment Gateway',
+                'details' => $response->body()
+            ], 502);
+        }
+
+        $resData = $response->json();
+
+        // Meezan response validation: Check for gateway errors (errorCode != 0)
+        if (isset($resData['errorCode']) && (int)$resData['errorCode'] !== 0) {
+            return response()->json([
+                'error' => $resData['errorMessage'] ?? 'Gateway returned an error',
+                'error_code' => $resData['errorCode']
+            ], 400);
+        }
+
+        $meezanOrderId = $resData['orderId'] ?? null;
+        $redirectPaymentUrl = $resData['formUrl'] ?? null;
+
+        if (!$redirectPaymentUrl) {
+            return response()->json(['error' => 'Payment redirection URL not received from gateway'], 500);
+        }
+
+        // 4. Transaction record Database mein save karein
+        $transaction = Transaction::create([
             'payment_method_id' => $request->payment_method_id,
             'first_name'        => $request->first_name,
             'last_name'         => $request->last_name,
@@ -196,20 +219,23 @@ class PaymentMethodController extends Controller
             'postal_code'       => $request->postal_code,
             'amount'            => $request->amount,
             'currency'          => 'PKR',
-            'stripe_session_id' => $session->id,
-            'status'         => 'processing', // 1 = Pending
-            'link_status'       => 'active', // Link abhi valid hai
-        ]
-        );
-        
-        if (!$createTransaction) {
-        throw new \Exception("Database Error: Failed to save the transaction record.");
-    }
+            'order_number'      => $orderNumber,
+            'stripe_session_id' => $meezanOrderId, // Ya meezan_order_id column
+            'status'            => 'processing',
+            'link_status'       => 'active',
+        ]);
 
+        if (!$transaction) {
+            throw new \Exception("Database Error: Failed to save the transaction record.");
+        }
+
+        // 5. Frontend redirect URL send karein
         return response()->json([
-        'id' => $session->id,
-        'url' => $session->url // Yeh line sabse zaroori hai
-    ]);
+            'success'  => true,
+            'id'       => $meezanOrderId,
+            'order_no' => $orderNumber,
+            'url'      => $redirectPaymentUrl // React is URL par user ko Meezan ke payment portal pe redirect karega
+        ]);
 
     } catch (\Exception $e) {
         return response()->json(['error' => $e->getMessage()], 500);
