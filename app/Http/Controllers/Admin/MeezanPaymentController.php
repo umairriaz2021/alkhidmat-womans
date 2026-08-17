@@ -100,10 +100,10 @@ class MeezanPaymentController extends Controller
                     'orderId'  => $orderId,
                     'language' => 'en',
                 ]);
-
+             
             if ($response->successful()) {
                 $statusData = $response->json();
-
+               
                 // Order Status Codes:
                 // 2 = Deposited / Payment Completed Successfully
                 // 1 = Approved / Held
