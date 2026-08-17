@@ -261,4 +261,37 @@ public function deleteMegaMenu($id)
         ], 500);
     }
 }
+
+public function orders()
+{
+        $menus = Menu::whereNull('parent_id')
+                 ->orderBy('order', 'asc') // order column k hisab se sort karne k liye
+                 ->get();
+
+    return view('admin.dashboard.menus.orders', compact('menus'));
+}
+
+public function updateOrder(Request $request)
+{
+    $orderData = $request->input('order'); // Array of { id, position }
+
+    if (!empty($orderData)) {
+        foreach ($orderData as $item) {
+            Menu::where('id', $item['id'])->update([
+                'order' => $item['position']
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Menu order updated successfully!'
+        ]);
+    }
+
+    return response()->json([
+        'status' => 'error',
+        'message' => 'No order data received.'
+    ], 400);
+}
+
 }

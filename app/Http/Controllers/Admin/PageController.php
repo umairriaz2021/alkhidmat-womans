@@ -221,7 +221,7 @@ public function deletePage($id)
 
 $settingsData = Setting::with(['siteLogo', 'footerLogo'])->first();
 $settings = $settingsData ? $settingsData->toArray() : [];
-$menus = Menu::with(['submenu','parent','status'])->get()->toArray();
+$menus = Menu::with(['submenu','parent','status'])->orderBy('order', 'asc')->get()->toArray();
 
 $paymentMethod = PaymentMethod::with(['status'])->get()->toArray();
 $page = Page::with(['profileImage','template'])
@@ -265,8 +265,8 @@ public function blogsDisplay($cat,$slug)
 
     $settingsData = Setting::with(['siteLogo', 'footerLogo'])->first();
     $settings = $settingsData ? $settingsData->toArray() : [];
-    $menus = Menu::with(['submenu','parent','status'])->get()->toArray();
-   
+    $menus = Menu::with(['submenu','parent','status'])->orderBy('order', 'asc')->get()->toArray();
+  
     
     if($category->slug === 'area-of-work')
     {

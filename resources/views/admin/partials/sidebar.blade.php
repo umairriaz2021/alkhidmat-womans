@@ -125,6 +125,7 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="{{route('admin.menus')}}">All Menus</a></li>
                   <li class="nav-item"> <a class="nav-link" href="{{route('admin.create.menus')}}">Create Menu</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{route('admin.orders.menu')}}">Orders</a></li>
                 </ul>
               </div>
             </li>

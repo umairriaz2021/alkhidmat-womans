@@ -82,6 +82,8 @@ Route::prefix('admin')->group(function () {
                Route::get('/edit-menu/{id}',[MenuController::class,'editMenu'])->name('admin.edit.menu');
                Route::patch('/update-menu/{id}',[MenuController::class,'updateMenu'])->name('admin.update.menu');
                Route::delete('/delete-menu/{id}',[MenuController::class,'deleteMenu'])->name('admin.delete.menu');
+               Route::get('/orders',[MenuController::class,'orders'])->name('admin.orders.menu');
+               Route::post('/admin/menus/update-order', [MenuController::class, 'updateOrder'])->name('admin.menus.update.order');
                // Mega menu 
                Route::get('/mega-menus',[MenuController::class,'showMegaMenus'])->name('admin.show.megamenu');
                Route::match(['get','post'],'/all-mega-menus',[MenuController::class,'createMegaMenus'])->name('admin.create.megamenus');
@@ -131,10 +133,6 @@ Route::get('/checkout', [MeezanPaymentController::class, 'showCheckout'])->name(
     // Bank Callback route (Meezan Bank is URL par redirect/POST karega)
     Route::match(['get', 'post'], '/payment/meezan/callback', [MeezanPaymentController::class, 'handleCallback'])->name('meezan.callback');
 
-    // Success & Checkout Pages (Placeholder Examples)
-    // Route::get('/checkout', function () {
-    //     return view('checkout');
-    // })->name('checkout');
 
     Route::get('/payment/success', function () {
         return view('pay-success');
