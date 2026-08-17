@@ -66,66 +66,84 @@ export default function DonationSummary({ payment_methods = [] }) {
     };
 
     // Final Checkout Logic
-    const handleFinalCheckout = async () => {
-        if (!validateForm()) {
-            setStep(2);
-            return;
-        }
+const handleFinalCheckout = async () => {
+    if (!validateForm()) {
+        setStep(2);
+        return;
+    }
 
-        const safePaymentMethods = payment_methods || [];
-        const selectedMethodData = safePaymentMethods.find(
-            (m) => m?.name?.toLowerCase() === paymentMethod?.toLowerCase()
-        );
+    const safePaymentMethods = payment_methods || [];
+    const selectedMethodData = safePaymentMethods.find(
+        (m) => m?.name?.toLowerCase() === paymentMethod?.toLowerCase()
+    );
 
-        if (selectedMethodData && selectedMethodData.name?.toLowerCase() === 'meezan') {
-            try {
-                setLoading(true);
-                let cleanAmount = (totalAmount || 0).toString().replace(/,/g, '');
+    if (selectedMethodData && selectedMethodData.name?.toLowerCase() === 'meezan') {
+        try {
+            setLoading(true);
+            const cleanAmount = (totalAmount || 0).toString().replace(/,/g, '');
 
-                const response = await fetch('/api/create-stripe-session', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        payment_method_id: selectedMethodData.id,
-                        amount: parseFloat(cleanAmount),
-                        first_name: formData.firstName,
-                        last_name: formData.lastName,
-                        email: formData.email,
-                        phone: formData.phone,
-                        address: formData.address,
-                        city: formData.city,
-                        postal_code: formData.postalCode,
-                        currency: 'PKR',
-                        link_status: 'active'
-                    }),
-                });
+            const response = await fetch('/api/create-stripe-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    payment_method_id: selectedMethodData.id,
+                    amount: parseFloat(cleanAmount),
+                    first_name: formData.firstName,
+                    last_name: formData.lastName,
+                    email: formData.email,
+                    phone: formData.phone,
+                    address: formData.address,
+                    city: formData.city,
+                    postal_code: formData.postalCode,
+                    currency: 'PKR',
+                    link_status: 'active'
+                }),
+            });
 
-                const session = await response.json();
+            const session = await response.json();
+            console.log("Meezan Session Response:", session);
+
+            // 1. Check HTTP response status and any error formats (Laravel validation / Custom errors)
+            if (!response.ok || session.error || session.errors || session.message) {
+                let errorMessage = 'Payment initiation failed.';
 
                 if (session.error) {
-                    alert("Error: " + session.error);
-                    setLoading(false);
-                    return;
+                    errorMessage = session.error;
+                } else if (session.errors) {
+                    // Laravel validation errors format: { email: ["The email field is required"] }
+                    errorMessage = Object.values(session.errors).flat().join('\n');
+                } else if (session.message && !session.url) {
+                    errorMessage = session.message;
                 }
 
-                if (session.url) {
-                    sessionStorage.removeItem('akf_cart');
-                    window.location.href = session.url;
-                } else {
-                    alert("Could not get payment URL.");
-                    setLoading(false);
-                }
-
-            } catch (err) {
+                alert("Error:\n" + errorMessage);
                 setLoading(false);
-                console.error("Stripe Redirect Error:", err);
-                alert("Something went wrong. Check console.");
+                return;
             }
+
+            // 2. Handle Redirection URL
+            if (session.url) {
+                sessionStorage.removeItem('akf_cart');
+                localStorage.removeItem('app_cart_items');
+                window.location.href = session.url;
+            } else {
+                alert("Gateway did not return a valid redirection URL.");
+                setLoading(false);
+            }
+
+        } catch (err) {
+            setLoading(false);
+            console.error("Payment Error:", err);
+            alert("Something went wrong while processing payment. Check console.");
         }
-    };
+    } else {
+        alert("Please select a valid payment method.");
+    }
+};
 
     // Handle quantity change from + and - buttons
     const handleUpdateQuantity = (item, newQty) => {

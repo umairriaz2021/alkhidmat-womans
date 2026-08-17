@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\Status;
@@ -162,11 +163,12 @@ class PaymentMethodController extends Controller
     $orderNumber = 'ORD-' . strtoupper(uniqid());
     $amountInPaisa = (int)($request->amount * 100);
     $returnUrl = url('/payment/meezan/callback'); // Apne callback route ka URL dein
+    //$returnUrl = "https://www.google.com"; // Apne callback route ka URL dein
 
     try {
         // 3. Meezan Bank register.do API Call
         $apiUrl = rtrim($baseUrl, '/') . '/payment/rest/register.do';
-
+       
         $response = Http::withoutVerifying()
             ->timeout(30)
             ->withQueryParameters([
@@ -178,11 +180,7 @@ class PaymentMethodController extends Controller
                 'returnUrl'   => $returnUrl,
             ])
             ->post($apiUrl);
-            dd([
-                'status' => $response->status(),
-                'json'   => $response->json(),
-                'body'   => $response->body()
-            ]);
+            
         if (!$response->successful()) {
             return response()->json([
                 'error' => 'Failed to communicate with Meezan Payment Gateway',
