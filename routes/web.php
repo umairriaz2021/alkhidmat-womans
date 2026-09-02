@@ -100,7 +100,7 @@ Route::prefix('admin')->group(function () {
         Route::prefix('transactions')->group(function(){
                Route::get('/all-transactions',[MeezanPaymentController::class,'transactionsDetails'])->name('admin.transactions');
         });
-        Route::post('/logout', [UserController::class, 'logout'])->name('admin.logout');
+        Route::post('/logout', [UserController::class, 'logout'])->name('admin.logout');    
         Route::resource('/posts',PostController::class);
         Route::resource('/area-of-work',AreaController::class);
         Route::resource('/categories',CategoryController::class);
@@ -112,23 +112,7 @@ Route::prefix('admin')->group(function () {
     
 });
 Route::get('/test-me', function() { return "Laravel is working!"; });
-Route::get('/success', function () {
-    // URL se session_id pakadna
-    $sessionId = request()->query('session_id');
 
-    if (!$sessionId) {
-        return redirect()->to('/donation-summary');
-    }
-    $transaction = Transaction::where('stripe_session_id', $sessionId)->first();
-    if (!$transaction || $transaction->link_status !== 'active') {
-        return redirect()->to('/donation-summary')->with('error', 'This link has expired or is invalid.');
-    }
-    $transaction->update([
-        'link_status' => 'expired',
-    ]);
-
-    return view('payment-success', ['sessionId' => $sessionId]);
-})->name('payment.success');
 
 // Payment initiating route
 Route::get('/checkout', [MeezanPaymentController::class, 'showCheckout'])->name('meezan.checkout');
