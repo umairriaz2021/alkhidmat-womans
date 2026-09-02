@@ -86,7 +86,7 @@ class MeezanPaymentController extends Controller
     {
         
         $orderId = $request->input('order_id') ;
-
+         //check one
         if (!$orderId) {
             return redirect()->route('meezan.checkout')->with('error', 'Invalid callback response from gateway.');
         }
