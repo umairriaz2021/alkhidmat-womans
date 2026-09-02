@@ -125,7 +125,7 @@ class MeezanPaymentController extends Controller
                 ]);
 
                 if ($statusCode === 2) {
-                    return redirect()->route('payment.success')->with('success', 'Payment processed successfully!');
+                    return redirect()->route('meezan.checkout')->with('success', 'Payment processed successfully!');
                 }
 
                     $errorMessage = $statusData['actionCodeDescription'] 
@@ -135,14 +135,14 @@ class MeezanPaymentController extends Controller
                     return redirect()->route('meezan.checkout')->with('error', 'Transaction status: ' . ucfirst($status) . ' - ' . $errorMessage);
                 }
 
-                return redirect()->route('meezan.checkout')->with('error', 'Order status not found in bank response.');
+                return redirect('/donation-summary')->with('error', 'Order status not found in bank response.');
             }
 
-            return redirect()->route('meezan.checkout')->with('error', 'Could not verify payment status with bank.');
+            return redirect('/donation-summary')->with('error', 'Could not verify payment status with bank.');
 
         } catch (\Exception $e) {
             Log::error('Meezan Callback Exception: ' . $e->getMessage());
-            return redirect()->route('meezan.checkout')->with('error', 'Error verifying payment status.');
+            return redirect('/donation-summary')->with('error', 'Error verifying payment status.');
         }
     }
 
