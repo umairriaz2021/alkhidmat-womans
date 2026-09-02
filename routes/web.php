@@ -123,7 +123,7 @@ Route::get('/checkout', [MeezanPaymentController::class, 'showCheckout'])->name(
 
 
     Route::get('/payment/success', function () {
-        return view('pay-success');
+        return view('payment-success');
     })->name('payment.success');
 
 Route::get('/{slug?}', [PageController::class, 'show'])->name('pages.show');

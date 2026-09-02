@@ -15,7 +15,7 @@
     <div class="card">
         <h1>✅ Payment Successful!</h1>
         <p>Thank you for your donation.</p>
-        <p class="session-id"><strong>Session ID:</strong> {{ $sessionId }}</p>
+        
         <br>
         <a href="{{url('/')}}">Back to Website</a>
     </div>
