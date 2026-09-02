@@ -96,6 +96,10 @@ Route::prefix('admin')->group(function () {
         Route::prefix('settings')->group(function() {
              Route::match(['get','post'],'/settings',[SettingsController::class,'settingUpdate'])->name('admin.settings');
         });
+
+        Route::prefix('transactions')->group(function(){
+               Route::get('/all-transactions',[MeezanPaymentController::class,'transactionsDetails'])->name('admin.transactions');
+        });
         Route::post('/logout', [UserController::class, 'logout'])->name('admin.logout');
         Route::resource('/posts',PostController::class);
         Route::resource('/area-of-work',AreaController::class);

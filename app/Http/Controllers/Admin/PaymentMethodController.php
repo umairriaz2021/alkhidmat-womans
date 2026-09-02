@@ -162,7 +162,7 @@ class PaymentMethodController extends Controller
     // 2. Unique Order Number aur Amount (Meezan expects amount in minor units/paisa i.e. x100)
     $orderNumber = 'ORD-' . strtoupper(uniqid());
     $amountInPaisa = (int)($request->amount * 100);
-    $returnUrl = url('/payment/meezan/callback'); // Apne callback route ka URL dein
+    $returnUrl = url('/payment/meezan/callback?order_id='.$orderNumber); // Apne callback route ka URL dein
     //$returnUrl = "https://www.google.com"; // Apne callback route ka URL dein
 
     try {
@@ -200,7 +200,7 @@ class PaymentMethodController extends Controller
 
         $meezanOrderId = $resData['orderId'] ?? null;
         $redirectPaymentUrl = $resData['formUrl'] ?? null;
-
+       
         if (!$redirectPaymentUrl) {
             return response()->json(['error' => 'Payment redirection URL not received from gateway'], 500);
         }
@@ -216,9 +216,9 @@ class PaymentMethodController extends Controller
             'city'              => $request->city,
             'postal_code'       => $request->postal_code,
             'amount'            => $request->amount,
+            'order_number' => $orderNumber,
+            'meezan_order_ref' => $meezanOrderId,
             'currency'          => 'PKR',
-            'order_number'      => $orderNumber,
-            'stripe_session_id' => $meezanOrderId, // Ya meezan_order_id column
             'status'            => 'processing',
             'link_status'       => 'active',
         ]);

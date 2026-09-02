@@ -89,6 +89,19 @@
                 </ul>
               </div>
             </li>
+             <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#tags-elements" aria-expanded="false" aria-controls="tags-elements">
+                <i class="menu-icon mdi mdi-label-multiple-outline"></i>
+                <span class="menu-title">Transactions</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="tags-elements">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"><a class="nav-link" href="{{route('admin.transactions')}}">All Transactions</a></li>
+                
+                </ul>
+              </div>
+            </li>
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#basic-templates" aria-expanded="false" aria-controls="form-elements">
                 <i class="menu-icon mdi mdi-checkbox-multiple-blank-outline"></i>

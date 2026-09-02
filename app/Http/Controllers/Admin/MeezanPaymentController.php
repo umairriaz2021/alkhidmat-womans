@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-
+use App\Models\Transaction;
 class MeezanPaymentController extends Controller
 {
     protected string $baseUrl;
@@ -30,6 +30,7 @@ class MeezanPaymentController extends Controller
 
     public function processPayment(Request $request)
     {
+         echo "<pre>"; print_r($request->all());die;
         // Example order details (Inhein apne order/cart system se replace karein)
         $orderNumber = 'ORD-' . strtoupper(uniqid());
         $amountInPkr = 1000.00; // Rs. 1,000
@@ -83,49 +84,71 @@ class MeezanPaymentController extends Controller
      */
     public function handleCallback(Request $request)
     {
-        // Bank user ko returnUrl par mdOrder ya orderId parameter bhejta hai
-        $orderId = $request->input('orderId') ?? $request->input('mdOrder');
+        
+        $orderId = $request->input('order_id') ;
 
         if (!$orderId) {
             return redirect()->route('meezan.checkout')->with('error', 'Invalid callback response from gateway.');
         }
-
+        $order_ref = Transaction::where('order_number',$orderId)->first();
+         
         try {
             // Status double-check karne ke liye status check API call karein
             $response = Http::withoutVerifying()
-                ->asForm()
-                ->post("{$this->baseUrl}/getOrderStatus.do", [
+                ->get("{$this->baseUrl}/epg/rest/getOrderStatusExtended.do", [
                     'userName' => $this->username,
                     'password' => $this->password,
-                    'orderId'  => $orderId,
+                    'orderId'  => $order_ref->meezan_order_ref,
+                    'orderNumber' => $orderId,
                     'language' => 'en',
                 ]);
-             
+            
             if ($response->successful()) {
                 $statusData = $response->json();
-               
-                // Order Status Codes:
-                // 2 = Deposited / Payment Completed Successfully
-                // 1 = Approved / Held
-                // 6 = Declined
-                if (isset($statusData['orderStatus']) && (int)$statusData['orderStatus'] === 2) {
-                    
-                    // Database Status Update Code Here:
-                    // $order = Order::where('gateway_order_id', $orderId)->first();
-                    // $order->update(['status' => 'paid']);
+              
+              
+                if (isset($statusData['orderStatus'])) {
+                    $statusCode = (int) $statusData['orderStatus'];
+                    $status = match ($statusCode) {
+                    2       => 'complete',
+                    1       => 'processing',
+                    0       => 'pending',
+                    3       => 'reversed',
+                    4       => 'refunded',
+                    6       => 'declined',
+                    default => 'failed',
+                };
 
+                $order_ref->update([
+                    'status'      => $status,
+                    'link_status' => ($status === 'complete') ? 'inactive' : $order_ref->link_status,
+                ]);
+
+                if ($statusCode === 2) {
                     return redirect()->route('payment.success')->with('success', 'Payment processed successfully!');
                 }
 
-                $errorMessage = $statusData['errorMessage'] ?? 'Payment was declined or cancelled.';
-                return redirect()->route('checkout')->with('error', 'Transaction Failed: ' . $errorMessage);
+                    $errorMessage = $statusData['actionCodeDescription'] 
+                             ?? $statusData['errorMessage'] 
+                             ?? 'Payment was not successful.';
+
+                    return redirect()->route('meezan.checkout')->with('error', 'Transaction status: ' . ucfirst($status) . ' - ' . $errorMessage);
+                }
+
+                return redirect()->route('meezan.checkout')->with('error', 'Order status not found in bank response.');
             }
 
-            return redirect()->route('checkout')->with('error', 'Could not verify payment status with bank.');
+            return redirect()->route('meezan.checkout')->with('error', 'Could not verify payment status with bank.');
 
         } catch (\Exception $e) {
             Log::error('Meezan Callback Exception: ' . $e->getMessage());
-            return redirect()->route('checkout')->with('error', 'Error verifying payment status.');
+            return redirect()->route('meezan.checkout')->with('error', 'Error verifying payment status.');
         }
+    }
+
+    public function transactionsDetails()
+    {
+         $transactions = Transaction::paginate()->toArray();
+         return view('admin.dashboard.transactions.index',compact('transactions'));
     }
 }

@@ -18,7 +18,8 @@ class Transaction extends Model
         'amount',
         'currency',
         'status',
-        'stripe_session_id',
+        'order_number',
+        'meezan_order_ref',
         'link_status'
     ];
 }
