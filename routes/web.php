@@ -99,7 +99,9 @@ Route::prefix('admin')->group(function () {
 
         Route::prefix('transactions')->group(function(){
                Route::get('/all-transactions',[MeezanPaymentController::class,'transactionsDetails'])->name('admin.transactions');
-        });
+               Route::get('/transactions/{id}/details', [MeezanPaymentController::class, 'getTransactionDetails'])->name('admin.transactions.details'); 
+               Route::delete('/transaction/{id}', [MeezanPaymentController::class, 'destroy'])->name('admin.transactions.destroy');
+               });
         Route::post('/logout', [UserController::class, 'logout'])->name('admin.logout');    
         Route::resource('/posts',PostController::class);
         Route::resource('/area-of-work',AreaController::class);

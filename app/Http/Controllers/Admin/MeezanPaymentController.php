@@ -148,7 +148,41 @@ class MeezanPaymentController extends Controller
 
     public function transactionsDetails()
     {
-         $transactions = Transaction::paginate()->toArray();
+         $transactions = Transaction::latest()->paginate()->toArray();
          return view('admin.dashboard.transactions.index',compact('transactions'));
     }
+
+    public function getTransactionDetails($id)
+    {
+        $transaction = Transaction::find($id);
+
+    if (!$transaction) {
+        return response()->json(['success' => false, 'message' => 'Transaction not found.'], 404);
+    }
+
+    return response()->json([
+        'success' => true,
+        'data'    => $transaction
+    ]);
+    }
+
+    public function destroy($id)
+{
+    $transaction = Transaction::find($id);
+
+    if (!$transaction) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Transaction record nahi mila.'
+        ], 404);
+    }
+
+    $transaction->delete();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Transaction deleted successfully.'
+    ]);
+}
+
 }
